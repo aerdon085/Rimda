@@ -15,8 +15,23 @@ body:hover {
   cursor: default;
 }
 
+section {
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.div1 {
+  background-color: burlywood;
+  height: 200px;
+  width: 200px;
+}
+
 h1 {
-  padding-bottom: 8px;
+  padding: 8px 0;
 }
 
 h2 {
