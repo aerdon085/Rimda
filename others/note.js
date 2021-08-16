@@ -64,11 +64,9 @@ function lapIncrement() {
     console.log(lapsCompleted)
 }
 
-lapIncrement()
-lapIncrement()
-lapIncrement()
-
-// // === 1, 2, 3
+lapIncrement() // === 1
+lapIncrement() // === 2
+lapIncrement() // === 3
 
 
 // SECTION: Increment that results the sum of all increments combined
@@ -84,9 +82,7 @@ lapIncrement()
 lapIncrement()
 lapIncrement()
 
-console.log(lapsCompleted)
-
-// // === 3
+console.log(lapsCompleted) // === 3
 
 
 // SECTION: MOD
@@ -139,7 +135,7 @@ let notif = ", you have three new messages."
 
 let user = "Adrian"
 
-console.log(user + notif)
+console.log(user + notif) // === Adrian, you have three new messages.
 
 
 // SECTION: Strings pt.2
@@ -151,4 +147,38 @@ let message = "You have three new notifications"
 
 let messageToUser = message + ", " + username + "!"
 
-console.log(messageToUser)
+console.log(messageToUser) // === You have three new notifications, aerdon085!
+
+
+// SECTION: Numbers vs Strings
+
+
+console.log(4 + 5) // === 9
+
+console.log("2" + "4") // === 24
+
+console.log("5" + 1) // === 51
+
+console.log(100 + "100") // === 100100
+
+
+// SECTION: += concatenation
+
+
+// document.getElementById("welcome-el").innerText = "Hello"
+
+let welcomeEl = document.getElementById("welcome-el")
+
+let name = "Adrian"
+
+let greeting = "Hello"
+
+welcomeEl.innerText = greeting + ", " + name
+
+console.log(welcomeEl.innerText) // === Hello, Adrian
+
+welcomeEl.innerText += " " + ":)"
+
+console.log(welcomeEl.innerText) // === Hello, Adrian :)
+
+// NOTE: count = count + 1 is the same as count += 1
