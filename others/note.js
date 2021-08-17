@@ -182,3 +182,17 @@ welcomeEl.innerText += " " + ":)"
 console.log(welcomeEl.innerText) // === Hello, Adrian :)
 
 // NOTE: count = count + 1 is the same as count += 1
+
+
+// SECTION: Recap (of all sections above)
+
+// script tag
+// variables
+// numbers
+// stirngs
+// console.log()
+// functions
+// the DOM
+// getElementById("")
+// innerText
+// textContent

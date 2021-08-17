@@ -19,7 +19,7 @@ function save() {
     // record count into saveLap
     saveLap += count
     saveLap += " - "
-    // then display
+    // then display and log
     saveEl.innerText = saveLap
     console.log(saveLap)
     // then reset count and display
