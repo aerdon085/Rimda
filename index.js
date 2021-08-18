@@ -27,8 +27,8 @@ function save() {
     countEl.innerText = count
 }
 
-let welcomeEl = document.getElementById("welcome-el")
-let name = "Adrian Luis Luzon"
-let greeting = "Hello"
-welcomeEl.innerText = greeting + ", " + name
-welcomeEl.innerText += " " + ":)"
+// let welcomeEl = document.getElementById("welcome-el")
+// let name = "Adrian Luis Luzon"
+// let greeting = "Hello"
+// welcomeEl.innerText = greeting + ", " + name
+// welcomeEl.innerText += " " + ":)"
