@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+h1 {
+  height: 60px;
+  width: 200px;
+  text-align: center;
+}
+
+section {
+  height: calc(200px + (4px * 3));
+  width: calc(151px + 53px + (4px * 3));
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#num {
+  height: calc((45px * 4) + (4px * 5));
+  width: calc((45px * 3) + (4px * 4));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#func {
+  height: calc((45px * 4) + (4px * 5));
+  width: calc(45px + 8px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#num > button {
+  background-color: white;
+}
+
+#func > button {
+  background-color: rgb(175, 175, 175);
+}
+
+button {
+  height: 45px;
+  width: 45px;
+}
+
+#sum-btn {
+  height: 45px;
+  width: 200px;
+  background-color: rgb(202, 219, 255);
+}
