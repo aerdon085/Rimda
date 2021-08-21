@@ -8,27 +8,36 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="result"></h1>
+    <section id="calc-section">
+        <!-- Calculator -->
+        <div id="calc-display">
+            <h3 id="initial-result">0</h3>
+            <h1 id="result">0</h1>
+        </div>
+        <div id="calc-btn">
+            <div id="num">
+                <button id="num1" onclick="one()">1</button>
+                <button id="num2" onclick="two()">2</button>
+                <button id="num3" onclick="three()">3</button>
+                <button id="num4" onclick="four()">4</button>
+                <button id="num5" onclick="five()">5</button>
+                <button id="num6" onclick="six()">6</button>
+                <button id="num7" onclick="seven()">7</button>
+                <button id="num8" onclick="eight()">8</button>
+                <button id="num9" onclick="nine()">9</button>
+                <button id="num0" onclick="zero()">0</button>
+            </div>
+            <div id="func">
+                <button onclick="add()">+</button>
+                <button onclick="subtract()">-</button>
+                <button onclick="multiply()">*</button>
+                <button onclick="divide()">/</button>
+            </div>
+            <button id="clear-btn" onclick="clearFunc()">CLEAR</button>
+        </div>
+    </section>
     <section>
-        <div id="num">
-            <button id="num1" onclick="one()">1</button>
-            <button id="num2" onclick="two()">2</button>
-            <button id="num3" onclick="three()">3</button>
-            <button id="num4" onclick="four()">4</button>
-            <button id="num5" onclick="five()">5</button>
-            <button id="num6" onclick="six()">6</button>
-            <button id="num7" onclick="seven()">7</button>
-            <button id="num8" onclick="eight()">8</button>
-            <button id="num9" onclick="nine()">9</button>
-            <button id="num0" onclick="zero()">0</button>
-        </div>
-        <div id="func">
-            <button onclick="addition()">+</button>
-            <button onclick="subtract()">-</button>
-            <button onclick="multiply()">*</button>
-            <button onclick="divide()">/</button>
-        </div>
-        <button id="sum-btn" onclick="sum()">=</button>
+        <!-- Explanation -->
     </section>
     <script src="./calc.js"></script>
 </body>

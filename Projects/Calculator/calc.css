@@ -6,14 +6,39 @@
   font-weight: bold;
 }
 
-h1 {
+/* SECTION: calculator */
+
+#calc-section {
+  height: calc(257px + 100px + (4px * 3));
+  width: 216px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* SECTION: calc display */
+
+#initial-result {
+  height: 40px;
+  width: 200px;
+  text-align: center;
+  background-color: darkgray;
+}
+
+#result {
   height: 60px;
   width: 200px;
   text-align: center;
 }
 
-section {
-  height: calc(200px + (4px * 3));
+/* SECTION: calc buttons */
+
+#calc-btn {
+  /* calc buttons (all buttons including clear) */
+  /* total height: 257px */
+  /* total width: 216px */
+  height: calc(245px + (4px * 3));
   width: calc(151px + 53px + (4px * 3));
   display: flex;
   flex-flow: row wrap;
@@ -22,6 +47,9 @@ section {
 }
 
 #num {
+  /* num buttons */
+  /* total height: 200px */
+  /* total width: 151px */
   height: calc((45px * 4) + (4px * 5));
   width: calc((45px * 3) + (4px * 4));
   display: flex;
@@ -32,6 +60,9 @@ section {
 }
 
 #func {
+  /* func buttons */
+  /* total height: 200px */
+  /* total width: 53px */
   height: calc((45px * 4) + (4px * 5));
   width: calc(45px + 8px);
   display: flex;
@@ -46,7 +77,7 @@ section {
 }
 
 #func > button {
-  background-color: rgb(175, 175, 175);
+  background-color: rgb(202, 219, 255);
 }
 
 button {
@@ -54,8 +85,8 @@ button {
   width: 45px;
 }
 
-#sum-btn {
+#clear-btn {
   height: 45px;
   width: 200px;
-  background-color: rgb(202, 219, 255);
+  background-color: rgb(255, 80, 80);
 }
