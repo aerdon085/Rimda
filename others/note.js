@@ -196,3 +196,29 @@ console.log(welcomeEl.innerText) // === Hello, Adrian :)
 // getElementById("")
 // innerText
 // textContent
+
+// SECTION: if... else
+
+let age = 21
+
+function check() {
+    if (age > 20) {
+    console.log("Welcome!")
+    } else {
+    console.log("F*ck off!")
+    }
+}
+
+// SECTION: more if... else
+
+let age = 100
+
+function gift() {
+    if (age < 100) {
+        console.log("Not eligible.")
+    } else if (age === 100) {
+        console.log("A gift card from the King!")
+    } else {
+        console.log("You've already received one.")
+    }
+}
