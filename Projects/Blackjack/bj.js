@@ -7,16 +7,18 @@ let isAlive = true
 
 let message = ""
 
-if (sum <= 20) {
+function startGame() {
+    if (sum <= 20) {
     message = "New card?"
-} else if (sum === 21) {
+    } else if (sum === 21) {
     message = "Blackjack!"
     hasBlackjack = true
-} else {
+    } else {
     message = "Game over!"
     isAlive = false
-}
+    }
 
-console.log(message)
-console.log("Still alive? - " + isAlive)
-console.log("Are ya winning son? - " + hasBlackjack)
+    console.log(message)
+    console.log("Still alive? - " + isAlive)
+    console.log("Are ya winning son? - " + hasBlackjack)
+}
