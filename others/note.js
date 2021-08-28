@@ -197,7 +197,9 @@ console.log(welcomeEl.innerText) // === Hello, Adrian :)
 // innerText
 // textContent
 
+
 // SECTION: if... else
+
 
 let age = 21
 
@@ -209,7 +211,9 @@ function check() {
     }
 }
 
+
 // SECTION: more if... else
+
 
 let age = 100
 
@@ -223,7 +227,9 @@ function gift() {
     }
 }
 
+
 // SECTION: Boolean
+
 
 let firstCard = 10
 let secondCard = 12
@@ -245,3 +251,17 @@ if (sum <= 20) {
 console.log(message)
 console.log("Are you still alive? - " + isAlive)
 console.log("Are ya winning son? - " + hasBlackjack)
+
+
+// SECTION: Arrays - ordered list of items (0-indexed)
+
+
+let hobbies = [
+    "Japanese learning", // 0
+    "Programming", // 1
+    "Reading", // 2
+    "Drawing" // 3
+]
+
+console.log(hobbies[2]) // === Reading
+console.log(hobbies.length) // === Drawing
