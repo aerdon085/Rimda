@@ -1,7 +1,7 @@
 let firstCard = 6
 let secondCard = 9
 let sum = firstCard + secondCard
-let card = 0
+let newCard = 0
 
 let cards = [firstCard, secondCard]
 
@@ -20,8 +20,10 @@ function startGame() {
 }
 
 function renderGame() {
-    cards.push(card)
-    cardsEl.textContent = cards
+    // display current cards
+    // cardsEl.textContent = "Cards: " + cards[0] + " " + cards[1]
+    cardsEl.textContent = "Cards: " + cards
+    // display current sum
     sumEl.textContent = "Sum: " + sum
 
     if (sum <= 20) {
@@ -41,11 +43,15 @@ function renderGame() {
     console.log("Are ya winning son? - " + hasBlackjack)
 }
 
-function newCard() {
+function giveNewCard() {
     console.log("Action: Draw new card.")
-    card = 1
-    cardsEl.textContent += " " + card
-    sum += card
+    newCard = 1
+    cards.push(newCard)
+    // Display new card
+    cardsEl.textContent += " " + newCard
+    // Hardcode value of sum with new card
+    sum += newCard
+    // Display new sum
     sumEl.textContent = sum
     console.log(sum)
 
