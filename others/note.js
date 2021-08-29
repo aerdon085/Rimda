@@ -265,3 +265,35 @@ let hobbies = [
 
 console.log(hobbies[2]) // === Reading
 console.log(hobbies.length) // === Drawing
+
+
+// SECTION: Arrays - push
+
+
+let aboutMe = [
+    "Adrian",
+    19
+]
+console.log(aboutMe) // === [Adrian, 19]
+aboutMe.push("March" + " " + 25 + " " + 2002)
+console.log(aboutMe) // === [Adrian, 19, March 25 2002]
+
+
+// SECTION: Arrays - remove items
+
+
+let messages = [
+    "Hello!",
+    "Hi!",
+    "Umm..."
+]
+let newMessage = "So.."
+console.log(messages) // === [Hello!, Hi!, Umm...]
+messages.push(newMessage)
+console.log(messages) // === [Hello!, Hi!, Umm..., So...]
+messages.pop()
+console.log(messages) // === [Hello!, Hi!, Umm...]
+messages.shift()
+console.log(messages) // === [Hi!, Umm...]
+messages.splice(1, 1) // NOTE: (1, 1) means starting from index position 1, remove 1 data, left to right
+console.log(messages) // === [Hi!]
