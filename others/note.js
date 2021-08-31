@@ -297,3 +297,38 @@ messages.shift()
 console.log(messages) // === [Hi!, Umm...]
 messages.splice(1, 1) // NOTE: (1, 1) means starting from index position 1, remove 1 data, left to right
 console.log(messages) // === [Hi!]
+
+
+// SECTION: For loop
+
+
+for (count = 1; count < 11; count += 1) {
+    console.log(count)
+}
+
+
+// SECTION: More For loop
+
+
+let messages = [
+    "Nice",
+    "Very nice",
+    "Awesome",
+    "Okay",
+    "Hahaha",
+    "Hmmm"
+]
+
+for (let i = 0; i < messages.length; i += 1) {
+    console.log(messages[i])
+}
+
+
+// SECTION: More For loop
+
+
+let weirdCards = [7, 3, 9]
+for (i = 0; i < weirdCards.length; i++) {
+    console.log(weirdCards[i])
+}
+// NOTE: i++ === i+=1
