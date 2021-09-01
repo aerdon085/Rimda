@@ -85,6 +85,12 @@ button {
   width: 45px;
 }
 
+#equal-btn {
+  height: 45px;
+  width: 200px;
+  background-color: lightblue;
+}
+
 #clear-btn {
   height: 45px;
   width: 200px;
