@@ -1,15 +1,18 @@
 let firstCard = 6
 let secondCard = 9
-let sum = firstCard + secondCard
 let newCard = 0
+let sum = firstCard + secondCard
 
+// ARRAY
 let cards = [firstCard, secondCard]
 
+// HTML DISPLAY
 let messageEl = document.getElementById("message-el")
 // let sumEl = document.getElementById("sum-el")
 let sumEl = document.querySelector("#sum-el")
 let cardsEl = document.querySelector("#cards-el")
 
+// GAME STATE
 let hasBlackjack = false
 let isAlive = true
 
@@ -21,11 +24,19 @@ function startGame() {
 
 function renderGame() {
     // display current cards
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    // NOTE: Below are variations of ways to display list of cards.
     // cardsEl.textContent = "Cards: " + cards[0] + " " + cards[1]
-    cardsEl.textContent = "Cards: " + cards
+    // cardsEl.textContent = "Cards: " + cards
     // display current sum
+
+    // display new sum
     sumEl.textContent = "Sum: " + sum
 
+    // CONDITIONAL: Message and BJ win-loss state.
     if (sum <= 20) {
     message = "New card?"
     } else if (sum === 21) {
@@ -36,8 +47,10 @@ function renderGame() {
     isAlive = false
     }
 
+    // display prompt/hint for next step
     messageEl.textContent = message
 
+    // log for functionality
     console.log(message)
     console.log("Still alive? - " + isAlive)
     console.log("Are ya winning son? - " + hasBlackjack)

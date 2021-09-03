@@ -328,7 +328,23 @@ for (let i = 0; i < messages.length; i += 1) {
 
 
 let weirdCards = [7, 3, 9]
-for (i = 0; i < weirdCards.length; i++) {
+for (let i = 0; i < weirdCards.length; i++) {
     console.log(weirdCards[i])
 }
 // NOTE: i++ === i+=1
+
+
+// SECTION: More For loop
+
+
+let greetingEl = document.querySelector("#greeting-el")
+let sentence = [
+    "Hello",
+    "my",
+    "name",
+    "is",
+    "Adrian"
+]
+for (let i = 0; i < sentence.length; i++) {
+    greetingEl.textContent += sentence[i] + " "
+}
