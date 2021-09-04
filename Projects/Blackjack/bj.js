@@ -1,5 +1,5 @@
-let firstCard = 6
-let secondCard = 9
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
 let newCard = 0
 let sum = firstCard + secondCard
 
@@ -17,6 +17,10 @@ let hasBlackjack = false
 let isAlive = true
 
 let message = ""
+
+function getRandomCard() {
+    return 5
+}
 
 function startGame() {
     renderGame()
@@ -58,7 +62,7 @@ function renderGame() {
 
 function giveNewCard() {
     console.log("Action: Draw new card.")
-    newCard = 1
+    newCard = getRandomCard()
     cards.push(newCard)
     // Display new card
     cardsEl.textContent += " " + newCard
