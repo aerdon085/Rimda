@@ -348,3 +348,36 @@ let sentence = [
 for (let i = 0; i < sentence.length; i++) {
     greetingEl.textContent += sentence[i] + " "
 }
+
+
+// SECTION: Math object (Math.random)
+
+
+let randomNumber = Math.random()
+console.log(randomNumber) // numbers generated between 0 and 0.9
+
+
+// SECTION: Math object (Math.floor)
+
+
+let floorNumber = Math.floor(3.644)
+console.log(floorNumber) // number generated removes decimal places if any (basically rounding down a number) === 3
+
+
+// SECTION: Combined Math.random and .floor
+
+
+let randomNumber = Math.floor(Math.random() * 6)
+console.log(randomNumber) // generates number from 0 to 5
+// NOTE: only 0|1|2|3|4|5 because Math.random can only generate up to 0.999 and multiplying it by 6 will only make it 5.994 which Math.floor will return 5
+
+
+// SECTION: Roll dice function using Math.random and .floor
+
+
+let randomNumber = 1
+function rollDice() {
+    randomNumber = Math.floor(Math.random() * 6) + 1
+    return randomNumber
+}
+console.log(rollDice())
