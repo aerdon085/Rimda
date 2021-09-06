@@ -2,6 +2,7 @@ let firstCard = getRandomCard()
 let secondCard = getRandomCard()
 let newCard = 0
 let sum = firstCard + secondCard
+// let randomCard = 0
 
 // ARRAY
 let cards = [firstCard, secondCard]
@@ -19,7 +20,8 @@ let isAlive = true
 let message = ""
 
 function getRandomCard() {
-    return 5
+    let randomCard = Math.floor(Math.random() * 13) + 1
+    return randomCard
 }
 
 function startGame() {
