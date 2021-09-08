@@ -381,3 +381,27 @@ function rollDice() {
     return randomNumber
 }
 console.log(rollDice())
+
+
+// SECTION: Logical AND operator
+
+
+let compCourse = true
+let giveCert = true
+if (compCourse === true) {
+    if (giveCert === true) {
+        genCert()
+    }
+}
+function genCert() {
+    console.log("Generating certificate...")
+}
+
+// logical operator can be EFFICIENTLY written in this way as well:
+
+if (compCourse === true && giveCert ===true) {
+    genCert()
+}
+
+
+// SECTION:

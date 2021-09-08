@@ -1,11 +1,10 @@
-let firstCard = getRandomCard()
-let secondCard = getRandomCard()
 let newCard = 0
-let sum = firstCard + secondCard
+let sum = 0
 // let randomCard = 0
 
 // ARRAY
-let cards = [firstCard, secondCard]
+// let cards = [firstCard, secondCard]
+let cards = []
 
 // HTML DISPLAY
 let messageEl = document.getElementById("message-el")
@@ -15,16 +14,33 @@ let cardsEl = document.querySelector("#cards-el")
 
 // GAME STATE
 let hasBlackjack = false
-let isAlive = true
+let isAlive = false
 
 let message = ""
 
 function getRandomCard() {
     let randomCard = Math.floor(Math.random() * 13) + 1
-    return randomCard
+    if (randomCard === 1) {
+        console.log("Check: " + randomCard)
+        randomCard = 11
+        return randomCard
+    } else if (randomCard > 10) {
+        console.log("Check: " + randomCard)
+        randomCard = 10
+        return randomCard
+    } else {
+        return randomCard
+    }
 }
 
 function startGame() {
+    isAlive = true
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    
+    // NOTE: Below is AMAZING. I found out that you can "push" (or "log" them, in console.log()) more than one item by separating them with a comma.
+    cards.push(firstCard, secondCard)
+    sum = firstCard + secondCard
     renderGame()
 }
 
@@ -63,6 +79,7 @@ function renderGame() {
 }
 
 function giveNewCard() {
+    // log functionality
     console.log("Action: Draw new card.")
     newCard = getRandomCard()
     cards.push(newCard)
