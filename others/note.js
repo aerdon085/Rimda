@@ -404,4 +404,14 @@ if (compCourse === true && giveCert ===true) {
 }
 
 
-// SECTION:
+// SECTION: Logical OR operator
+
+
+let likeDoc = true
+let likeStar = false
+if (likeDoc === true || likeStar === true) {
+    recMov()
+}
+function recMov() {
+    console.log("Check this out!")
+}

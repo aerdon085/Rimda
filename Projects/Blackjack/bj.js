@@ -11,13 +11,33 @@ let messageEl = document.getElementById("message-el")
 // let sumEl = document.getElementById("sum-el")
 let sumEl = document.querySelector("#sum-el")
 let cardsEl = document.querySelector("#cards-el")
+let startGameBtn = document.querySelector("#start-game")
 
 // GAME STATE
+// both booleans below (hasBlackjack and isAlive) is for giveNewCard() eiligibility 
 let hasBlackjack = false
 let isAlive = false
+let gameOngoing = false // boolean for startGame() button eligibility
+let endGameState = false // boolean for replaying game WHEN true
 
 let message = ""
 
+// function for restarting game data and states; returning values to initial state as is the state of the variables above
+function restartGame() {
+    // log functionality
+    console.log("Resetting data and parameters...")
+    // reset all data (variables) found above document
+    newCard = 0
+    sum = 0
+    cards = []
+    hasBlackjack = false
+    isAlive = false
+    gameOngoing = false
+    endGameState = false
+    message = ""
+}
+
+// function for randomizing card pulled
 function getRandomCard() {
     let randomCard = Math.floor(Math.random() * 13) + 1
     if (randomCard === 1) {
@@ -33,15 +53,42 @@ function getRandomCard() {
     }
 }
 
+// function for starting game
 function startGame() {
-    isAlive = true
-    let firstCard = getRandomCard()
-    let secondCard = getRandomCard()
+    // log functionality
+    console.log("Starting game...")
     
-    // NOTE: Below is AMAZING. I found out that you can "push" (or "log" them, in console.log()) more than one item by separating them with a comma.
-    cards.push(firstCard, secondCard)
-    sum = firstCard + secondCard
-    renderGame()
+    // conditional to only allow function when game has not begun, and prevent further clicks (and mess the game up) during active play
+    if (gameOngoing === true && endGameState === false) {
+        // game is already ongoing, inform player
+        messageEl.textContent = "Game is ongoing!"
+        console.log("Failed. The game is already ongoing!")
+    } else if (gameOngoing === true && endGameState === true) {
+        // log restart game functionality
+        console.log("A new game has been started.")
+        // reset data
+        restartGame()
+        // activate startGame() function to start again
+        startGame()
+    } else if (gameOngoing === false) {
+        // this conditional is for when game had never begun
+        // game shall begin this way, set states:
+        gameOngoing = true
+        isAlive = true
+
+        // log functionality
+        console.log("Success! Is game active?: " + gameOngoing)
+
+        // pull random card
+        let firstCard = getRandomCard()
+        let secondCard = getRandomCard()
+    
+        // NOTE: Below is AMAZING. I found out that you can "push" (or "log" them, in console.log()) more than one item by separating them with a comma.
+        cards.push(firstCard, secondCard)
+        sum = firstCard + secondCard
+    
+        renderGame()
+    }
 }
 
 function renderGame() {
@@ -64,9 +111,11 @@ function renderGame() {
     } else if (sum === 21) {
     message = "Blackjack!"
     hasBlackjack = true
+    endGame()
     } else {
     message = "Game over!"
     isAlive = false
+    endGame()
     }
 
     // display prompt/hint for next step
@@ -79,17 +128,38 @@ function renderGame() {
 }
 
 function giveNewCard() {
-    // log functionality
-    console.log("Action: Draw new card.")
-    newCard = getRandomCard()
-    cards.push(newCard)
-    // Display new card
-    cardsEl.textContent += " " + newCard
-    // Hardcode value of sum with new card
-    sum += newCard
-    // Display new sum
-    sumEl.textContent = sum
-    console.log(sum)
+    // log for function functionality
+    console.log("Drawing new card...")
 
-    renderGame()
+    // conditional to only be able to get new card if:
+    if (isAlive === true && hasBlackjack === false) {
+        // log conditional success
+        console.log("Success! New card is...")
+        newCard = getRandomCard()
+        cards.push(newCard)
+        // Display new card
+        cardsEl.textContent += " " + newCard
+        // Hardcode value of sum with new card
+        sum += newCard
+        // Display new sum
+        sumEl.textContent = sum
+        console.log(sum)
+
+        renderGame()
+    } else if (endGameState === true) {
+        messageEl.textContent = "Click on Play Again!"
+        console.log("Failed. You have to play again, dummy!")
+    } else {
+        messageEl.textContent = "Click on Start Game!"
+        console.log("Failed. You have to start the game, dummy!")
+    }
+}
+
+// function when game is finished
+function endGame() {
+    if (message === "Blackjack!" || message === "Game over!") {
+        console.log("You have reached the end of the game. You may choose to play again.")
+        startGameBtn.textContent = "PLAY AGAIN"
+        endGameState = true
+    }
 }
