@@ -22,6 +22,16 @@ let endGameState = false // boolean for replaying game WHEN true
 
 let message = ""
 
+// Player data
+let player = {
+    name: "Aerdon",
+    chips: 145
+}
+// let playerName = "Aerdon"
+// let playerChips = 145
+let playerEl = document.querySelector("#player-el")
+playerEl.textContent = player.name + ": " + player.chips
+
 // function for restarting game data and states; returning values to initial state as is the state of the variables above
 function restartGame() {
     // log functionality

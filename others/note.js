@@ -415,3 +415,21 @@ if (likeDoc === true || likeStar === true) {
 function recMov() {
     console.log("Check this out!")
 }
+
+
+// SECTION: Objects (another way of storing variables)
+
+
+// initial instance
+let playerName = "Aerdon"
+let playerChips = 145
+let playerEl = document.getElementById("player-el")
+playerEl.innerText = playerName + ": " + playerChips
+
+// new instance
+let player = {
+    name: "Aerdon",
+    chips: 145
+}
+let playerEl = document.querySelector("#player-el")
+playerEl.textContent = player.name + ": " + player.chips
