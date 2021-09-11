@@ -433,3 +433,36 @@ let player = {
 }
 let playerEl = document.querySelector("#player-el")
 playerEl.textContent = player.name + ": " + player.chips
+
+
+// SECTION: Objects (very much like arrays)
+
+
+let course = {
+    title: "CSS Grid",
+    lessonNo: 16,
+    teacher: "Per Borgen",
+    length: 63,
+    level: "Intermediate",
+    isFree: true,
+    tags: ["HTML", "CSS"]
+}
+console.log(course.tags)
+console.log(course["tags"])
+
+
+// SECTION: Objects
+
+
+let listing = {
+    compName: "Hemway",
+    location: "London",
+    price: 123,
+    roomsAvailable: 23,
+    nearYou: ["Burnham", "Ham", "Hemming"]
+}
+console.log("console.log command: " + listing.compName, listing.price, listing.nearYou)
+// TEST: for looping an array inside an object
+for (i = 0; i < listing.nearYou.length; i++) {
+    console.log(listing.nearYou[i])
+}
