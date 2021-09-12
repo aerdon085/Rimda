@@ -466,3 +466,30 @@ console.log("console.log command: " + listing.compName, listing.price, listing.n
 for (i = 0; i < listing.nearYou.length; i++) {
     console.log(listing.nearYou[i])
 }
+
+
+// SECTION: Methods on objects 
+
+
+let something = {
+    nothing: function() {
+        console.log("Okay.")
+    }
+}
+something.nothing() // Okay.
+
+// NOTE: METHODS are functions that are attached to objects; ex: console.log() with console being the object and log() being the function
+
+
+// SECTION: Recap
+
+// arrays
+// objects
+// booleans
+// if... else statements
+// logical and (&&) operations
+// logical or (||) operations
+// comparison operators (sum <= 20)
+// for loops
+// Math object (Math.random or .floor)
+// return statements
