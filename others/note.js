@@ -493,3 +493,51 @@ something.nothing() // Okay.
 // for loops
 // Math object (Math.random or .floor)
 // return statements
+
+
+// SECTION: objects and functions
+
+
+let person = {
+    name: "Adrian Luzon",
+    age: 19,
+    country: "Philippines"
+}
+function logData() {
+    return person.name + " is " + person.age + " and lives in the " + person.country
+}
+
+
+// SECTION: if else
+
+
+let age = 0
+let discount = ""
+function randomStranger() {
+    age = Math.floor(Math.random() * 70) + 1
+}
+function actInstance() {
+    randomStranger()
+    if (age <= 6) {
+        discount = "Free"
+    } else if (age >= 7 && age <= 17) {
+        discount = "Child discount"
+    } else if (age >= 18 && age <= 26) {
+        discount = "Student discount"
+    } else if (age >= 27 && age <= 66) {
+        discount = "Full price"
+    } else {
+        discount = "Senior citizen discount"
+    }
+    console.log(age, discount)
+}
+actInstance()
+
+
+// SECTION: for loop
+
+
+let largeCount = ["China", "India", "USA", "Indonesia", "Pakistan"]
+for (i = 0; i < largeCount.length; i++) {
+    console.log(largeCount[i])
+}
