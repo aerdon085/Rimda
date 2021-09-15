@@ -541,3 +541,29 @@ let largeCount = ["China", "India", "USA", "Indonesia", "Pakistan"]
 for (i = 0; i < largeCount.length; i++) {
     console.log(largeCount[i])
 }
+
+
+// SECTION: pop, push, shift, unshift
+
+
+let largeCount = ["Tuvalu", "India", "USA", "Indonesia", "Monaco"]
+largeCount.pop() // removes Monaco
+largeCount.shift() // removes Tuvalu
+largeCount.push("Pakistan") // adds Pakistan at the end
+largeCount.unshift("China") // adds China at the start
+// Check:
+for (let i = 0; i < largeCount.length; i++) {
+    console.log(largeCount[i])
+}
+
+
+// SECTION: logical operator AND
+
+
+let day = 13
+let dayWeek = "Tuesday"
+if (day === 13 && dayWeek === "Friday") {
+    console.log(":O")
+} else {
+    console.log("You are safe :>")
+}
