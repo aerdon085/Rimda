@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors</title>
+</head>
+
+<body>
+    <p id="greeting-el">Hello.</p>
+    <h1 id="pOne">Player 1</h1>
+    <h1 id="pTwo">Player 2</h1>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <button onclick="rock()">Rock</button>
+        <button onclick="paper()">Paper</button>
+        <button onclick="scissors()">Scissors</button>
+    </div>
+    <button onclick="start()" id="start-btn">DRAW</button>
+    <!-- <script src="./test.js"></script> -->
+    <script>
+        let pOneDis = document.querySelector("#pOne")
+        let pTwoDis = document.querySelector("#pTwo")
+        let greetingEl = document.querySelector("#greeting-el")
+
+        let playerOne = 0
+        let playerOneChoice = false
+        let playerTwo = 0
+        let handSign = ""
+
+        // player's choice of hand to play
+        function rock() {
+            playerOne = "Rock"
+            pOneDis.textContent = "Player 1: " + playerOne
+            playerOneChoice = true
+        }
+        function paper() {
+            playerOne = "Paper"
+            pOneDis.textContent = "Player 1: " + playerOne
+            playerOneChoice = true
+        }
+        function scissors() {
+            playerOne = "Scissors"
+            pOneDis.textContent = "Player 1: " + playerOne
+            playerOneChoice = true
+        }
+
+        // function that starts the game when pressed #start-btn
+        function start() {
+            // condition if player hasn't chosen hand to play
+            if (playerOneChoice === false) {
+                greetingEl.textContent = "Player 1, please choose hand to play!"
+            } else {
+                playerTwo = draw()
+                // display to HTML
+                pOneDis.textContent = "Player 1: " + playerOne
+                pTwoDis.textContent = "Player 2: " + playerTwo
+                // display winner of game
+                checkWin()
+                // revert player choice state
+                playerOneChoice = false
+            }
+        }
+
+        function draw() {
+            // represent hand signs with numbers
+            let drawValue = Math.floor(Math.random() * 3) + 1
+            console.log("Drawing... " + drawValue)
+            // translate number to hand sign
+            if (drawValue === 1) {
+                handSign = "Rock"
+            } else if (drawValue === 2) {
+                handSign = "Paper"
+            } else {
+                handSign = "Scissors"
+            }
+            console.log(handSign)
+            return handSign
+        }
+        // below is another function for getting the hand; a more simple one
+        let hands = ["Rock", "Paper", "Scissors"]
+        function getHand() {
+            randomNum = Math.floor(Math.random() * 3)
+            return hands[randomNum]
+        }
+
+        function checkWin() {
+            if (playerOne === "Rock" && playerTwo === "Scissors" || playerOne === "Paper" && playerTwo === "Rock" || playerOne === "Scissors" && playerTwo === "Paper") {
+                greetingEl.textContent = "Player 1 won!"
+            } else if (playerOne === "Rock" && playerTwo === "Rock" || playerOne === "Paper" && playerTwo === "Paper" || playerOne === "Scissors" && playerTwo === "Scissors") {
+                greetingEl.textContent = "It's a tie!"
+            } else {
+                greetingEl.textContent = "Player 2 won!"
+            }
+        }
+    </script>
+</body>
+</html>
