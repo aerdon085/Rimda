@@ -567,3 +567,21 @@ if (day === 13 && dayWeek === "Friday") {
 } else {
     console.log("You are safe :>")
 }
+
+
+// SECTION: Event listener (new technique)
+
+
+// old is below; where in html, you use onclick="saveIput()"
+function saveInput() {
+    console.log("Input saved.")
+}
+
+// new is below where no onclick"" is needed, and is event listener is all in the JS making documents more organized and clean
+let inputBtn = document.querySelector("#input-btn")
+inputBtn.addEventListener("click", function() {
+    console.log("Input saved.")
+})
+
+
+// SECTION:
