@@ -576,12 +576,33 @@ if (day === 13 && dayWeek === "Friday") {
 function saveInput() {
     console.log("Input saved.")
 }
-
-// new is below where no onclick"" is needed, and is event listener is all in the JS making documents more organized and clean
+// new is below where no onclick="" is needed, and its event listener is all in JS making documents more organized and clean
 let inputBtn = document.querySelector("#input-btn")
 inputBtn.addEventListener("click", function() {
     console.log("Input saved.")
 })
 
 
-// SECTION:
+// SECTION: New event listener technique
+
+
+let boxArea = document.querySelector("#box-area")
+boxArea.addEventListener("click", function() {
+    console.log("Opening the box...")
+})
+
+
+// SECTION: let vs const
+
+let firstName = "Adrian"
+const lastName = "Luzon"
+firstName = "Luis" // let can allow variable value reassignment
+lastName = "Luzon" // const variable's value cannot be reassigned
+// "If possible, use const. If not, use let"
+
+
+// SECTION: HTML DOM Input Text .value
+
+
+// only for HTML elements that have input
+document.querySelector("#input-el").value = "Johnny Bravo" //content of input/text area will be "Johnny Bravo"
