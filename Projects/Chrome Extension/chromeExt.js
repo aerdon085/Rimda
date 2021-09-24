@@ -2,6 +2,7 @@ let myLeads = []
 const inputEl = document.querySelector("#input-el")
 const inputBtn = document.querySelector("#input-btn")
 const listEl = document.querySelector("#list-el")
+const ulEl = document.querySelector("#ul-el")
 
 // event listener for pushing textarea value to myLeads
 inputBtn.addEventListener("click", function() {
@@ -15,11 +16,17 @@ inputBtn.addEventListener("click", function() {
         // push to array
         myLeads.push(inputEl.value)
 
+        // TEMPORARY: delete current ulEl list in order to prevent accumulation and repetition of past input
+        ulEl.textContent = ""
+
         // list current array items
+        console.log("Input saved! Current items:")
         for (let i = 0; i < myLeads.length; i++) {
             console.log(myLeads[i])
+            ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
         }
 
-        console.log("Input saved!")
+        // remove current input entry
+        inputEl.value = ""
     }
 })
