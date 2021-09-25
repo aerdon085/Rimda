@@ -601,8 +601,31 @@ lastName = "Luzon" // const variable's value cannot be reassigned
 // "If possible, use const. If not, use let"
 
 
+// SECTION: let vs const (2)
+
+
+const basePrice = 520
+const discount = 120
+let shippingCost = 12
+let shippingTime = "5-12 days"
+shippingCost = 15
+shippingTime = "7-14 days"
+const fullPrice = basePrice - discount + shippingCost
+console.log("Total cost: " + fullPrice + ". It will arrive in " + shippingTime)
+
+
 // SECTION: HTML DOM Input Text .value
 
 
 // only for HTML elements that have input
 document.querySelector("#input-el").value = "Johnny Bravo" //content of input/text area will be "Johnny Bravo"
+
+
+// SECTION: innerHTML
+
+
+let someText = "Search/buy!"
+let searchBtn = document.querySelector("#search-btn")
+let buyBtn = document.querySelector("#buy-btn")
+searchBtn.textContent = "<button>" + someText + "</button>" // this will only display the supposed html element as text
+buyBtn.innerHTML = "<button>" + someText + "</button>" // this will read its value as an html element and thus a button
