@@ -625,7 +625,19 @@ document.querySelector("#input-el").value = "Johnny Bravo" //content of input/te
 
 
 let someText = "Search/buy!"
-let searchBtn = document.querySelector("#search-btn")
-let buyBtn = document.querySelector("#buy-btn")
+let searchBtn = document.querySelector("#div1-el")
+let buyBtn = document.querySelector("#div2-el")
 searchBtn.textContent = "<button>" + someText + "</button>" // this will only display the supposed html element as text
 buyBtn.innerHTML = "<button>" + someText + "</button>" // this will read its value as an html element and thus a button
+buyBtn.addEventListener("click", function() {
+    buyBtn.innerHTML += "<br><p>Thank you for your purchase!</p>"
+})
+
+
+// SECTION: another method of adding HTML element other than innerHTML (.append and .createElement)
+
+
+const greetingEl = document.querySelector("div#greeting-el")
+const p = document.createElement("p") // this creates the element
+p.textContent = "Hello world!" // element's content
+greetingEl.append(p) // appends element's content in specified parent element (in this case, in this line's DOM's greetingEl)
