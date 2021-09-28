@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Game Design:
+        1. One big board from which the game is to be played
+        2. 9 boxes separated by grids (grids: amounts up to 4 including border of main board both horizontally and vertically)
+        */
+
+        section {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        #main-menu {
+            height: calc((96px * 3) + (8px * 4));
+            width: calc(((96px * 3) + (8px * 4)) / 2);
+            background-color: rgb(109, 180, 204);
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .menu-btn {
+            height: 32px;
+            width: 96px;
+        }
+
+        #main-board {
+            height: calc((96px * 3) + (8px * 4));
+            width: calc((96px * 3) + (8px * 4));
+            background-color: lightblue;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .game-btn {
+            height: 96px;
+            width: 96px;
+            border: none;
+            border-radius: 2px;
+        }
+    </style>
+    <title>TicTacToe</title>
+</head>
+
+<body>
+    <!-- HTML -->
+    <section>
+        <div id="main-menu">
+            <h4>GAME MODE:</h2>
+            <button class="menu-btn" id="one-player-btn" onclick="onePlayer()">1 PLAYER</button>
+            <button class="menu-btn" id="two-player-btn" onclick="twoPlayer()">2 PLAYER</button>
+            <h4>READY?</h4>
+            <button class="menu-btn" onclick="startGame()">START GAME</button>
+        </div>
+        <div id="main-board">
+            <button class="game-btn" id="btn-one"></button>
+            <button class="game-btn" id="btn-two"></button>
+            <button class="game-btn" id="btn-three"></button>
+            <button class="game-btn" id="btn-four"></button>
+            <button class="game-btn" id="btn-five"></button>
+            <button class="game-btn" id="btn-six"></button>
+            <button class="game-btn" id="btn-seven"></button>
+            <button class="game-btn" id="btn-eight"></button>
+            <button class="game-btn" id="btn-nine"></button>
+        </div>
+    </section>
+
+    <script>
+        // JAVASCRIPT
+        // GAME FLOW: single player or multiplayer selection; dice; X or O selection;
+
+        // GAME SECTION: game mode selection
+        // 
+        let gameOngoing = false // var:game state
+        const gOMessage = "Game is ongoing!" // var:message for when gameOngoing is true
+        let gMSelection = false // var:selection state
+        const gMSMessage = "Choosing game mode..." // var:message for when choosing game mode
+        let gameMode = "" // var:game mode
+        const gMMessage = "Game mode is" + " " // var:message when logging out completion in game mode selection
+        const onePlayerBtn = document.querySelector("#one-player-btn")
+        const twoPlayerBtn = document.querySelector("#two-player-btn")
+        // 
+        // functions for game mode selection
+        function onePlayer() {
+            // log functionality and prevent selection if game is ongoing
+            console.log(gMSMessage)
+            if (gameOngoing === true) {
+                console.log(gOMessage)
+            } else {
+                // make gameMode to 1 player as chosen
+                gameMode = "1 Player"
+                // display selection on clicked button and remove the other if any
+                onePlayerBtn.style = "background-color: red;"
+                twoPlayerBtn.style = ""
+                // make game mode selection true and log success
+                gMSelection = true
+                console.log(gMMessage + gameMode)
+            }
+        }
+        function twoPlayer() {
+            console.log(gMSMessage)
+            if (gameOngoing === true) {
+                console.log(gOMessage)
+            } else {
+                gameMode = "2 Player"
+                onePlayerBtn.style = ""
+                twoPlayerBtn.style = "background-color: red;"
+                gMSelection = true
+                console.log(gMMessage + gameMode)
+            }
+        }
+
+        // GAME SECTION: game initiation
+        // 
+        function startGame() {
+            // log functionality
+            console.log("Starting game...")
+            // conditional for when game is ongoing
+            if (gameOngoing === true) {
+                console.log(gOMessage)
+            } else if (gameOngoing === false && gMSelection === false) {
+                console.log("You need to select a game mode!")
+            } else if (gameOngoing === false && gMSelection === true) {
+                // log success
+                console.log("Game started!")
+            }
+        }
+
+        // NOTE: From here, game has started. 2-Player mode will be prioritized because the single-player mode requires an AI @_@
+        // 2-Player mode:
+        // game will notify the participants to decide between themselves who is player 1 and player 2
+        // player 1 will always be the dice roller
+        // the dice rolled will decide who comes first and last (1 for first and 2 for last regardless of player number)
+        // the one who will not have his first turn will decide whether he is X or O
+        // game commences
+        // game ends and var:gameOngoing = false and gMSelection = false
+
+    </script>
+</body>
+
+</html>

@@ -22,10 +22,8 @@ inputBtn.addEventListener("click", function() {
         // list current array items
         console.log("Input saved! Current items:")
         for (let i = 0; i < myLeads.length; i++) {
-            /*
-            console.log(myLeads[i])
-            ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
-            */
+            // console.log(myLeads[i])
+            // ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
             const li = document.createElement("li")
             li.textContent = myLeads[i]
             ulEl.append(li)
