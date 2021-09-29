@@ -33,7 +33,8 @@
             align-items: center;
         }
 
-        .menu-btn {
+        .menu-btn,
+        #got-it {
             height: 32px;
             width: 96px;
         }
@@ -67,6 +68,7 @@
             <button class="menu-btn" id="two-player-btn" onclick="twoPlayer()">2 PLAYER</button>
             <h4>READY?</h4>
             <button class="menu-btn" onclick="startGame()">START GAME</button>
+            <!-- elements above will be replaced by new elements (but brought back when game is restarted) at JAVASCRIPT -->
         </div>
         <div id="main-board">
             <button class="game-btn" id="btn-one"></button>
@@ -126,7 +128,7 @@
             }
         }
 
-        // GAME SECTION: game initiation
+        // GAME SECTION: game initiation (with conditions)
         // 
         function startGame() {
             // log functionality
@@ -139,17 +141,60 @@
             } else if (gameOngoing === false && gMSelection === true) {
                 // log success
                 console.log("Game started!")
+                // make gameOngoing true to prevent restarting game
+                gameOngoing = true
+                // conditional for starting what game mode
+                if (gameMode === "1 Player") {
+                    console.log("Sorry, mode in development...")
+                } else if (gameMode === "2 Player") {
+                    twoPlay()
+                } else {
+                    console.log("Error.")
+                }
             }
         }
 
+        // GAME SECTION: 2 Player
         // NOTE: From here, game has started. 2-Player mode will be prioritized because the single-player mode requires an AI @_@
-        // 2-Player mode:
+        // new elements will be needed because the menu on the left will also be used for player selection (who rolls the dice) and who chooses X or O
         // game will notify the participants to decide between themselves who is player 1 and player 2
         // player 1 will always be the dice roller
         // the dice rolled will decide who comes first and last (1 for first and 2 for last regardless of player number)
         // the one who will not have his first turn will decide whether he is X or O
         // game commences
         // game ends and var:gameOngoing = false and gMSelection = false
+
+        let mainMenu = document.querySelector("#main-menu")
+
+        // function that removes div#main-menu child elements
+        function removeMM() {
+            while (mainMenu.hasChildNodes()) {
+                mainMenu.removeChild(mainMenu.firstChild)
+            }
+        }
+
+        function twoPlay() {
+            // remove all children of div#main-menu for the choosing of who is player 1
+            removeMM()
+            // create new element to notify players of player selection
+            mainMenu.innerHTML += "<h4>ATTENTION!</h4><p style='text-align: center;'>Player 1 gets to roll the dice which decides which player goes first. Player 2 gets to choose whether to play X or O.</p><button id='got-it' onclick='gotIt()'>GOT IT!</button>"
+        }
+
+        function gotIt() {
+            removeMM()
+            // have player 1 roll dice using separate function
+            rollDice()
+            // have player 2 choose whether X or O using separate function
+        }
+
+        // GAME SECTION: General game progression
+        function rollDice() {
+            console.log("Dice rolled. Your turn is: ???")
+        }
+
+        function chooseXO() {
+            console.log("You have chosen: ???")
+        }
 
     </script>
 </body>
