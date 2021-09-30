@@ -33,8 +33,15 @@
             align-items: center;
         }
 
+        #main-menu h4,
+        #main-menu p {
+            text-align: center;
+        }
+
         .menu-btn,
-        #got-it {
+        #got-it,
+        #roll-dice,
+        #dice-next {
             height: 32px;
             width: 96px;
         }
@@ -66,7 +73,7 @@
             <h4>GAME MODE:</h2>
             <button class="menu-btn" id="one-player-btn" onclick="onePlayer()">1 PLAYER</button>
             <button class="menu-btn" id="two-player-btn" onclick="twoPlayer()">2 PLAYER</button>
-            <h4>READY?</h4>
+            <h4 id="ready-el">READY?</h4>
             <button class="menu-btn" onclick="startGame()">START GAME</button>
             <!-- elements above will be replaced by new elements (but brought back when game is restarted) at JAVASCRIPT -->
         </div>
@@ -97,6 +104,7 @@
         const gMMessage = "Game mode is" + " " // var:message when logging out completion in game mode selection
         const onePlayerBtn = document.querySelector("#one-player-btn")
         const twoPlayerBtn = document.querySelector("#two-player-btn")
+        const readyEl = document.querySelector("#ready-el")
         // 
         // functions for game mode selection
         function onePlayer() {
@@ -113,6 +121,8 @@
                 // make game mode selection true and log success
                 gMSelection = true
                 console.log(gMMessage + gameMode)
+                // make readyEl to "Ready?" if it has been changed
+                readyEl.textContent = "READY?"
             }
         }
         function twoPlayer() {
@@ -125,11 +135,12 @@
                 twoPlayerBtn.style = "background-color: red;"
                 gMSelection = true
                 console.log(gMMessage + gameMode)
+                readyEl.textContent = "READY?"
             }
         }
 
         // GAME SECTION: game initiation (with conditions)
-        // 
+        //
         function startGame() {
             // log functionality
             console.log("Starting game...")
@@ -138,6 +149,7 @@
                 console.log(gOMessage)
             } else if (gameOngoing === false && gMSelection === false) {
                 console.log("You need to select a game mode!")
+                readyEl.textContent = "CHOOSE GAME MODE!"
             } else if (gameOngoing === false && gMSelection === true) {
                 // log success
                 console.log("Game started!")
@@ -148,8 +160,6 @@
                     console.log("Sorry, mode in development...")
                 } else if (gameMode === "2 Player") {
                     twoPlay()
-                } else {
-                    console.log("Error.")
                 }
             }
         }
@@ -163,35 +173,71 @@
         // the one who will not have his first turn will decide whether he is X or O
         // game commences
         // game ends and var:gameOngoing = false and gMSelection = false
-
-        let mainMenu = document.querySelector("#main-menu")
-
+        // 
+        const mainMenu = document.querySelector("#main-menu")
+        // 
         // function that removes div#main-menu child elements
         function removeMM() {
             while (mainMenu.hasChildNodes()) {
                 mainMenu.removeChild(mainMenu.firstChild)
             }
         }
-
         function twoPlay() {
             // remove all children of div#main-menu for the choosing of who is player 1
             removeMM()
             // create new element to notify players of player selection
-            mainMenu.innerHTML += "<h4>ATTENTION!</h4><p style='text-align: center;'>Player 1 gets to roll the dice which decides which player goes first. Player 2 gets to choose whether to play X or O.</p><button id='got-it' onclick='gotIt()'>GOT IT!</button>"
+            mainMenu.innerHTML += "<h4>ATTENTION!</h4><p>Player 1 gets to roll the dice which decides which player goes first. Player 2 gets to choose whether to play X or O.</p><button id='got-it' onclick='gotIt()'>GOT IT!</button>"
         }
-
         function gotIt() {
             removeMM()
             // have player 1 roll dice using separate function
-            rollDice()
+            mainMenu.innerHTML += "<h4>PLAYER 1, ROLL THE DICE.</h4><button id='roll-dice' onclick='rollDice()'>ROLL DICE</button><p id='player-turn-display'>You will be...</p><button id='dice-next' onclick='diceNext()'>NEXT</button>"
             // have player 2 choose whether X or O using separate function
         }
 
-        // GAME SECTION: General game progression
+        // GAME SECTION: General game progression: DICE and X/O
+        // 
+        let pOTurn = "" // var:player 1's turn
+        let PTTurn = "" // var:player 2's turn
+        let pTDecision = false //var:whether players have a decided play-turn
+        // 
         function rollDice() {
-            console.log("Dice rolled. Your turn is: ???")
+            // log functionality, and conditional to prevent rolling more than twice
+            console.log("Rolling the dice...")
+            if (pTDecision === true) {
+                console.log("The dice has already been rolled. You are " + pOTurn + "to play.")
+            } else if (pTDecision === false) {
+                console.log("Player 1 has rolled the dice.")
+                // remove color if any to btn#roll-dice
+                document.querySelector("#roll-dice").style = ""
+                // dice
+                let diceValue = Math.floor(Math.random() * 2) + 1
+                // conditional for whether first or second
+                if (diceValue === 1) {
+                    pOTurn = "first"
+                    PTTurn = "second"
+                } else if (diceValue === 2) {
+                    pOTurn = "second"
+                    PTTurn = "first"
+                }
+                // make pTDecision true
+                pTDecision = true
+                // log order when playing and also display
+                console.log("Dice value is: " + diceValue)
+                pTDisplay = document.querySelector("#player-turn-display")
+                pTDisplay.append(" " + pOTurn+ " to play!")
+            }
         }
-
+        function diceNext() {
+            if (pTDecision === false) {
+                // player one hasn't rolled dice, log and make btn#roll-dice red for attention
+                console.log("Please roll the dice first!")
+                document.querySelector("#roll-dice").style = "background-color: red;"
+            } else if (pTDecision === true) {
+                removeMM()
+                // HERE, WE STOPPED
+            }
+        }
         function chooseXO() {
             console.log("You have chosen: ???")
         }
