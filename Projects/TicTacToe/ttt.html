@@ -41,7 +41,10 @@
         .menu-btn,
         #got-it,
         #roll-dice,
-        #dice-next {
+        #dice-next,
+        #choose-x,
+        #choose-o,
+        #piece-next {
             height: 32px;
             width: 96px;
         }
@@ -92,7 +95,6 @@
 
     <script>
         // JAVASCRIPT
-        // GAME FLOW: single player or multiplayer selection; dice; X or O selection;
 
         // GAME SECTION: game mode selection
         // 
@@ -139,12 +141,12 @@
             }
         }
 
-        // GAME SECTION: game initiation (with conditions)
+        // GAME SECTION: game initiation (with conditions that ensure game will not restart while game is ongoing or that game will not start without choosing mode in GAME SECTION:game mode selection)
         //
         function startGame() {
             // log functionality
             console.log("Starting game...")
-            // conditional for when game is ongoing
+            // conditional for when 1) game is ongoing, 2) game is not ongoing but hasn't chosen a game mode, and 3) game is not ongoing but has chosen a game mode and thus ready to play
             if (gameOngoing === true) {
                 console.log(gOMessage)
             } else if (gameOngoing === false && gMSelection === false) {
@@ -170,10 +172,11 @@
         // game will notify the participants to decide between themselves who is player 1 and player 2
         // player 1 will always be the dice roller
         // the dice rolled will decide who comes first and last (1 for first and 2 for last regardless of player number)
-        // the one who will not have his first turn will decide whether he is X or O
+        // the player who will not have his first turn will decide whether he is X or O
         // game commences
         // game ends and var:gameOngoing = false and gMSelection = false
-        // 
+        //
+        // variable for using div html element that holds main menu display
         const mainMenu = document.querySelector("#main-menu")
         // 
         // function that removes div#main-menu child elements
@@ -182,16 +185,18 @@
                 mainMenu.removeChild(mainMenu.firstChild)
             }
         }
+        // function to use when game mode chooses 2-player game
         function twoPlay() {
             // remove all children of div#main-menu for the choosing of who is player 1
             removeMM()
             // create new element to notify players of player selection
-            mainMenu.innerHTML += "<h4>ATTENTION!</h4><p>Player 1 gets to roll the dice which decides which player goes first. Player 2 gets to choose whether to play X or O.</p><button id='got-it' onclick='gotIt()'>GOT IT!</button>"
+            mainMenu.innerHTML += "<h4>ATTENTION!</h4><p>Player 1 gets to roll the dice which decides which player goes first. The player whose turn is last gets to choose whether to play X or O.</p><button id='got-it' onclick='gotIt()'>GOT IT!</button>"
         }
+        // function called when players have understood game flow and to proceed to player turn selection and player piece (X or O) choice
         function gotIt() {
             removeMM()
             // have player 1 roll dice using separate function
-            mainMenu.innerHTML += "<h4>PLAYER 1, ROLL THE DICE.</h4><button id='roll-dice' onclick='rollDice()'>ROLL DICE</button><p id='player-turn-display'>You will be...</p><button id='dice-next' onclick='diceNext()'>NEXT</button>"
+            mainMenu.innerHTML += "<h4>PLAYER 1, ROLL THE DICE.</h4><button id='roll-dice' onclick='rollDice()'>ROLL DICE</button><p id='player-turn-display'>Player 1, you will be...</p><button id='dice-next' onclick='diceNext()'>NEXT</button>"
             // have player 2 choose whether X or O using separate function
         }
 
@@ -201,11 +206,15 @@
         let PTTurn = "" // var:player 2's turn
         let pTDecision = false //var:whether players have a decided play-turn
         // 
+        // function for player 1 deciding who gets to play first
         function rollDice() {
             // log functionality, and conditional to prevent rolling more than twice
             console.log("Rolling the dice...")
+            // conditional for whether the dice has already been rolled
             if (pTDecision === true) {
-                console.log("The dice has already been rolled. You are " + pOTurn + "to play.")
+                // display and log that dice has already been rolled
+                document.querySelector("#player-turn-display").textContent = "The dice has already been rolled. You are " + pOTurn + " to play."
+                console.log(document.querySelector("#player-turn-display").textContent)
             } else if (pTDecision === false) {
                 console.log("Player 1 has rolled the dice.")
                 // remove color if any to btn#roll-dice
@@ -224,22 +233,59 @@
                 pTDecision = true
                 // log order when playing and also display
                 console.log("Dice value is: " + diceValue)
+                /* this one is an old version of below
                 pTDisplay = document.querySelector("#player-turn-display")
                 pTDisplay.append(" " + pOTurn+ " to play!")
+                */
+                document.querySelector("#player-turn-display").textContent = "Player 1, you will be " + pOTurn + " to play!"
             }
         }
+        // 
+        let pTPKing = "" // variable for who gets to choose X or O
+        // 
+        // function to call when player turn has already been decided
         function diceNext() {
+            // conditional to ensure the player will not advance unless turns have been decided
             if (pTDecision === false) {
                 // player one hasn't rolled dice, log and make btn#roll-dice red for attention
                 console.log("Please roll the dice first!")
-                document.querySelector("#roll-dice").style = "background-color: red;"
+                document.querySelector("#player-turn-display").textContent = "Click ROLL DICE, please!"
             } else if (pTDecision === true) {
+                // if true, remove current display and offer choices
                 removeMM()
-                // HERE, WE STOPPED
+                // conditional for who gets to choose whether to play X or O
+                if (pOTurn === "first" && PTTurn === "second") {
+                    pTPKing = "Player 2"
+                } else if (pOTurn === "second" && PTTurn === "first") {
+                    pTPKing = "Player 1"
+                }
+                // display required html elements for selection and instruction to appropriate player
+                mainMenu.innerHTML += "<h4>" + pTPKing + ", CHOOSE WHAT TO PLAY AS.</h4><button id='choose-x' onclick='chooseX'>X</button><button id='choose-o' onclick='chooseO'>O</button><p>You will play using...</p><button id='piece-next'>NEXT</button>"
             }
         }
-        function chooseXO() {
-            console.log("You have chosen: ???")
+        /* CODE: 10221
+        PROBLEM FROM HERE ON: assigning X or O to a certain player and the turns they'll take; think it through next time! */
+        // 
+        let cXState = false
+        let cOState = false
+        // 
+        // two functions for the selection of either X or O
+        function chooseX() {
+            // log functionality
+            console.log(pTPKing + " is choosing...")
+            cXState = true
+            cOState = false
+        }
+        function chooseO() {
+            console.log(pTPKing + " is choosing...")
+            cXState = false
+            cOState = true
+        }
+        // function to assign who gets to play as to players
+        function assignPlay() {
+            if (pTPKing === "Player 1" && cXState === true) {
+                
+            }
         }
 
     </script>
