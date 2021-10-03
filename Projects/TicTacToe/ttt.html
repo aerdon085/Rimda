@@ -44,7 +44,7 @@
         #dice-next,
         #choose-x,
         #choose-o,
-        #piece-next {
+        #piece-ready {
             height: 32px;
             width: 96px;
         }
@@ -260,32 +260,96 @@
                     pTPKing = "Player 1"
                 }
                 // display required html elements for selection and instruction to appropriate player
-                mainMenu.innerHTML += "<h4>" + pTPKing + ", CHOOSE WHAT TO PLAY AS.</h4><button id='choose-x' onclick='chooseX'>X</button><button id='choose-o' onclick='chooseO'>O</button><p>You will play using...</p><button id='piece-next'>NEXT</button>"
+                mainMenu.innerHTML += "<h4>" + pTPKing + ", CHOOSE WHAT TO PLAY AS.</h4><button id='choose-x' onclick='chooseX()'>X</button><button id='choose-o' onclick='chooseO()'>O</button><p id='play-value-display'>You will play using...</p><button id='piece-ready' onclick='pieceReady()'>READY!</button>"
             }
         }
-        /* CODE: 10221
-        PROBLEM FROM HERE ON: assigning X or O to a certain player and the turns they'll take; think it through next time! */
         // 
+        let cState = false // variable if player has chosen already
         let cXState = false
         let cOState = false
+        let pOPlayValue = "" // value to be displayed when playing as either X or O for player one
+        let pTPlayValue = ""
+        let pTPKingValue = "" // variable to display pTPKing's play value choice (X or O)
         // 
-        // two functions for the selection of either X or O
+        // two functions for the selection of either X or O using buttons
         function chooseX() {
             // log functionality
             console.log(pTPKing + " is choosing...")
+            // variables crucial for conditional:
             cXState = true
             cOState = false
+            // assign X/O value to appropriate players
+            assignPlay()
+            // display that button is clicked
+            document.querySelector("#choose-x").style = "background-color: red;"
+            document.querySelector("#choose-o").style = ""
+            // make cState true to say that a choice has been made
+            cState = true
+            // display selection in text, and log
+            document.querySelector("#play-value-display").textContent = "You will play using " + pTPKingValue + "!"
+            console.log(pTPKing + " is " + pTPKingValue)
         }
         function chooseO() {
             console.log(pTPKing + " is choosing...")
             cXState = false
             cOState = true
+            assignPlay()
+            document.querySelector("#choose-x").style = ""
+            document.querySelector("#choose-o").style = "background-color: red;"
+            cState = true
+            document.querySelector("#play-value-display").textContent = "You will play using " + pTPKingValue + "!"
+            console.log(pTPKing + " is " + pTPKingValue)
         }
         // function to assign who gets to play as to players
         function assignPlay() {
-            if (pTPKing === "Player 1" && cXState === true) {
-                
+            if (pTPKing === "Player 1") {
+                if (cXState === true) {
+                    pOPValueIsX()
+                    pTPKingValue = "X"
+                } else if (cOState === true) {
+                    pTPValueIsX()
+                    pTPKingValue = "O"
+                }
+            } else if (pTPKing === "Player 2") {
+                if (cXState === true) {
+                    pTPValueIsX()
+                    pTPKingValue = "X"
+                } else if (cOState === true) {
+                    pOPValueIsX()
+                    pTPKingValue = "O"
+                }
             }
+        }
+        function pOPValueIsX() {
+            pOPlayValue = "X"
+            pTPlayValue = "O"
+        }
+        function pTPValueIsX() {
+            pTPlayValue = "X"
+            pOPlayValue = "O"
+        }
+        // function for the ready button with condition that a piece (play-value) has been chosen
+        function pieceReady() {
+            // log functionality
+            console.log("Starting game...")
+            if (cState === false) {
+                console.log("No selection has been made!")
+                document.querySelector("#play-value-display").textContent = pTPKing + ", please choose your piece!"
+            } else if (cState === true) {
+                removeMM()
+            }
+        }
+
+        // GAME SECTION: Tictactoe gameplay!
+        // 
+        // variables for player stats
+        let playerOne = {
+            turn: pOTurn,
+            piece: pOPlayValue
+        }
+        let playerTwo = {
+            turn: PTTurn,
+            piece: pTPlayValue
         }
 
     </script>
