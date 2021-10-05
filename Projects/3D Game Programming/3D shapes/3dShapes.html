@@ -4,11 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style></style>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
     <title>3D Shapes</title>
 </head>
+
 <body>
-    <h4>Hello world!</h4>
+    <!-- <h4>Hello world!</h4> -->
 </body>
-<script src=".../Libraries/three.js-master/build/three.js"></script>
+
+<script src="../three.js"></script>
+<script>
+    // SECTION: initial settings
+    // "scene" is where stuff in our game happens
+    var scene = new THREE.Scene();
+    var flat = {flatShading: true};
+    var light = new THREE.AmbientLight('white', 0.8);
+    scene.add(light);
+    // "camera" is what sees the stuff
+    var aspectRatio = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    camera.position.z = 500;
+    scene.add(camera);
+    // "renderer" draws what the camera sees onto the screen
+    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // SECTION: items in the environment
+
+    // sphere
+    var shape = new THREE.SphereGeometry(250, 20, 10); // size, number of chunks around sphere, number of chunks up and down the sphere
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var ball = new THREE.Mesh(shape, cover);
+    scene.add(ball);
+    ball.position.set(-250, 250, -250); // x, y, z
+    // ball.rotation.set(0.5, 0.5, 0); // up/down on x-axis, left/right on y-axis, tilt left/right on z-axis
+
+    // box
+    var shape = new THREE.BoxGeometry(250, 250, 250); // size on x, y, z
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var box = new THREE.Mesh(shape, cover);
+    scene.add(box);
+    box.position.set(-250, -250, -250);
+    box.rotation.set(0.75, 0.75, 0);
+
+    // cylinder/pyramid
+    var shape = new THREE.CylinderGeometry(1, 250, 250, 8); // size of top, size of bottom, and height of cylinder, number of chunks horizontally
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var tube = new THREE.Mesh(shape, cover);
+    scene.add(tube);
+    tube.position.set(250, 250, -250);
+    tube.rotation.set(0.75, 0.5, 0);
+
+    // plane
+    var shape = new THREE.PlaneGeometry(250, 250);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var ground = new THREE.Mesh(shape, cover);
+    scene.add(ground);
+    ground.rotation.set(0.5, -0.5, 0);
+
+    // SECTION: render-camera
+    renderer.render(scene, camera);
+</script>
+
 </html>
