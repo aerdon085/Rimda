@@ -63,14 +63,43 @@
     tube.rotation.set(0.75, 0.5, 0);
 
     // plane
-    var shape = new THREE.PlaneGeometry(250, 250);
+    var shape = new THREE.PlaneGeometry(250, 250); // x, y
     var cover = new THREE.MeshNormalMaterial(flat);
     var ground = new THREE.Mesh(shape, cover);
     scene.add(ground);
+    ground.position.set(250, -250, -250);
     ground.rotation.set(0.5, -0.5, 0);
+
+    // torus
+    var shape = new THREE.TorusGeometry(125, 30, 20, 20, 3.14); // diameter of torus, thickness, number of chunks perpendicular to torus tube, number of chunks parallel to torus tube, torus circle
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var donut = new THREE.Mesh(shape, cover);
+    scene.add(donut);
+    // donut.position(0, 0, 0);
+    donut.rotation.set(0.5, 0.75, 0);
 
     // SECTION: render-camera
     renderer.render(scene, camera);
+
+    // SECTION: animation
+
+    var clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        var t = clock.getElapsedTime();
+
+        ball.rotation.set(t, 2*t, 0); // x, y, z
+        box.rotation.set(t, 2*t, 0);
+        tube.rotation.set(t, 2*t, 0);
+        ground.rotation.set(t, 2*t, 0);
+        donut.rotation.set(t, 2*t, 0);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
 </script>
 
 </html>
