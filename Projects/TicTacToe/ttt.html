@@ -44,7 +44,8 @@
         #dice-next,
         #choose-x,
         #choose-o,
-        #piece-ready {
+        #piece-ready,
+        #end-turn {
             height: 32px;
             width: 96px;
         }
@@ -81,7 +82,7 @@
             <!-- elements above will be replaced by new elements (but brought back when game is restarted) at JAVASCRIPT -->
         </div>
         <div id="main-board">
-            <button class="game-btn" id="btn-one"></button>
+            <button class="game-btn" id="btn-one" onclick="btnOne()"></button>
             <button class="game-btn" id="btn-two"></button>
             <button class="game-btn" id="btn-three"></button>
             <button class="game-btn" id="btn-four"></button>
@@ -203,7 +204,7 @@
         // GAME SECTION: General game progression: DICE and X/O
         // 
         let pOTurn = "" // var:player 1's turn
-        let PTTurn = "" // var:player 2's turn
+        let pTTurn = "" // var:player 2's turn
         let pTDecision = false //var:whether players have a decided play-turn
         // 
         // function for player 1 deciding who gets to play first
@@ -224,10 +225,10 @@
                 // conditional for whether first or second
                 if (diceValue === 1) {
                     pOTurn = "first"
-                    PTTurn = "second"
+                    pTTurn = "second"
                 } else if (diceValue === 2) {
                     pOTurn = "second"
-                    PTTurn = "first"
+                    pTTurn = "first"
                 }
                 // make pTDecision true
                 pTDecision = true
@@ -254,9 +255,9 @@
                 // if true, remove current display and offer choices
                 removeMM()
                 // conditional for who gets to choose whether to play X or O
-                if (pOTurn === "first" && PTTurn === "second") {
+                if (pOTurn === "first" && pTTurn === "second") {
                     pTPKing = "Player 2"
-                } else if (pOTurn === "second" && PTTurn === "first") {
+                } else if (pOTurn === "second" && pTTurn === "first") {
                     pTPKing = "Player 1"
                 }
                 // display required html elements for selection and instruction to appropriate player
@@ -337,25 +338,68 @@
                 document.querySelector("#play-value-display").textContent = pTPKing + ", please choose your piece!"
             } else if (cState === true) {
                 removeMM()
+                gameplay()
             }
         }
 
         // GAME SECTION: Tictactoe gameplay!
         // 
-        // variables for player stats
-        let playerOne = {
-            turn: pOTurn,
-            piece: pOPlayValue
+        // recall of variables for player stats
+        // pTPKing, pTPKingValue
+        // pOTurn, pOPlayValue
+        // pTTurn, pTPlayValue
+        // first/second, X/O
+        // 
+        // variables to store current player each turn
+        let cPTurn = "" // current player turn (player 1 or 2)
+        let cPValue = "" // current player's piece value (X or O)
+        let cPState = false // if current player's turn is done
+        // 
+        // game display on left panel for "end turn" button using function for said new display to be called in pieceReady()
+        function gameplay() {
+            if (pOTurn === "first" && pTTurn === "second") {
+                // if p1 is first, then assign pOPlayValue to cPValue
+                cPTurn = 1
+                cPValue = pOPlayValue
+            } else if (pOTurn === "second" && pTTurn === "first") {
+                cPTurn = 2
+                cPValue = pTPlayValue
+            }
+            mainMenu.innerHTML += "<h1>TicTacToe</h1><p id='gameplay-turn-display'>It is now Player " + cPTurn + "'s turn.</p><button id='end-turn' onclick='endTurn()'>END TURN</button>"
         }
-        let playerTwo = {
-            turn: PTTurn,
-            piece: pTPlayValue
+        // NOTE: from this point, the game is waiting for current player to (1) make his turn and (2) end turn
+        // this first section is when making his turn
+        // when player clicks on box, it should FIRST: know whose turn it is; and SECOND: what the current player's (cPTurn) piece value is
+        // 10112021 PROBLEM: how do I ensure that the previous boxes cannot be overwritten by either player in new turn, and that only current play can be undone
+        function btnOne() {
+            let btnOneEl = document.querySelector("#btn-one")
+            btnOneEl.textContent += cPValue
+            // make turn state true to signify that turn has ended
+            cPState = true
         }
-
-        // pOTurn = 1
-        // pTTurn = 2
-        // console.log(playerOne.turn) === ''
-        // console.log(playerTwo.turn) === ''
+        // this second section is for ending his turn
+        function endTurn() {
+            // log functionality
+            console.log("Ending turn...")
+            if (cPState === false) {
+                console.log("Turn has not been made.")
+                document.querySelector("#gameplay-turn-display").textContent = "Player " + cPTurn + ", you have yet to make your turn."
+            } else if (cPState === true) {
+                if (cPTurn === 1) {
+                    // conditional definition: if current player turn is player one, make it two and reassign cPValue to player two's piece value
+                    cPTurn += 1
+                    cPValue = pTPlayValue
+                } else if (cPTurn === 2) {
+                    cPTurn -= 1
+                    cPValue = pOPlayValue
+                }
+                // make cPState false for next turn
+                cPState = false
+                // log and display turn
+                console.log("Turn ended!")
+                document.querySelector("#gameplay-turn-display").textContent = "It is now Player " + cPTurn + "'s turn."
+            }
+        }
 
     </script>
 </body>

@@ -1,3 +1,5 @@
+// NOTE: This .js script is obsolete! Compare it with script located in chromeExt.html.
+
 let myLeads = []
 const inputEl = document.querySelector("#input-el")
 const inputBtn = document.querySelector("#input-btn")
@@ -20,10 +22,12 @@ inputBtn.addEventListener("click", function() {
         ulEl.textContent = ""
 
         // list current array items
-        console.log("Input saved! Current items:")
+        console.log("Input saved! Current items:" + myLeads)
         for (let i = 0; i < myLeads.length; i++) {
-            // console.log(myLeads[i])
-            // ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
+            /* first version:
+            console.log(myLeads[i])
+            ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
+            */
             const li = document.createElement("li")
             li.textContent = myLeads[i]
             ulEl.append(li)
