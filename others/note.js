@@ -641,3 +641,15 @@ const greetingEl = document.querySelector("div#greeting-el")
 const p = document.createElement("p") // this creates the element
 p.textContent = "Hello world!" // element's content
 greetingEl.append(p) // appends element's content in specified parent element (in this case, in this line's DOM's greetingEl)
+
+// SECTION: assignment operator
+
+let i = j = k = l = 9;
+console.log(i, j, k, l);
+
+// SECTION: negation operator
+
+let someNumber = 100;
+if (!(someNumber !== 100)) {
+    console.log("It is equal!");
+}
