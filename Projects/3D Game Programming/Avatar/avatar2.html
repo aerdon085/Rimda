@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title>Avatar</title>
+</head>
+<body>
+    <!-- blank -->
+</body>
+
+<script src="../three.js"></script>
+<script>
+    // scene
+    var scene = new THREE.Scene();
+    var flat = {flatShading: true};
+    var light = new THREE.AmbientLight('white', 0.8);
+    scene.add(light);
+    // camera
+    var aspectRatio = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    camera.position.z = 500;
+    scene.add(camera);
+    // renderer
+    var renderer = new THREE.WebGLRenderer({antialis: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // START
+    // avatar body
+    var body = new THREE.SphereGeometry(100, 10, 10);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var avatar = new THREE.Mesh(body, cover);
+    scene.add(avatar);
+
+    // head
+    var headShape = new THREE.CylinderGeometry(50, 50, 50);
+    var head = new THREE.Mesh(headShape, cover);
+    head.position.set(0, 125, 0);
+    avatar.add(head);
+    // avatar hands
+    var hand = new THREE.SphereGeometry(50, 10, 10);
+    var rightHand = new THREE.Mesh(hand, cover);
+    var leftHand = new THREE.Mesh(hand, cover);
+    rightHand.position.set(-150, 0, 0);
+    leftHand.position.set(150, 0, 0);
+    // avatar feet
+    var feet = new THREE.BoxGeometry(75, 50, 100);
+    var rightFeet = new THREE.Mesh(feet, cover);
+    var leftFeet = new THREE.Mesh(feet, cover);
+    rightFeet.position.set(65, -150, 25);
+    leftFeet.position.set(-65, -150, 25);
+    avatar.add(rightHand, leftHand, rightFeet, leftFeet);
+
+    // makes avatar turn back on screen
+    avatar.rotation.y = 600;
+
+    // what camera sees on screen
+    var isRotating = false;
+    function animate() {
+        requestAnimationFrame(animate);
+        if (isRotating === true) {
+            avatar.rotation.z += 0.035;
+            avatar.rotation.x += 0.05;
+        }
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // character controls
+    document.addEventListener('keydown', sendKeyDown);
+        function sendKeyDown(event) {
+            var code = event.code;
+            if (code === "KeyA") avatar.position.x -= 15;
+            if (code === "KeyD") avatar.position.x += 15;
+            if (code === "KeyW") avatar.position.z -= 15;
+            if (code === "KeyS") avatar.position.z += 15;
+            if (code === "KeyC") isRotating = !isRotating;
+        }
+</script>
+
+</html>

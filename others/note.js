@@ -653,3 +653,16 @@ let someNumber = 100;
 if (!(someNumber !== 100)) {
     console.log("It is equal!");
 }
+
+// SECTION: more negation operator
+
+let isHappy = true;
+isHappy = !isHappy;
+console.log(isHappy); // isHappy === false
+
+// SECTION: event listener for keyboard control
+
+document.addEventListener('keydown', sendKeyDown);
+    function sendKeyDown(event) {
+        alert(event.code);
+    }
