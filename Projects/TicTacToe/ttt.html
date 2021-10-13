@@ -16,6 +16,7 @@
         /* Game Design:
         1. One big board from which the game is to be played
         2. 9 boxes separated by grids (grids: amounts up to 4 including border of main board both horizontally and vertically)
+        3. a panel on the left for menu and stats board
         */
 
         section {
@@ -65,6 +66,7 @@
             width: 96px;
             border: none;
             border-radius: 2px;
+            font-size: 80px;
         }
     </style>
     <title>TicTacToe</title>
@@ -82,7 +84,7 @@
             <!-- elements above will be replaced by new elements (but brought back when game is restarted) at JAVASCRIPT -->
         </div>
         <div id="main-board">
-            <button class="game-btn" id="btn-one" onclick="btnOne()"></button>
+            <button class="game-btn" id="btn-one"></button>
             <button class="game-btn" id="btn-two"></button>
             <button class="game-btn" id="btn-three"></button>
             <button class="game-btn" id="btn-four"></button>
@@ -96,6 +98,25 @@
 
     <script>
         // JAVASCRIPT
+
+        /* DEVELOPER'S NOTES:
+        Game script is divided into these sections:
+        1. Game mode selection
+        2. Game initiation (stage's states can be used to prevent refreshing page, if possible)
+        3. 2 player mode progression logic
+        4. Dice for player turns
+        5. X/O piece choice
+        6. tictactoe gameplay
+
+        These sections can be reused, if at all possible, for one-player mode logic. Sections under development:
+        - game logic
+        - one-player mode
+        - one-player enemy AI
+
+        The game currently needs:
+        1. an option to undo input of current player only
+        2. a system that allows the player, within his turn, to be able to click on multiple boxes and automatically erase his previous choice input if any
+        */
 
         // GAME SECTION: game mode selection
         // 
@@ -337,6 +358,7 @@
                 console.log("No selection has been made!")
                 document.querySelector("#play-value-display").textContent = pTPKing + ", please choose your piece!"
             } else if (cState === true) {
+                console.log("Game has begun!")
                 removeMM()
                 gameplay()
             }
@@ -351,9 +373,20 @@
         // first/second, X/O
         // 
         // variables to store current player each turn
-        let cPTurn = "" // current player turn (player 1 or 2)
+        let cPTurn = 0 // current player turn (player 1 or 2)
         let cPValue = "" // current player's piece value (X or O)
         let cPState = false // if current player's turn is done
+        let buttonNum = 0 // state for which button has been pressed and will be passed to function checkcPState
+        // button ids
+        const btnOneEl = document.querySelector("#btn-one")
+        const btnTwoEl = document.querySelector("#btn-two")
+        const btnThreeEl = document.querySelector("#btn-three")
+        const btnFourEl = document.querySelector("#btn-four")
+        const btnFiveEl = document.querySelector("#btn-five")
+        const btnSixEl = document.querySelector("#btn-six")
+        const btnSevenEl = document.querySelector("#btn-seven")
+        const btnEightEl = document.querySelector("#btn-eight")
+        const btnNineEl = document.querySelector("#btn-nine")
         // 
         // game display on left panel for "end turn" button using function for said new display to be called in pieceReady()
         function gameplay() {
@@ -365,17 +398,81 @@
                 cPTurn = 2
                 cPValue = pTPlayValue
             }
-            mainMenu.innerHTML += "<h1>TicTacToe</h1><p id='gameplay-turn-display'>It is now Player " + cPTurn + "'s turn.</p><button id='end-turn' onclick='endTurn()'>END TURN</button>"
+            mainMenu.innerHTML += "<h1>TicTacToe</h1><p id='gameplay-turn-display'>It is now Player " + cPTurn + "'s turn using " + cPValue + ".</p><button id='end-turn' onclick='endTurn()'>END TURN</button>"
         }
         // NOTE: from this point, the game is waiting for current player to (1) make his turn and (2) end turn
         // this first section is when making his turn
-        // when player clicks on box, it should FIRST: know whose turn it is; and SECOND: what the current player's (cPTurn) piece value is
-        // 10112021 PROBLEM: how do I ensure that the previous boxes cannot be overwritten by either player in new turn, and that only current play can be undone
-        function btnOne() {
-            let btnOneEl = document.querySelector("#btn-one")
-            btnOneEl.textContent += cPValue
-            // make turn state true to signify that turn has ended
-            cPState = true
+        // btn click event listeners
+        btnOneEl.addEventListener("click", function() {
+            buttonNum = 1
+            checkcPState()
+        })
+        btnTwoEl.addEventListener("click", function() {
+            buttonNum = 2
+            checkcPState()
+        })
+        btnThreeEl.addEventListener("click", function() {
+            buttonNum = 3
+            checkcPState()
+        })
+        btnFourEl.addEventListener("click", function() {
+            buttonNum = 4
+            checkcPState()
+        })
+        btnFiveEl.addEventListener("click", function() {
+            buttonNum = 5
+            checkcPState()
+        })
+        btnSixEl.addEventListener("click", function() {
+            buttonNum = 6
+            checkcPState()
+        })
+        btnSevenEl.addEventListener("click", function() {
+            buttonNum = 7
+            checkcPState()
+        })
+        btnEightEl.addEventListener("click", function() {
+            buttonNum = 8
+            checkcPState()
+        })
+        btnNineEl.addEventListener("click", function() {
+            buttonNum = 9
+            checkcPState()
+        })
+        // function that checks if a choice can be made in any point of the game and is used in button event listeners
+        function checkcPState() {
+            // log for functionality
+            console.log("Checking for choice eligibility...")
+            if (cPState === true && cPTurn !== 0) {
+                console.log("Ineligible! Choice has already been made.")
+            } else if (cPState === false && cPTurn !== 0) {
+                console.log("Eligible! Making choice...")
+                // make turn state true to signify that choice has been made
+                cPState = true
+                // check which button has been clicked then assign current player piece value accordingly
+                if (buttonNum === 1) {
+                    btnOneEl.textContent += cPValue
+                } else if (buttonNum === 2) {
+                    btnTwoEl.textContent += cPValue
+                } else if (buttonNum === 3) {
+                    btnThreeEl.textContent += cPValue
+                } else if (buttonNum === 4) {
+                    btnFourEl.textContent += cPValue
+                } else if (buttonNum === 5) {
+                    btnFiveEl.textContent += cPValue
+                } else if (buttonNum === 6) {
+                    btnSixEl.textContent += cPValue
+                } else if (buttonNum === 7) {
+                    btnSevenEl.textContent += cPValue
+                } else if (buttonNum === 8) {
+                    btnEightEl.textContent += cPValue
+                } else if (buttonNum === 9) {
+                    btnNineEl.textContent += cPValue
+                }
+            } else if (cPState === false && cPTurn === 0) {
+                // this condition is for preventing inputting a piece value when game setup progression has yet to finish the function gameplay()
+                console.log("Ineligible!")
+            }
         }
         // this second section is for ending his turn
         function endTurn() {
@@ -397,9 +494,11 @@
                 cPState = false
                 // log and display turn
                 console.log("Turn ended!")
-                document.querySelector("#gameplay-turn-display").textContent = "It is now Player " + cPTurn + "'s turn."
+                document.querySelector("#gameplay-turn-display").textContent = "It is now Player " + cPTurn + "'s turn using " + cPValue + "."
             }
         }
+
+        // GAME SECTION: game logic
 
     </script>
 </body>

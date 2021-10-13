@@ -642,10 +642,10 @@ const p = document.createElement("p") // this creates the element
 p.textContent = "Hello world!" // element's content
 greetingEl.append(p) // appends element's content in specified parent element (in this case, in this line's DOM's greetingEl)
 
-// SECTION: assignment operator
+// SECTION: multiple assignment operator
 
-let i = j = k = l = 9;
-console.log(i, j, k, l);
+let i = j = k = l = 9 * (h = 2);
+console.log(h, i, j, k, l);
 
 // SECTION: negation operator
 
