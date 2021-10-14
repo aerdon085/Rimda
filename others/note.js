@@ -642,27 +642,70 @@ const p = document.createElement("p") // this creates the element
 p.textContent = "Hello world!" // element's content
 greetingEl.append(p) // appends element's content in specified parent element (in this case, in this line's DOM's greetingEl)
 
+
 // SECTION: multiple assignment operator
+
 
 let i = j = k = l = 9 * (h = 2);
 console.log(h, i, j, k, l);
 
+
 // SECTION: negation operator
+
 
 let someNumber = 100;
 if (!(someNumber !== 100)) {
     console.log("It is equal!");
 }
 
+
 // SECTION: more negation operator
+
 
 let isHappy = true;
 isHappy = !isHappy;
 console.log(isHappy); // isHappy === false
 
+
 // SECTION: event listener for keyboard control
+
 
 document.addEventListener('keydown', sendKeyDown);
     function sendKeyDown(event) {
         alert(event.code);
     }
+
+
+// SECTION: ternary operator (new if else conditional)
+
+
+let isMember = false;
+(isMember === true) ? console.log("Discounted.") : console.log("Full price.");
+
+
+// SECTION: more ternary operator
+
+
+let waifu = 0;
+(waifu === 0)? (waifu += 1): (waifu += waifu);
+console.log(waifu);
+
+// so that var:waifu will not be typed over and again, a more concise version:
+
+waifu += (waifu === 0)? (1): (waifu);
+console.log(waifu);
+
+
+// SECTION: pre/post increment/decrement operator
+
+
+let h = 2, i = 2, j = 5, n, m;
+n = h++ * j; // post-increment operator
+console.log(n); // "10"
+m = ++i * j; // pre-increment operator
+console.log(m); // "15"
+
+// NOTE: prefix operator increments variable accordingly before any other operation, while postfix increments variable only after operation is finished
+
+
+// SECTION:

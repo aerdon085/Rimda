@@ -4,11 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Practice</title>
 </head>
 <body>
     <h1>Hello world!</h1>
 </body>
 <script src="../Libraries/three.js-master/build/three.js"></script>
-<script src="./practice.js"></script>
+<script>
+    // scene
+    var scene = new THREE.Scene();
+    var flat = {flatShading: true};
+    var light = new THREE.AmbientLight("white", 0.8);
+    scene.add(light);
+    // camera
+    var aspectRatio = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    camera.position.z = 500;
+    scene.add(camera);
+    // renderer
+    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // START HERE
+    // main body
+    var body = new THREE.SphereGeometry(150, 10, 10);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var avatar = new THREE.Mesh(body, cover);
+    scene.add(avatar);
+    // hands
+    var hand = new THREE.SphereGeometry(50, 5, 5);
+    var rightHand = new THREE.Mesh(hand, cover);
+    var leftHand = new THREE.Mesh (hand, cover);
+    rightHand.position.set(-200, 0, 0);
+    leftHand.position.set(200, 0, 0);
+    // feet
+    var feet = new THREE.SphereGeometry(50, 5, 5);
+    var rightFeet = new THREE.Mesh(feet, cover);
+    var leftFeet = new THREE.Mesh(feet, cover);
+    rightFeet.position.set(-90, -200, 0);
+    leftFeet.position.set(90, -200, 0);
+    // head
+    var headObject = new THREE.SphereGeometry(50, 5, 5);
+    var head = new THREE.Mesh(headObject, cover);
+    head.position.set(0, 200, 0);
+    avatar.add(rightHand, leftHand, rightFeet, leftFeet, head);
+
+    // what we see
+    function animate() {
+        requestAnimationFrame(animate);
+        avatar.rotation.x = avatar.rotation.x + 0.05;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+</script>
 </html>
