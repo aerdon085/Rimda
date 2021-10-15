@@ -28,18 +28,21 @@
     var aspectRatio = window.innerWidth / window.innerHeight;
     var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
     camera.position.z = 500;
-    scene.add(camera);
+    // scene.add(camera);
     // renderer
     var renderer = new THREE.WebGLRenderer({antialis: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
     // START
+    // avatar marker: it holds the position of the character so that when the character spins, the camera does not spin with it
+    var charMarker = new THREE.Object3D();
+    scene.add(charMarker);
     // avatar body
     var body = new THREE.SphereGeometry(100, 10, 10);
     var cover = new THREE.MeshNormalMaterial(flat);
     var avatar = new THREE.Mesh(body, cover);
-    scene.add(avatar);
+    charMarker.add(avatar);
     // head
     var headShape = new THREE.CylinderGeometry(50, 50, 50);
     var head = new THREE.Mesh(headShape, cover);
@@ -59,7 +62,7 @@
     avatar.add(rightHand, leftHand, rightFeet, leftFeet, head);
 
     // makes avatar turn back on screen
-    avatar.rotation.y = 600;
+    charMarker.add(camera);
 
     // trees
     function makeTreeAt(x, z) {
@@ -101,10 +104,10 @@
     document.addEventListener('keydown', sendKeyDown);
         function sendKeyDown(event) {
             var code = event.code;
-            if (code === "KeyA") avatar.position.x -= 15;
-            if (code === "KeyD") avatar.position.x += 15;
-            if (code === "KeyW") avatar.position.z -= 15;
-            if (code === "KeyS") avatar.position.z += 15;
+            if (code === "KeyA") charMarker.position.x -= 15;
+            if (code === "KeyD") charMarker.position.x += 15;
+            if (code === "KeyW") charMarker.position.z -= 15;
+            if (code === "KeyS") charMarker.position.z += 15;
             if (code === "KeyC") isRotating = !isRotating;
         }
 </script>
