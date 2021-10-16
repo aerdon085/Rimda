@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+    <title>Planets</title>
+</head>
+<body>
+    <!-- <h1>Hello world</h1> -->
+</body>
+<script src="../../../Libraries/three.js-master/build/three.js"></script>
+<script src="../../../Libraries/three.js-master/examples/js/controls/FlyControls.js"></script>
+<script>
+    // scene
+    var scene = new THREE.Scene();
+    var flat = {flatShading: true};
+    var light = new THREE.AmbientLight("white", 0.8);
+    scene.add(light);
+    // camera
+    var aspectRatio = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    camera.position.z = 500;
+    scene.add(camera);
+    // renderer
+    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // START
+    // first planet
+    var shape = new THREE.SphereGeometry(50);
+    var cover = new THREE.MeshBasicMaterial({color: "blue"});
+    var planet = new THREE.Mesh(shape, cover);
+    planet.position.set(-300, 0, 0);
+    scene.add(planet);
+
+    // second planet
+    var shape = new THREE.SphereGeometry(50);
+    var cover = new THREE.MeshBasicMaterial({color: "yellow"});
+    var planet = new THREE.Mesh(shape, cover);
+    planet.position.set(200, 0, 250);
+    scene.add(planet);
+
+    // planet maker XD
+    function makePlanet() {
+        var size = r(50);
+        var x = r(1000) - 500;
+        var y = r(1000) - 500;
+        var z = r(1000) - 1000;
+        var surface = rColor();
+
+        var shape = new THREE.SphereGeometry(size);
+        var cover = new THREE.MeshBasicMaterial({color: surface});
+        var planet = new THREE.Mesh(shape, cover);
+        planet.position.set(x, y, z);
+        scene.add(planet);
+    }
+
+    // loop
+    for (var i = 0; i < 100; i++) {
+        makePlanet();
+    }
+
+    // for randomizer
+    function r(max) {
+        if (max) return max * Math.random();
+        return Math.random();
+    }
+
+    // color maker using randomizer r()
+    function rColor() {
+        return new THREE.Color(r(), r(), r());
+    }
+
+    // controls
+    var controls = new THREE.FlyControls(camera);
+    controls.movementSpeed = 100;
+    controls.rollSpeed = 0.5;
+    controls.dragToLook = true;
+    controls.autoForward = false;
+    
+    var clock = new THREE.Clock();
+    function animate() {
+        var delta = clock.getDelta();
+        controls.update(delta);
+        
+        // what camera sees
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+</script>
+</html>

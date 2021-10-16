@@ -676,7 +676,22 @@ document.addEventListener('keydown', sendKeyDown);
     }
 
 
-// SECTION: ternary operator (new if else conditional)
+// SECTION: new if conditional (if only true or false/have value or not)
+
+
+let hasNum = 9; // as long as has value === true
+if (hasNum) {
+    console.log("hasNum has value");
+}
+if (hasNum) console.log("hasNum has value"); // this is shorter version of if (as long as no need for else if)
+hasNum = 0; // if no value or equal to zero is === false
+if (hasNum) {
+    console.log("hasNum has value");
+}
+if (hasNum) console.log("hasNum has value");
+
+
+// SECTION: ternary operator (new if...else conditional)
 
 
 let isMember = false;
