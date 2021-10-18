@@ -723,4 +723,36 @@ console.log(m); // "15"
 // NOTE: prefix operator increments variable accordingly before any other operation, while postfix increments variable only after operation is finished
 
 
+// SECTION: switch statement
+
+
+console.log("Hello world!");
+let caseChoice = 2;
+switch (caseChoice) {
+    case (1): console.log(caseChoice);
+    break;
+    case (2): console.log(caseChoice);
+    break;
+    case (3): console.log(caseChoice);
+}
+
+
+// SECTION: template strings/template literals using backticks (``)
+
+
+let myLeads = []
+let listItems = ""
+for (let i = 0; i < myLeads.length; i++) {
+    // instead of using this, which is hard to interpret as HTML:
+    listItems += "<li><a href='" + myLeads[i] + "' target='_blank'>" + myLeads[i] + "</a></li>"
+    // we use this:
+    listItems += /*backtick ->*/ `
+        <li>
+            <a href="${myLeads[i]}" target="_blank">${myLeads[i]}</a>
+        </li>
+        ` /*<- backtick*/
+}
+ulEl.innerHTML = listItems
+
+
 // SECTION:
