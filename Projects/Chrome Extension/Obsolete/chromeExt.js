@@ -1,3 +1,5 @@
+// NOTE: This .js script is obsolete! Compare it with script located in chromeExt.html.
+
 let myLeads = []
 const inputEl = document.querySelector("#input-el")
 const inputBtn = document.querySelector("#input-btn")
@@ -5,7 +7,7 @@ const listEl = document.querySelector("#list-el")
 const ulEl = document.querySelector("#ul-el")
 
 // event listener for pushing textarea value to myLeads
-inputBtn.addEventListener("click", function () {
+inputBtn.addEventListener("click", function() {
     // log out functionality
     console.log("Saving input...")
 
@@ -16,18 +18,20 @@ inputBtn.addEventListener("click", function () {
         // push to array
         myLeads.push(inputEl.value)
 
+        // TEMPORARY: delete current ulEl list in order to prevent accumulation and repetition of past input
+        ulEl.textContent = ""
+
         // list current array items
         console.log("Input saved! Current items:" + myLeads)
-        let listItems = ""
         for (let i = 0; i < myLeads.length; i++) {
-            listItems += `
-                <li>
-                    <a href="${myLeads[i]}" target="_blank">
-                        ${myLeads[i]}
-                    </a>
-                </li>`
+            /* first version:
+            console.log(myLeads[i])
+            ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
+            */
+            const li = document.createElement("li")
+            li.textContent = myLeads[i]
+            ulEl.append(li)
         }
-        ulEl.innerHTML = listItems
 
         // remove current input entry
         inputEl.value = ""

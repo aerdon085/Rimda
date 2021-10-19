@@ -755,4 +755,14 @@ for (let i = 0; i < myLeads.length; i++) {
 ulEl.innerHTML = listItems
 
 
-// SECTION:
+// SECTION: storing data on localStorage
+/* related functions are as follows:
+localStorage.setItem(key, value)
+localStorage.getItem(key)
+localStorage.clear()
+*/
+
+
+localStorage("someStuff", "This is the stuff");
+console.log(localStorage.getItem("someStuff"));
+localStorage.clear();
