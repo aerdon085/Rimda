@@ -1,0 +1,9 @@
+{
+    "manifest_version": 3,
+    "version": "1.1",
+    "name": "Leads Tracker",
+    "action": {
+        "default_popup": "chromeExt.html",
+        "default_icon": "./81802832_2556869651193212_82644477067227 (1).jpg"
+    }
+}
