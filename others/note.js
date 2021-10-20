@@ -763,6 +763,37 @@ localStorage.clear()
 */
 
 
-localStorage("someStuff", "This is the stuff");
+localStorage.setItem("someStuff", "This is the stuff");
 console.log(localStorage.getItem("someStuff"));
 localStorage.clear();
+
+
+// SECTION: JSON.parse() and JSON.stringify()
+// converting data type using JSON. because data can only be stored to localStorage as strings
+
+
+let myName = `["Adrian"]` // if array is string use JSON.parse to remove it as string
+console.log("Data type is: " + typeof myName); // confirm data type first === string
+myName = JSON.parse(myName); // converts string to array
+console.log("Data type is: " + typeof myName); // confirm data type === array
+myName.push("Adrian"); // then push new data
+console.log("Array content: " + myName); // confirm data content
+myName = JSON.stringify(myName); // convert to string again so that it may be stored to localStorage through .setItem
+console.log("Data type is: " + typeof myName); // confirm data type again
+console.log(myName); // log array string (not string array)
+
+
+// SECTION: truthy and falsy; Boolean()
+// falsy === any variable that has no value (false, 0, "", null, undefined, NaN)
+// truthy === any variable that has value
+
+
+console.log(Boolean("")) // false
+console.log(Boolean("0")) // true
+console.log(Boolean(100)) // true
+console.log(Boolean(null)) // false
+console.log(Boolean([0])) // true
+console.log(Boolean(-0)) // false
+
+
+// SECTION:
