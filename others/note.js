@@ -796,4 +796,13 @@ console.log(Boolean([0])) // true
 console.log(Boolean(-0)) // false
 
 
+// SECTION: parameters vs arguments
+
+
+function add(num1, num2) /*These are parameters*/ {
+    return num1 + num2;
+}
+add(1, 2); // These are arguments
+
+
 // SECTION:

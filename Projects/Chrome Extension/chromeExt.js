@@ -1,32 +1,27 @@
-let myLeads = []
+let myLeads = [];
 let localLeads; // variable reserved for array from stored localStorage key called "myLeads" (as string data type) whihc already has a square bracket [] and would turn var:localLeads into array immediately after assignment
+const inputEl = document.querySelector("#input-el");
+const inputBtn = document.querySelector("#input-btn");
+const deleteBtn = document.querySelector("#delete-btn");
+const tabBtn = document.querySelector("#tab-btn");
+// const listEl = document.querySelector("#list-el");
+const ulEl = document.querySelector("#ul-el");
 
-const inputEl = document.querySelector("#input-el")
-const inputBtn = document.querySelector("#input-btn")
-// const listEl = document.querySelector("#list-el")
-const ulEl = document.querySelector("#ul-el")
-
-// check if myLeads is empty then check if there were previous entries saved in localStorage key "myLeads," then parse as it should have been stringified including square brackets []
-// "if myLeads does not contain any strings, then check if localLeads has any data to push to it which is a local data storage that stored previous myLeads entry"
-if (myLeads.includes("") === false) {
-    // notify recognition of empty myLeads array data and attempt to retrieve data from localStorage key "myLeads" if any
-    console.log("Retrieving data...");
-
-    // NOTE: from this point on, the parent if conditional seems unnecessary
-    // assign var:localLeads to stringified localStorage key "myLeads" data and then parse
-    localLeads = JSON.parse(localStorage.getItem("myLeads"));
-    // conditional if localLeads' value becomes null after assignment parse
-    if (localLeads !== null) {
-        // loop for putting localLeads data to myLeads to avoid data conflict
-        for (let i = 0; i < localLeads.length; i++) {
-        // push found localLeads data to myLeads
-        myLeads.push(localLeads[i]);
-        // display
-        listDisplay();
-        }
-    } else {
-        console.log("No data to retrieve.")
+// notify attempt to retrieve data from localStorage key "myLeads" if any
+console.log("Retrieving data...");
+// assign var:localLeads to stringified localStorage key "myLeads" data and then parse
+localLeads = JSON.parse(localStorage.getItem("myLeads"));
+// conditional if localLeads' value becomes null after assignment parse
+if (localLeads !== null) {
+    // loop for putting localLeads data to myLeads to avoid data conflict
+    for (let i = 0; i < localLeads.length; i++) {
+    // push found localLeads data to myLeads
+    myLeads.push(localLeads[i]);
+    // display
+    listDisplay(myLeads);
     }
+} else {
+    console.log("No data to retrieve.");
 }
 
 // event listener for pushing textarea value to myLeads
@@ -47,22 +42,45 @@ inputBtn.addEventListener("click", function () {
         // remove current input entry
         inputEl.value = ""
         // display
-        listDisplay();
+        listDisplay(myLeads);
     }
 })
 
 // function for listing to display
-function listDisplay() {
+function listDisplay(leads) {
     // variable and loop for displaying array items
     let listItems = "" // is made empty
-    for (let i = 0; i < myLeads.length; i++) {
+    for (let i = 0; i < leads.length; i++) {
         listItems += `
             <li>
-                <a href="${myLeads[i]}" target="_blank">
-                    ${myLeads[i]}
+                <a href="${leads[i]}" target="_blank">
+                    ${leads[i]}
                 </a>
             </li>`
     }
     // display
     ulEl.innerHTML = listItems
 }
+
+// function for clearing everything
+deleteBtn.addEventListener("dblclick", function() {
+    // log functionality
+    console.log("Clearing data...")
+    // clear localStorage
+    localStorage.clear();
+    // clear myLeads
+    myLeads = [];
+    // clear ulEl
+    // ulEl.innerHTML = "";
+    listDisplay(myLeads);
+});
+
+// YOU STOPPED HERE 102121
+
+const tabs = [
+    {url: "https://no.linkedin.com/in/per-harald-borgen"}
+]
+
+tabBtn.addEventListener("click", function() {
+    console.log(tabs[0].url);
+});

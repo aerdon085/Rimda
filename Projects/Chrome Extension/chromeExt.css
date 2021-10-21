@@ -10,34 +10,49 @@ body {
 }
 
 #input-el,
-#input-btn {
-  display: block;
-  margin: 8px;
+#input-btn,
+#delete-btn,
+#tab-btn {
+  margin: 4px;
   height: 30px;
   width: 120px;
 }
 
 #input-el {
+  display: block;
   width: calc(100% - 16px);
   border: 2px solid #5f9341;
   border-radius: 2px;
   padding-left: 4px;
 }
 
-#input-btn {
+#input-btn,
+#tab-btn {
   background-color: #5f9341;
   color: white;
-  border: none;
+  border: 2px solid #5f9341;
   border-radius: 2px;
 }
-
-#input-btn:hover {
+#input-btn:hover,
+#tab-btn:hover {
   background-color: #427c20;
+  border-color: #427c20;
+}
+
+#delete-btn {
+  background-color: white;
+  color: #5f9341;
+  border: 2px solid #5f9341;
+  border-radius: 2px;
+}
+#delete-btn:hover {
+  color: #427c20;
+  border-color: #427c20;
 }
 
 #ul-el li {
   list-style: none;
-  margin: 10px 0 10px 8px;
+  margin: 10px 0 10px 4px;
 }
 
 #ul-el li a {
