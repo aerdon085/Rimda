@@ -24,27 +24,63 @@ if (localLeads !== null) {
     console.log("No data to retrieve.");
 }
 
+// BUTTONS
 // event listener for pushing textarea value to myLeads
 inputBtn.addEventListener("click", function () {
     // log out functionality
-    console.log("Saving input...")
+    console.log("Saving input...");
     
     // conditional to prevent empty input entry
     if (inputEl.value === "") {
         console.log("No input found!")
     } else {
         // push data input to array myLeads
-        myLeads.push(inputEl.value)
-        // store new myLeads array to localStorage key "myLeads"
-        localStorage.setItem("myLeads", JSON.stringify(myLeads)); // NOTE: data assigned to the same key will always be overwritten
-        // log to confirm content of localStorage
-        console.log("Input saved! Current list of items: " + localStorage.getItem("myLeads"));
+        myLeads.push(inputEl.value);
+        // save locally
+        saveLocal(myLeads);
         // remove current input entry
-        inputEl.value = ""
+        inputEl.value = "";
         // display
         listDisplay(myLeads);
     }
 })
+
+// event listener function for deleting/clearing everything
+deleteBtn.addEventListener("dblclick", function() {
+    // log functionality
+    console.log("Clearing data...")
+    // clear localStorage
+    localStorage.clear();
+    // clear myLeads
+    myLeads = [];
+    // clear ulEl
+    // ulEl.innerHTML = "";
+    listDisplay(myLeads);
+    // log completion
+});
+
+// event listener function for save tab
+tabBtn.addEventListener("click", function() {
+    // get link of current tab
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        console.log(tabs);
+        // push link object to myLeads
+        myLeads.push(tabs[0].url);
+        // store to localStorage
+        saveLocal(myLeads);
+        // display
+        listDisplay(myLeads);
+    });
+});
+
+// PROCESSES/FUNCTIONS
+// function for saving to localStorage
+function saveLocal(leads) {
+    // store new myLeads array to localStorage key "myLeads"
+    localStorage.setItem("myLeads", JSON.stringify(leads)); // NOTE: data assigned to the same key will always be overwritten
+    // log to confirm content of localStorage
+    console.log("Input saved! Current list of items: " + localStorage.getItem("myLeads"));
+}
 
 // function for listing to display
 function listDisplay(leads) {
@@ -59,28 +95,5 @@ function listDisplay(leads) {
             </li>`
     }
     // display
-    ulEl.innerHTML = listItems
+    ulEl.innerHTML = listItems;
 }
-
-// function for clearing everything
-deleteBtn.addEventListener("dblclick", function() {
-    // log functionality
-    console.log("Clearing data...")
-    // clear localStorage
-    localStorage.clear();
-    // clear myLeads
-    myLeads = [];
-    // clear ulEl
-    // ulEl.innerHTML = "";
-    listDisplay(myLeads);
-});
-
-// YOU STOPPED HERE 102121
-
-const tabs = [
-    {url: "https://no.linkedin.com/in/per-harald-borgen"}
-]
-
-tabBtn.addEventListener("click", function() {
-    console.log(tabs[0].url);
-});

@@ -186,6 +186,7 @@ console.log(welcomeEl.innerText) // === Hello, Adrian :)
 
 // SECTION: Recap (of all sections above)
 
+
 // script tag
 // variables
 // numbers
@@ -803,6 +804,20 @@ function add(num1, num2) /*These are parameters*/ {
     return num1 + num2;
 }
 add(1, 2); // These are arguments
+
+
+// SECTION: RECAP
+
+
+// const
+// addEventListener()
+// innerHTML
+// input.value
+// function parameters and arguments
+// template strings
+// localStorage
+// JSON object
+// objects in arrays
 
 
 // SECTION:
