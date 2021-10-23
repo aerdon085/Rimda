@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Generator</title>
+</head>
+<body>
+    <script>
+        let i, copula;
+        function genSen(desc, arr) {
+            // clear arrayMess data
+            let arrayMess = ""
+            for (i = 0; i < arr.length; i++) {
+                if ((i + 1) <= (arr.length - 2)) {
+                    arrayMess += arr[i] + ", ";
+                } else if ((i + 1) === (arr.length - 1)) {
+                    arrayMess += arr[i] + " and ";
+                } else if ((i + 1) === (arr.length)) {
+                    arrayMess += arr[i] + ".";
+                } else {
+                    console.log("No more!");
+                }
+            }
+            copula = (arr.length === 1) ? "is" : "are";
+            return console.log(`The ${i} ${desc} ${copula} ${arrayMess}`);
+        }
+        // genSen(any_description, array)
+    </script>
+</body>
+</html>
