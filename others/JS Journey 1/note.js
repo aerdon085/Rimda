@@ -820,4 +820,7 @@ add(1, 2); // These are arguments
 // objects in arrays
 
 
-// SECTION:
+// SECTION: Math.PI
+
+
+console.log(Math.PI * 2); // 2 radians (2*Math.PI) is equal to 360 degrees
