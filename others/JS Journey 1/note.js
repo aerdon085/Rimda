@@ -824,3 +824,42 @@ add(1, 2); // These are arguments
 
 
 console.log(Math.PI * 2); // 2 radians (2*Math.PI) is equal to 360 degrees
+
+
+// SECTION: Date()
+
+
+let date = new Date();
+if (date.getFullYear() === (date.getYear() + 1900)) console.log("It is equal!");
+
+
+// SECTION: let vs var
+
+
+function run() {
+    {
+        var cow = "Moo"; // function scope
+        let dog = "Bark"; // block scope
+    }
+    console.log(cow); // Moo
+    console.log(dog); // Error
+}
+
+
+// SECTION: arrays containing objects and objects containing arrays
+
+
+let some = [
+        {
+            number: [10, 11, 12],
+            number1: [20, 21]
+        },
+        {
+            alpha: ['A', 'B']
+        }
+    ]
+    console.log(some[0]["number1"][1]); // 21
+    console.log(some[0].number[1]); // 11
+
+
+// SECTION:
