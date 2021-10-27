@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body><h1>Hello world</h1></body>
+<script src="../../../Libraries/three.js-master/build/three.js"></script>
+<script>
+    // scene
+    var scene = new THREE.Scene();
+    var flat = {flatShading: true};
+    var light = new THREE.AmbientLight("white", 0.8);
+    scene.add(light);
+    // camera
+    var aspectRatio = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    // camera.position.z = 500;
+    // renderer
+    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // content
+    // avatar marker
+    var charMarker = new THREE.Object3D();
+    scene.add(charMarker);
+    // body
+    var bodyShape = new THREE.SphereGeometry(100, 15, 15);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var avatar = new THREE.Mesh(bodyShape, cover);
+    charMarker.add(avatar);
+    // head
+    var headShape = new THREE.CylinderGeometry(40, 30, 50);
+    var head = new THREE.Mesh(headShape, cover);
+    head.position.set(0, 120, 0);
+    // hand
+    var handShape = new THREE.SphereGeometry(40, 10, 10);
+    var rightHand = new THREE.Mesh(handShape, cover);
+    var leftHand = new THREE.Mesh(handShape, cover);
+    rightHand.position.set(140, 0, 0);
+    leftHand.position.set(-140, 0, 0);
+    // feet
+    var feetShape = new THREE.BoxGeometry(60, 40, 60);
+    var rightFoot = new THREE.Mesh(feetShape, cover);
+    var leftFoot = new THREE.Mesh(feetShape, cover);
+    rightFoot.position.set(45, -150, -10);
+    leftFoot.position.set(-45, -150, -10);
+    avatar.add(head, rightHand, leftHand, rightFoot, leftFoot);
+
+    // character camera
+    camera.position.z = 500;
+    charMarker.add(camera);
+
+    // environment
+    // trees
+    function makeTreeAt(x, z) {
+        var trunk = new THREE.Mesh(
+            new THREE.CylinderGeometry(50, 50, 200),
+            new THREE.MeshBasicMaterial({color: "sienna"})
+        );
+        var leaves = new THREE.Mesh(
+            new THREE.SphereGeometry(150),
+            new THREE.MeshBasicMaterial({color: "forestgreen"})
+        );
+        leaves.position.y = 175;
+        trunk.add(leaves);
+        trunk.position.set(x, -75, z);
+        scene.add(trunk);
+    }
+    // render trees here using makeTreeAt()
+    makeTreeAt(-500, -1000);
+    makeTreeAt(500, -1000);
+    makeTreeAt(-500, 1000);
+    makeTreeAt(500, 1000);
+
+    // movement/animations
+    var clock = new THREE.Clock;
+    var isRotating = false;
+    var isMovingForward = false;
+    var isMovingBack = false;
+    var isMovingRight = false;
+    var isMovingLeft = false;
+    var direction = 0; // turns avatar in relation to lastDirction
+    var lastDirection;
+
+    function specialSkill() {
+        if (isRotating === true) {
+            avatar.rotation.x += 0.35;
+            avatar.rotation.z += 0.035;
+        }
+    }
+    function walk() {
+        if (!isWalking()) return;
+
+        var speed = 10;
+        var size = 100;
+        var time = clock.getElapsedTime();
+        var position = Math.sin(speed * time) * size;
+        rightHand.position.z = position
+        leftHand.position.z = -position
+        rightFoot.position.z = -position
+        leftFoot.position.z = position
+    }
+    function isWalking() {
+        if (isMovingForward) return true;
+        if (isMovingBack) return true;
+        if (isMovingRight) return true;
+        if (isMovingLeft) return true;
+        return false;
+    }
+    function turn() {
+        if (isMovingRight) direction = -Math.PI/2;
+        if (isMovingLeft) direction = Math.PI/2;
+        if (isMovingForward) direction = 0; // character by default is looking inward the screen, where his front is
+        if (isMovingBack) direction = Math.PI;
+        // if you want the character to face forward when not moving, make it 0
+        if (!isWalking()) direction = direction;
+
+        avatar.rotation.y = direction;
+    }
+
+    // main animator function
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // animation sets
+        turn();
+        walk();
+        specialSkill();
+
+        // render
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // character controls
+    document.addEventListener("keydown", sendKeyDown);
+    function sendKeyDown(event) {
+        var code = event.code;
+        if (code === "KeyW") {
+            charMarker.position.z -= 20;
+            isMovingForward = true;
+        };
+        if (code === "KeyA") {
+            charMarker.position.x -= 20;
+            isMovingLeft = true;
+        };
+        if (code === "KeyS") {
+            charMarker.position.z += 20;
+            isMovingBack = true;
+        };
+        if (code === "KeyD") {
+            charMarker.position.x += 20;
+            isMovingRight = true;
+        };
+        if (code === "KeyC") isRotating = !isRotating;
+    }
+    document.addEventListener("keyup", sendKeyUp);
+    function sendKeyUp(event) {
+        var code = event.code;
+        if (code === "KeyW") isMovingForward = false;
+        if (code === "KeyA") isMovingLeft = false;
+        if (code === "KeyS") isMovingBack = false;
+        if (code === "KeyD") isMovingRight = false;
+    }
+</script>
+</html>

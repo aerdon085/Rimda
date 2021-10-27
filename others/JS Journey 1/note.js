@@ -862,4 +862,15 @@ let some = [
     console.log(some[0].number[1]); // 11
 
 
-// SECTION:
+// SECTION: for loop with objects
+
+
+let entity = {
+    name: "Adrian", // key === name
+    age: 19, // key === age
+    student: true, // key === student
+    hobbies: ["drawing", "programming"] // key === hobbies
+}
+for (let key in entity) {
+    console.log(key + ": " + entity[key]);
+}
