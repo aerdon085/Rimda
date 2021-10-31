@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+    <title>Avatar 6: Fruit Hunt</title>
+</head>
+<body>
+    <h1>Hello world!</h1>
+</body>
+<script src="../../../Libraries/three.js-master/build/three.js"></script>
+<script src="../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
+<script>
+    // JAVASCRIPT/JS
+    // scene
+    const scene = new THREE.Scene();
+    const flat = {flatShading: true};
+    const light = new THREE.AmbientLight("white", 0.8);
+    scene.add(light);
+    // camera
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 10, 10000);
+    camera.position.z = 500;
+    // renderer
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // main content
+    // avatar marker
+    var avaMarker = new THREE.Object3D();
+    scene.add(avaMarker);
+    // avatar
+    // avatar body
+    var bodyShape = new THREE.SphereGeometry(100, 10, 10);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var avatar = new THREE.Mesh(bodyShape, cover);
+    avaMarker.add(avatar);
+    // avatar head
+    var limbShape = new THREE.SphereGeometry(50, 7, 7);
+    var head = new THREE.Mesh(limbShape, cover);
+    head.position.set(0, 100, 0);
+    // avatar hands
+    var rightHand = new THREE.Mesh(limbShape, cover);
+    var leftHand = new THREE.Mesh(limbShape, cover);
+    rightHand.position.set(125, 0, 0);
+    leftHand.position.set(-125, 0, 0);
+    // avatar feet
+    var rightFeet = new THREE.Mesh(limbShape, cover);
+    var leftFeet = new THREE.Mesh(limbShape, cover);
+    rightFeet.position.set(60, -150, 0);
+    leftFeet.position.set(-60, -150, 0);
+    avatar.add(head, rightHand, leftHand, rightFeet, leftFeet);
+
+    // character camera
+    avaMarker.add(camera);
+
+    // array for object collision
+    var notAllowed = [];
+
+    // environment
+    function makeTreeAt(x, z) {
+        var trunk = new THREE.Mesh(
+            new THREE.CylinderGeometry(100, 100, 400),
+            new THREE.MeshBasicMaterial({color: "sienna"})
+        );
+        var leaves = new THREE.Mesh(
+            new THREE.SphereGeometry(300),
+            new THREE.MeshBasicMaterial({color: "forestgreen"})
+        );
+        leaves.position.y = 350;
+        trunk.add(leaves);
+
+        var boundary = new THREE.Mesh(
+            new THREE.CircleGeometry(250),
+            new THREE.MeshBasicMaterial({color: "darkgreen"})
+        )
+        boundary.position.y = -200;
+        boundary.rotation.x = -Math.PI/2;
+        trunk.add(boundary);
+        notAllowed.push(boundary);
+
+        trunk.position.set(x, 0, z);
+        scene.add(trunk);
+    }
+    makeTreeAt(500, -1000);
+    makeTreeAt(-500, -1000);
+    makeTreeAt(500, 1000);
+    makeTreeAt(-500, 1000);
+
+    // movement/animation
+    var clock = new THREE.Clock();
+    var isMovingForward = false;
+    var isMovingBack = false;
+    var isMovingRight = false;
+    var isMovingLeft = false;
+    var direction = 0;
+    var lastDirection;
+
+    function turn() {
+        if (isMovingForward) direction = 0;
+        if (isMovingBack) direction = Math.PI;
+        if (isMovingRight) direction = -Math.PI/2;
+        if (isMovingLeft) direction = Math.PI/2;
+        if (!isWalking()) direction = direction;
+        
+        if (direction === lastDirection) return;
+        lastDirection = direction;
+        
+        var tween = new TWEEN.Tween(avatar.rotation);
+        tween.to({y: direction}, 150);
+        tween.start();
+    }
+    function walk() {
+        var speed = 10;
+        var size = 100;
+        var time = clock.getElapsedTime();
+        var position = Math.sin(speed * time) * size;
+
+        if (!isWalking()) {
+            var tween = new TWEEN.Tween(rightHand.position);
+            tween.to({z: 0}, 150);
+            tween.start();
+            var tween = new TWEEN.Tween(leftHand.position);
+            tween.to({z: 0}, 150);
+            tween.start();
+            var tween = new TWEEN.Tween(rightFeet.position);
+            tween.to({z: 0}, 150);
+            tween.start();
+            var tween = new TWEEN.Tween(leftFeet.position);
+            tween.to({z: 0}, 150);
+            tween.start();
+            return;
+        }
+        
+        rightHand.position.z = position;
+        leftHand.position.z = -position;
+        rightFeet.position.z = -position;
+        leftFeet.position.z = position;
+    }
+    function isWalking() {
+        if (isMovingForward) return true;
+        if (isMovingBack) return true;
+        if (isMovingRight) return true;
+        if (isMovingLeft) return true;
+    }
+    function isColliding() {
+        var vector = new THREE.Vector3(0, -1, 0);
+        var raycaster = new THREE.Raycaster(avaMarker.position, vector);
+        var intersects = raycaster.intersectObjects(notAllowed);
+        if (intersects.length > 0) return true;
+        return false;
+    }
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        // movement/animation sets
+        TWEEN.update();
+        turn();
+        walk();
+        
+        // render
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // character controls
+    document.addEventListener("keydown", function(event) {
+        var code = event.code;
+        if (code === "KeyW") {
+            avaMarker.position.z -= 20;
+            isMovingForward = true;
+        }
+        if (code === "KeyA") {
+            avaMarker.position.x -= 20;
+            isMovingLeft = true;
+        }
+        if (code === "KeyS") {
+            avaMarker.position.z += 20;
+            isMovingBack = true;
+        }
+        if (code === "KeyD") {
+            avaMarker.position.x += 20;
+            isMovingRight = true;
+        }
+
+        if (isColliding()) {
+            // added feature: if isColliding() === true, stop walking animation
+            if (isMovingForward) {
+                avaMarker.position.z += 20;
+                isMovingForward = false;
+            }
+            if (isMovingBack) {
+                avaMarker.position.z -= 20;
+                isMovingBack = false;
+            }
+            if (isMovingRight) {
+                avaMarker.position.x -= 20;
+                isMovingRight = false;
+            }
+            if (isMovingLeft) {
+                avaMarker.position.x += 20;
+                isMovingLeft = false;
+            }
+        }
+    });
+    document.addEventListener("keyup", function(event) {
+        var code = event.code;
+        if (code === "KeyW") isMovingForward = false;
+        if (code === "KeyA") isMovingLeft = false;
+        if (code === "KeyS") isMovingBack = false;
+        if (code === "KeyD") isMovingRight = false;
+    });
+</script>
+</html>
