@@ -1,0 +1,13 @@
+All sounds taken from freesound, attribution licensed.
+
+bubble.mp3: CGEffex // 89534__cgeffex__very-fast-bubble-pop1.mp3
+buzz.mp3: Sikoses // 82756__sikoses__stm1-upbass-5.mp3
+click.mp3: orginaljun.deviantart.com // 157871__orginaljun__arcade-button-1-click-sound.mp3
+donk.mp3: orginaljun.deviantart.com // 153063__orginaljun__1-bell-sound.mp3
+drip.mp3: orginaljun.deviantart.com // 151840__orginaljun__pie-poi-water-dripping-sound.mp3
+guitar.mp3: johnnypanic // 158650__johnnypanic__quickpowerchord2.mp3
+knock.mp3: blimp66 // 88658__blimp66__knock.mp3
+scratch.mp3: orginaljun.deviantart.com // 152844__orginaljun__1-rub-scratch-sound.mp3
+snick.mp3: orginaljun.deviantart.com // 151482__orginaljun__weechuuu-high-pitch-sound-version-02.mp3
+spring.mp3: orginaljun.deviantart.com // 153490__orginaljun__rusty-spring.mp3
+swish.mp3: orginaljun.deviantart.com // 153489__orginaljun__friction-moving-object.mp3
