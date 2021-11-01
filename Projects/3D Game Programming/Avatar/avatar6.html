@@ -18,6 +18,8 @@
 </body>
 <script src="../../../Libraries/three.js-master/build/three.js"></script>
 <script src="../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
+<script src="../../../Libraries/scoreboard.js-master/Scoreboard.js"></script>
+<script src="../../../Libraries/Sounds.js-master/Sounds.js"></script>
 <script>
     // JAVASCRIPT/JS
     // scene
@@ -34,7 +36,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // main content
+    // SECTION: avatar
     // avatar marker
     var avaMarker = new THREE.Object3D();
     scene.add(avaMarker);
@@ -63,10 +65,24 @@
     // character camera
     avaMarker.add(camera);
 
+    // SECTION: scoreboard
+    var scoreboard = new Scoreboard();
+    scoreboard.countdown(45);
+    scoreboard.score();
+    scoreboard.help(
+        "WASD keys to move." + "SPACE key to jump for fruit." + "Watch for shaking trees with fruit." + "Get near the tree and jump before the fruit is gone!"
+    );
+
+    scoreboard.onTimeExpired(timeExpired);
+    function timeExpired() {
+        scoreboard.message("Game over!");
+    }
+
     // array for object collision
     var notAllowed = [];
+    var treeTops = [];
 
-    // environment
+    // SECTION: environment
     function makeTreeAt(x, z) {
         var trunk = new THREE.Mesh(
             new THREE.CylinderGeometry(100, 100, 400),
@@ -87,6 +103,8 @@
         boundary.rotation.x = -Math.PI/2;
         trunk.add(boundary);
         notAllowed.push(boundary);
+        // push leaves location to array treeTops
+        treeTops.push(leaves);
 
         trunk.position.set(x, 0, z);
         scene.add(trunk);
@@ -96,7 +114,38 @@
     makeTreeAt(500, 1000);
     makeTreeAt(-500, 1000);
 
-    // movement/animation
+    // updates tree to have fruit
+    var treasureTreeNum;
+    function updateTreasureTreeNum() {
+        // randomizes which one tree out of x number in the array will have the one fruit
+        var rand = Math.random() * treeTops.length;
+        treasureTreeNum = Math.floor(rand);
+    }
+    // shakes tree to indicate tree as container of fruit when updated
+    function shakeLeaves() {
+        updateTreasureTreeNum();
+
+        // animation for shaking
+        // from initial position
+        var tween = new TWEEN.Tween({shake: 0});
+        // shaking points
+        tween.to({shake: 20 * 2 * Math.PI}, 8*1000);
+        tween.onUpdate(shakeLeavesUpdate);
+        tween.onComplete(shakeLeavesComplete);
+        tween.start();
+    }
+    function shakeLeavesUpdate(update) {
+        var top = treeTops[treasureTreeNum];
+        top.position.x = 50 * Math.sin(update.shake);
+    }
+    function shakeLeavesComplete() {
+        var top = treeTops[treasureTreeNum];
+        top.position.x = 0;
+        setTimeout(shakeLeaves, 2*1000);
+    }
+    shakeLeaves();
+
+    // SECTION: movement/animation
     var clock = new THREE.Clock();
     var isMovingForward = false;
     var isMovingBack = false;
@@ -173,7 +222,7 @@
     }
     animate();
 
-    // character controls
+    // SECTION: character controls
     document.addEventListener("keydown", function(event) {
         var code = event.code;
         if (code === "KeyW") {
