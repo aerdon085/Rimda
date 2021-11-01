@@ -4,3 +4,8 @@ This folder contains game projects as guided by freeCodeCamp.org.
 https://www.youtube.com/watch?v=lhNdUVh3qCc&list=WL&index=16&t=115s
 2|Whack-a-mole
 https://www.youtube.com/watch?v=lhNdUVh3qCc&list=WL&index=16&t=699s
+3|Connect Four
+4|Nokia 3310 Snake
+5|Space Invaders
+6|Frogger
+7|Tetris
