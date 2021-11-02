@@ -1,0 +1,24 @@
+Programming Projects
+- Website version/app version of vice versa
+- Algorithm projects (ideally for real-world projects)
+- algorithm visualizer
+- micro-controllers
+- snakes game
+- machine learning/artificial intelligence
+- web scraper
+- atari games
+- API (ideally with SQL database)
+- web servers
+- emulators
+- start your own adventure game
+- password generator
+- sudoku solver
+- project scheduler
+- chess game
+- game engine
+- physics engine
+- interpreter
+
+JS topics/goals:
+- callbacks, promises, async/await
+- node.js, express.js, react and react native

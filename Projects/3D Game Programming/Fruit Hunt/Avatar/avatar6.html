@@ -19,9 +19,11 @@
 <script src="../../../Libraries/three.js-master/build/three.js"></script>
 <script src="../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
 <script src="../../../Libraries/scoreboard.js-master/Scoreboard.js"></script>
-<script src="../../../Libraries/Sounds.js-master/Sounds.js"></script>
+<!-- <script src="../../../Libraries/Sounds.js-master/Sounds.js"></script> -->
 <script>
     // JAVASCRIPT/JS
+
+    // SECTION: game graphics engine
     // scene
     const scene = new THREE.Scene();
     const flat = {flatShading: true};
@@ -36,7 +38,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // SECTION: avatar
+    // SECTION: avatar model
     // avatar marker
     var avaMarker = new THREE.Object3D();
     scene.add(avaMarker);
@@ -80,7 +82,7 @@
 
     // array for object collision
     var notAllowed = [];
-    var treeTops = [];
+    var treeTops = []; // treasureTree
 
     // SECTION: environment
     function makeTreeAt(x, z) {
@@ -103,7 +105,7 @@
         boundary.rotation.x = -Math.PI/2;
         trunk.add(boundary);
         notAllowed.push(boundary);
-        // push leaves location to array treeTops
+        // push leaves location to array treeTops for functions related to treasureTree
         treeTops.push(leaves);
 
         trunk.position.set(x, 0, z);
@@ -114,6 +116,7 @@
     makeTreeAt(500, 1000);
     makeTreeAt(-500, 1000);
 
+    // SECTION: game proper and logic
     // updates tree to have fruit
     var treasureTreeNum;
     function updateTreasureTreeNum() {
@@ -144,6 +147,23 @@
         setTimeout(shakeLeaves, 2*1000);
     }
     shakeLeaves();
+
+    function checkForTreasure() {
+        var top = treeTops[treasureTreeNum];
+        var tree = top.parent;
+        var p1 = tree.position; // position of tree containing treasure
+        var p2 = avaMarker.position; // position of avatar
+        var xDiff = p1.x - p2.x;
+        var zDiff = p1.z - p2.z;
+
+        var distance = Math.sqrt((xDiff*xDiff) + (zDiff*zDiff));
+        // when func:checkForTreasure() has activated, which can only be after the activation of func:jump(), check if player is close enough to fruit
+        if (distance < 500) scorePoints();
+    }
+    function scorePoints() {
+        if (scoreboard.getTimeRemaining() == 0) return;
+        scoreboard.addPoints(10);
+    }
 
     // SECTION: movement/animation
     var clock = new THREE.Clock();
@@ -208,15 +228,36 @@
         if (intersects.length > 0) return true;
         return false;
     }
+    function jump() {
+        // this function is connected to game logic and proper
+        if (avatar.position.y > 0) return;
+        checkForTreasure();
+        animateJump();
+    }
+    function animateJump() {
+        // jump from position 0
+        var tween = new TWEEN.Tween({jump: 0});
+        // animate to distance Math.PI in 400ms
+        tween.to({jump: Math.PI}, 400);
+        tween.onUpdate(animateJumpUpdate);
+        tween.onComplete(animateJumpComplete);
+        // start
+        tween.start();
+    }
+    function animateJumpUpdate(update) {
+        avatar.position.y = 100 * Math.sin(update.jump);
+    }
+    function animateJumpComplete() {
+        avatar.position.y = 0;
+    }
     
+    // main animator
     function animate() {
         requestAnimationFrame(animate);
-        
         // movement/animation sets
         TWEEN.update();
         turn();
         walk();
-        
         // render
         renderer.render(scene, camera);
     }
@@ -241,6 +282,8 @@
             avaMarker.position.x += 20;
             isMovingRight = true;
         }
+        // allows player to jump
+        if (code === "Space") jump();
 
         if (isColliding()) {
             // added feature: if isColliding() === true, stop walking animation
