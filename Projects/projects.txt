@@ -19,6 +19,8 @@ Programming Projects
 - physics engine
 - interpreter
 
-JS topics/goals:
+JS topics/goals in this order:
 - callbacks, promises, async/await
-- node.js, express.js, react and react native
+- node.js, express.js 
+- react
+- react native

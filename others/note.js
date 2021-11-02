@@ -644,6 +644,16 @@ p.textContent = "Hello world!" // element's content
 greetingEl.append(p) // appends element's content in specified parent element (in this case, in this line's DOM's greetingEl)
 
 
+// SECTION: .createElement
+// I do not know what to call this as a section but I think it has something to do with the DOM and manipulation of objects (due to the periods to refer to it)
+
+
+const el = document.createElement("p");
+el.textContent = "Nice";
+el.style.color = "blue";
+document.body.appendChild(el);
+
+
 // SECTION: multiple assignment operator
 
 
@@ -874,3 +884,16 @@ let entity = {
 for (let key in entity) {
     console.log(key + ": " + entity[key]);
 }
+
+
+// SECTION: setTimeout()
+// delays trigger of something
+
+
+document.querySelector("button").addEventListener("click", function() {
+    setTimeout(logSomething, 1000); // trigger function after 1000ms
+});
+function logSomething() {
+    console.log("This is something.");
+}
+
