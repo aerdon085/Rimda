@@ -897,3 +897,46 @@ function logSomething() {
     console.log("This is something.");
 }
 
+
+// SECTION function declaration vs function expression
+
+
+// function declaration: load before any code is executed
+function funcDeclaration() {
+    console.log("This is a function declaration.");
+}
+// function expression: loads only when interpreter reaches its line of code
+let funcExpression = function() {
+    console.log("This is a function expression");
+}
+
+
+// SECTION: arrow function vs normal/regular function
+
+
+let something = "something.";
+// regular function/normal function (includes function declaration and function)
+function hmm0(something) {
+    return `This is ${something}`;
+}
+// arrow function
+let hmm1 = (something) => {
+    return `This is ${something}`;
+}
+
+
+// SECTION: callback
+// callbacks are, in oversimplified terms, functions called by functions and thus a relationship between functions
+
+
+let order = (call_production) => {
+    console.log("Order placed. Please call production");
+    call_production();
+};
+let production = () => {
+    console.log("Order received. Starting production");
+};
+order(production);
+
+
+// SECTION:
