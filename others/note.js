@@ -939,4 +939,95 @@ let production = () => {
 order(production);
 
 
-// SECTION:
+// SECTION: callback hell
+// callback hell is, due to the demand of needing async processes (processes that do not stop the main thread) to depend on the completion of other async processes, the accumulation and almost unreadable format of callbacks
+// this is where promises enter
+
+
+let stocks = {
+    Fruits: ["strawberry", "grapes", "banana", "apple"],
+    Liquid: ["water", "ice"],
+    Container: ["cone", "cup", "stick"],
+    Toppings: ["chocolate", "peanuts"]
+}
+let order = (fruit_num, call_produce) => {
+    setTimeout(() => {
+        console.log(`The selection was ${stocks.Fruits[fruit_num]}.`);
+        call_produce();
+    }, 2000);
+}
+let produce = () => {
+    setTimeout(() => {
+        console.log("Production has started.");
+        setTimeout(() => {
+            console.log("The fruit has been chopped.");
+            setTimeout(() => {
+                console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} was added.`);
+                setTimeout(() => {
+                    console.log("The machine has been started.");
+                    setTimeout(() => {
+                        console.log(`You have chosen ${stocks.Container[0]}.`);
+                        setTimeout(() => {
+                            console.log(`Your toppings: ${stocks.Toppings[0]}.`);
+                            setTimeout(() => {
+                                console.log("Ice cream, ready to serve.");
+                            }, 2000);
+                        }, 3000);
+                    }, 2000);
+                }, 1000);
+            }, 1000);
+        }, 2000);
+    }, 0);
+}
+order(0, produce);
+
+
+// SECTION: promises
+// call Promise function => if true then resolve(), otherwise reject() => if resolve() .then, but if reject() .catch => .finally
+// NOTE: notice that after the call of promise function, I must not put semi-colon (;) so that .then, .catch, and .finally will work
+
+
+let stocks = {
+    Fruits: ["strawberry", "grapes", "banana", "apple"],
+    Liquid: ["water", "ice"],
+    Container: ["cone", "cup", "stick"],
+    Toppings: ["chocolate", "peanuts"]
+}
+let isShopOpen = true;
+let order = (time, work) => {
+    return new Promise((resolve, reject) => {
+        if (isShopOpen) {
+            setTimeout(() => {
+                resolve(work());
+            }, time);
+        } else {
+            reject(console.log("Our shop is closed."));
+        }
+    });
+}
+// initial function call
+order(2000, ()=>console.log(`Your chosen flavor is ${stocks.Fruits[0]}.`))
+.then(()=>{
+    return order(0, ()=>console.log("Production has started."));
+})
+.then(()=>{
+    return order(2000, ()=>console.log("The fruit was chopped."));
+})
+.then(()=>{
+    return order(1000, ()=>console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} has been put in.`));
+})
+.then(()=>{
+    return order(1000, ()=>console.log("Machine has started."));
+})
+.then(()=>{
+    return order(2000, ()=>console.log(`Your chosen container is ${stocks.Container[0]}.`));
+})
+.then(()=>{
+    return order(3000, ()=>console.log(`Processing ${stocks.Toppings[0]}.`));
+})
+.then(()=>{
+    return order(1000, ()=>console.log("Ice cream ready to be served."));
+})
+// error handler
+.catch(()=>console.log("Customer cannot be served."))
+.finally(()=>console.log("Day has ended, shop is closed."));
