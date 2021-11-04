@@ -984,7 +984,7 @@ order(0, produce);
 
 // SECTION: promises
 // call Promise function => if true then resolve(), otherwise reject() => if resolve() .then, but if reject() .catch => .finally
-// NOTE: notice that after the call of promise function, I must not put semi-colon (;) so that .then, .catch, and .finally will work
+// NOTE: notice that after the call of promise function, I must not put semi-colon (;) so that .then, .catch, and .finally will work unless I want to put order().then() in each line
 
 
 let stocks = {
