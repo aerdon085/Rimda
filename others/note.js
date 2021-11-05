@@ -1110,3 +1110,7 @@ const newList = people.map((item)=>{
 			}
 		});
 		console.log(newList);
+		
+		
+// SECTION:
+
