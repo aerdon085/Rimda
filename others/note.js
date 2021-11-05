@@ -1070,4 +1070,37 @@ order0()
 })
 
 
-// SECTION:
+// SECTION: map()
+// maps returns a new array
+// does not change the size of original array (unlike filter)
+// uses values from original array when making a new one
+
+
+const people = [
+	{
+		name: "Bob",
+		age: 20,
+	},
+	{
+		name: "Anna",
+		age: 25,
+	},
+	{
+		name: "Sussy",
+		age: 30,
+	},
+	{
+		name: "John",
+		age: 26,
+	}
+];
+// different ways to use map():
+const getAges = (person)=>{return person.age}
+const ages = people.map(getAges);
+// and:
+const names = people.map((person)=>{
+	return person.name;
+});
+// result
+console.log(ages);  // [20, 25, 30, 26]
+console.log(names); // ["Bob", "Anna", "Sussy", "John"]
