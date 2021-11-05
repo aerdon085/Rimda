@@ -1115,5 +1115,37 @@ const newList = people.map((item)=>{
 		// if resultList = newList.map((newAge)=>`<h4></h4>`) and .join("") is to be used, then: resultList.join("");
 		
 		
-// SECTION:
+// SECTION:  making a new array using map but only those that are unique values (ES6), categorizing them, using: new Set()
+// let n = [...] is called the spread operator which, so far, converts objects into an array
+
+
+const menu = [
+		{
+			name: "pancakes",
+			category: "breakfast"
+		},
+		{
+			name: "burger",
+			category: "lunch"
+		},
+		{
+			name: "steak",
+			category: "dinner"
+		},
+		{
+			name: "bacon",
+			category: "breakfast"
+		},
+		{
+			name: "eggs",
+			category: "breakfast"
+		},
+		{
+			name: "pasta",
+			category: "dinner"
+		}];
+		const categories = ["all", ...new Set(menu.map((uniqueItem)=>uniqueItem.category))];
+		document.querySelector("div#el").innerHTML = categories.map((category)=>{
+			return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
+		}).join(" ")
 
