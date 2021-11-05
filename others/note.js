@@ -1110,6 +1110,7 @@ const newList = people.map((item)=>{
 			}
 		});
 		console.log(newList);
+		console.log(newList.map((listItem)=>listItem.firstName));
 		
 		
 // SECTION:
