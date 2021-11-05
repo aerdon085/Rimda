@@ -1147,5 +1147,5 @@ const menu = [
 		const categories = ["all", ...new Set(menu.map((uniqueItem)=>uniqueItem.category))];
 		document.querySelector("div#el").innerHTML = categories.map((category)=>{
 			return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
-		}).join(" ")
+		}).join("")
 
