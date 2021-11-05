@@ -1031,3 +1031,42 @@ order(2000, ()=>console.log(`Your chosen flavor is ${stocks.Fruits[0]}.`))
 // error handler
 .catch(()=>console.log("Customer cannot be served."))
 .finally(()=>console.log("Day has ended, shop is closed."));
+
+
+// SECTION: async/await
+
+
+let patient = true;
+let waitSuccess = (ms)=>{
+	return new Promise((resolve, reject)=>{
+		if (patient) {
+			// NOTE: resolution is only executed (using arrow func) after ms by the following structure:
+			setTimeout(()=>resolve(console.log("Waiting successful.")), ms);
+			// ...rather than setTimeout(resolve(()=>console.log()), ms)
+		} else {
+			reject(console.log("You are impatient"));
+		}
+	});
+}
+async function order0() {
+	try {
+		console.log("Waiting...");
+		await waitSuccess(5000);
+		console.log("Trying something else...");
+		await abc; // abc does not exist, so will go to catch{}
+		console.log("Successful.");
+	} catch(error) {
+		console.log(error)
+	} finally {
+		console.log("Bye.");
+	}
+}
+// execute
+order0()
+.then(()=>{
+	// use RETURN func() if you want to reuse its resolve/reject logic in following .then, .catch, and .finally
+	return waitSuccess(3000);
+})
+
+
+// SECTION:
