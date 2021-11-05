@@ -1051,7 +1051,7 @@ let waitSuccess = (ms)=>{
 async function order0() {
 	try {
 		console.log("Waiting...");
-		await waitSuccess(5000);
+		await waitSuccess(3000);
 		console.log("Trying something else...");
 		await abc; // abc does not exist, so will go to catch{}
 		console.log("Successful.");
