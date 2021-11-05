@@ -1109,8 +1109,8 @@ const newList = people.map((item)=>{
 				newAge: item.age + 10
 			}
 		});
-		console.log(newList);
-		console.log(newList.map((listItem)=>listItem.firstName));
+		// render on page
+		document.querySelector("div").innerHTML = newList.map((newAge)=>`<h4>${newAge.newAge}</h4>`);
 		
 		
 // SECTION:
