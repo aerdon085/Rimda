@@ -1148,4 +1148,7 @@ const menu = [
 		document.querySelector("div#el").innerHTML = categories.map((category)=>{
 			return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
 		}).join("")
+		
+		
+// SECTION: 
 
