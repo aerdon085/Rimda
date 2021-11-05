@@ -1063,6 +1063,7 @@ async function order0() {
 }
 // execute
 order0()
+// after main func execution, .then
 .then(()=>{
 	// use RETURN func() if you want to reuse its resolve/reject logic in following .then, .catch, and .finally
 	return waitSuccess(3000);
