@@ -1110,7 +1110,9 @@ const newList = people.map((item)=>{
 			}
 		});
 		// render on page
-		document.querySelector("div").innerHTML = newList.map((newAge)=>`<h4>${newAge.newAge}</h4>`);
+		document.querySelector("div").innerHTML = newList.map((newAge)=>`<h4>${newAge.newAge}</h4>`).join("");
+		// .join("") removes space and/or comma that is included when rendering array raw
+		// if resultList = newList.map((newAge)=>`<h4></h4>`) and .join("") is to be used, then: resultList.join("");
 		
 		
 // SECTION:
