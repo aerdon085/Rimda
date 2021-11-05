@@ -1104,3 +1104,6 @@ const names = people.map((person)=>{
 // result
 console.log(ages);  // [20, 25, 30, 26]
 console.log(names); // ["Bob", "Anna", "Sussy", "John"]
+
+
+// SECTION:
