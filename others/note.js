@@ -1097,13 +1097,16 @@ const people = [
 // different ways to use map():
 const getAges = (person)=>{return person.age}
 const ages = people.map(getAges);
-// and:
-const names = people.map((person)=>{
-	return person.name;
-});
+// or
+const names = people.map((person)=>person.name);
 // result
 console.log(ages);  // [20, 25, 30, 26]
 console.log(names); // ["Bob", "Anna", "Sussy", "John"]
-
-
-// SECTION:
+// and create new object array
+const newList = people.map((item)=>{
+			return {
+				firstName: item.name.toUpperCase(),
+				newAge: item.age + 10
+			}
+		});
+		console.log(newList);
