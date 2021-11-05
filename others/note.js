@@ -1150,5 +1150,26 @@ const menu = [
 		}).join("")
 		
 		
-// SECTION: 
+// SECTION: square bracket notation ([])
+
+
+let items = {
+			"featured-items": ["item1", "item2"],
+			extras: ["item3", "item4"]
+		}
+		console.log(items["featured-items"][0]); // item1
+		console.log(items["extras"][1]); // item4
+
+		const powerState = "on";
+		let computer = {
+			[powerState]: true,
+		}
+		console.log(computer.on); // true
+		const somethingLol = "model";
+		computer[somethingLol] = "hp"; // adds a new key to object array using what the variable enclosed in square braclet is equal to
+		// somethingLol === "model" therefore it is equal to computer["model"] the way it has been demonstrated earlier
+		console.log(computer); // {on: "true", model: "hp"}
+
+
+// SECTION:
 
