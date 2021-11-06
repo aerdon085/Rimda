@@ -1219,3 +1219,9 @@ console.log(knownLang);
 // SECTION: find
 // returns a single instance (objects), returns only first match even if multiple matches, if no match then undefined
 
+const family = [
+	{name: "Adrian", age: 19},
+	{name: "Emily", age: 47},
+]
+const familyMember = family.find((member)=>member.name === "Adrian");
+console.log(familyMember); // { name: "Adrian", age: 19 }
