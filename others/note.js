@@ -1120,55 +1120,55 @@ const newList = people.map((item)=>{
 
 
 const menu = [
-		{
-			name: "pancakes",
-			category: "breakfast"
-		},
-		{
-			name: "burger",
-			category: "lunch"
-		},
-		{
-			name: "steak",
-			category: "dinner"
-		},
-		{
-			name: "bacon",
-			category: "breakfast"
-		},
-		{
-			name: "eggs",
-			category: "breakfast"
-		},
-		{
-			name: "pasta",
-			category: "dinner"
-		}];
-		const categories = ["all", ...new Set(menu.map((uniqueItem)=>uniqueItem.category))];
-		document.querySelector("div#el").innerHTML = categories.map((category)=>{
-			return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
-		}).join("")
+{
+	name: "pancakes",
+	category: "breakfast"
+},
+{
+	name: "burger",
+	category: "lunch"
+},
+{
+	name: "steak",
+	category: "dinner"
+},
+{
+	name: "bacon",
+	category: "breakfast"
+},
+{
+	name: "eggs",
+	category: "breakfast"
+},
+{
+	name: "pasta",
+	category: "dinner"
+}];
+const categories = ["all", ...new Set(menu.map((uniqueItem)=>uniqueItem.category))];
+document.querySelector("div#el").innerHTML = categories.map((category)=>{
+	return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
+}).join("");
 		
 		
 // SECTION: dynamic object keys using square bracket notation ([])
 
 
 let items = {
-			"featured-items": ["item1", "item2"],
-			extras: ["item3", "item4"]
-		}
-		console.log(items["featured-items"][0]); // item1
-		console.log(items["extras"][1]); // item4
+	"featured-items": ["item1", "item2"],
+	extras: ["item3", "item4"]
+}
+console.log(items["featured-items"][0]); // item1
+console.log(items["extras"][1]); // item4
 
-		const powerState = "on";
-		let computer = {
-			[powerState]: true,
-		}
-		console.log(computer.on); // true
-		const somethingLol = "model";
-		computer[somethingLol] = "hp"; // adds a new key to object array using what the variable enclosed in square braclet is equal to
-		// somethingLol === "model" therefore it is equal to computer["model"] the way it has been demonstrated earlier
-		console.log(computer); // {on: "true", model: "hp"}
+const powerState = "on";
+let computer = {
+	[powerState]: true,
+}
+console.log(computer.on); // true
+const somethingLol = "model";
+computer[somethingLol] = "hp"; // adds a new key to object array using what the variable enclosed in square braclet is equal to
+// somethingLol === "model" therefore it is equal to computer["model"] the way it has been demonstrated earlier
+console.log(computer); // {on: "true", model: "hp"}
 
 
 // SECTION: updating objects using square bracket notation
@@ -1232,3 +1232,6 @@ console.log(familyMember); // { name: "Adrian", age: 19 }
 
 //unlike filter, find will only return one match, the first if among many, and will not be an array and can thus be accessed like so:
 console.log(familyMember.name); // "Adrian"
+
+
+// SECTION: reduce basic
