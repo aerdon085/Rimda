@@ -1150,7 +1150,7 @@ const menu = [
 		}).join("")
 		
 		
-// SECTION: square bracket notation ([])
+// SECTION: dynamic object keys using square bracket notation ([])
 
 
 let items = {
