@@ -1217,6 +1217,7 @@ console.log(knownLang);
 
 
 // SECTION: find
+// almost the same as .filter()
 // returns a single instance (objects), returns only first match even if multiple matches, if no match then undefined
 
 const family = [
