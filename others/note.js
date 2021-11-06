@@ -1217,5 +1217,5 @@ console.log(knownLang);
 
 
 // SECTION: find
-// returns a single instance (objects), returns first match, if no match then undefined
+// returns a single instance (objects), returns only first match even if multiple matches, if no match then undefined
 
