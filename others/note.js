@@ -1189,6 +1189,7 @@ let state = {
 
 // SECTION: .filter()
 // returns a new array, can manipulate the size of array (unlike map)
+// returns an empty array if no match
 		
 		
 const staff = [
@@ -1208,6 +1209,8 @@ console.log(staffPosition); // logs object array of Peter
 
 
 // SECTION: using .filter on arrays
+
+
 const progLang = ["java", "js", "c", "py"];
 let knownLang = progLang.filter((lang)=>lang === "js" || lang === "c");
 console.log(knownLang);
