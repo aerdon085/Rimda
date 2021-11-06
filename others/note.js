@@ -1187,5 +1187,5 @@ let state = {
 		console.log(state); // {loading: false, browser: "chrome"}
 
 
-// SECTION:
+// SECTION: filter and find
 
