@@ -1,0 +1,8 @@
+Node.js and Express.js - Full Course with John Smilga.
+
+https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=634s
+
+Course above preceded by: Javascript Nuggets
+
+1|Destructuring(Array)
+https://www.youtube.com/watch?v=qhECs40xMec&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=7

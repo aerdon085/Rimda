@@ -1150,7 +1150,7 @@ document.querySelector("div#el").innerHTML = categories.map((category)=>{
 }).join("");
 		
 		
-// SECTION: dynamic object keys using square bracket notation ([])
+// SECTION: dynamic object keys/dynamic object property using square bracket notation ([])
 
 
 let items = {
@@ -1234,4 +1234,150 @@ console.log(familyMember); // { name: "Adrian", age: 19 }
 console.log(familyMember.name); // "Adrian"
 
 
-// SECTION: reduce basic
+// SECTION: reduce basics
+// reduces objects within an array to a single value
+// second parameter can have an initial value of {} or 0 for object or integer respectively
+
+
+const playTech = [
+    {name: "Alan", salary: 100},
+    {name: "Adam", salary: 300},
+    {name: "Rowan", salary: 400},
+    {name: "Ben", salary: 10}
+]
+const dailyTotal = playTech.reduce((total, person)=>{
+    // .reduce() automatically iterates through the now-individual values and as evident when console.log() logs them individually
+    console.log(person.salary); // 100, 300, 400, 10
+    total += person.salary;
+    return total; // must always have a return value or will return undefined by default
+}, 0); // on second parameter, like setTimeout(), must have initial value; in this case, 0, because what values that will be reduced into are integers
+console.log(dailyTotal); // 810
+
+
+// SECTION: reduce pt2
+
+
+// only made var so no conflict with cart array found below in section "reduce pt3"
+var cart = [
+    {brand: "Samsung Galaxy S7", price: 599.99, amount: 1},
+    {brand: "Google Pixel", price: 499.99, amount: 2},
+    {brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4},
+    {brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3},
+];
+// reducing values of key "brand" and then returning a concatenation of strings with initial value of Samsung A50 in second parameter
+let totalItem = cart.reduce((total, cartItem)=>{
+    total += ", " + cartItem.brand;
+    return total;
+}, "Samsung A50");
+console.log(totalItem); // Samsung A50, Samsung Galaxy S7, Google... so on and forth
+
+
+// SECTION: reduce pt3
+
+
+// only made var so no conflict with cart array found above, section "reduce pt2"
+var cart = [
+    {brand: "Samsung Galaxy S7", price: 599.99, amount: 1},
+    {brand: "Google Pixel", price: 499.99, amount: 2},
+    {brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4},
+    {brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3},
+];
+
+// if reducing key values from objects within an array into mere individually iterated values but wanting to return it as an object with given key names and initial value appropriate to values that will be returned:
+let payCart = cart.reduce((total, cartInfo)=>{
+    // NOTE: parameters contained in .reduce() are as follows: first accesses cart only as an alternative name and second is required as a "destructuring declaration"
+
+    // below accesses the keys as indicated inside curly braces from cart in every iteration
+    // for explanation, please refer to section "dumb reduce pt4"
+    const {amount, price} = cartInfo;
+
+    // count amount of items and add it to cartQuantity in every iteration
+    total.cartQuantity += amount;
+    // because values are obtained only within the object in every iteration, the amount will always be multiplied to price within that respective object (e.g. Samsung Galaxy S7's price multiplied by amount only)
+    total.cartTotal += amount * price;
+    return total;
+}, {
+    cartQuantity: 0,
+    cartTotal: 0
+});
+console.log(payCart); // {cartQuantity: 10, cartTotal: 5599.900000000001}
+// to fix that "funky, jibberish" number:
+// toFixed() however returns a string, so must be parsed
+payCart.cartTotal = parseFloat(payCart.cartTotal.toFixed(2));
+console.log(payCart.cartTotal); // 5599.9
+
+
+// SECTION: reduce pt4
+// NOTE: an explanation for all this will be found at section "dumb reduce pt4"
+
+
+// below is an async function that fetches my repositories from var:url as of 2021/11/06
+const url = "https://api.github.com/users/aerdon085/repos?per_page=100";
+const fetchRepos = async () => {
+    const response = await fetch(url); // fetches repo from var:url
+    const data = await response.json(); // returns array of objects to var:data
+
+    const newData = data.reduce((total, repo)=>{
+        const {language} = repo;
+
+        // to avoid inclusion of null in object, return only when language only has value
+        if (language) total[language] = total[language] + 1 || 1;
+        // above if statement has been written intially, alternatively, and raw-ly below:
+        /*
+        if (language) {
+            // if total object (the data object used in data.reduce() alternatively now as total parameter) in the array has 
+            if (total[language]) total[language] += 1;
+            else total[language] = 1;
+        } */
+        return total;
+    }, {})
+    console.log(newData); // {C: 1, JavaScript: 1}
+}
+fetchRepos();
+
+
+// SECTION: dumb reduce pt 4
+// simplified and modified version of section "reduce pt4"
+// a more simplified version for easier understanding
+
+
+// for example, the data returned is as follows from an imaginary url like the one above:
+const hiddenRepos = [
+    {name: "Rimda", author: "aerdon085", extension: "html"},
+    {name: "cProjects", author: "aerdon085", extension: "c"},
+    {name: "coiloverPage", author: "aerdon085", extension: "html"},
+    {name: "eulaPage", author: "aerdon085", extension: "html"},
+    {name: "PYrojects", author: "aerdon085", extension: "py"},
+    {name: "Big-epic-VN", author: "aerdon085", extension: "py"}
+]
+const fetchedRepo = hiddenRepos.reduce((total, repo)=>{
+    const {extension} = repo;
+    // first iteration: {extension} === hiddenRepos[0].extension === "html"
+    // second iteration: {extension} === hiddenRepos[1].extension === "c"
+    // and so on...
+
+    console.log(extension); // html, c, html, html, ...
+
+    // if extension has value, which obviously it does (e.g. hiddenRepos.extension === "html"), then execute:
+    if (extension) {
+        // total[extension] === a dynamic object property
+        // in every iteration, it refers to key "extension" and looks at its value
+        // if throughout the iteration the value of a key in the object has been encountered more than once (e.g. that of {extention: "html"}), then keep adding 1; otherwise just 1
+        if (total[extension]) total[extension] += 1;
+        else total[extension] = 1;
+    }
+
+    // if still confused for why total[extension]:
+    // in every iteration total[extension] might be equal to total.html or total.c
+    // observe, in every iteration:
+    console.log(total); // {html: 1}, {html: 1, c: 1};
+    // because extension is equal to "html", or "c", or "py" in some parts of the iteration (refer to instantiated console.log(extension) before if(extension){} statement)...
+    // as such, then, total[extension] === total["html"] in some part of the iteration
+    // and making total["html"] equal to 1 will be {html: 1} as instantiated just recently above
+
+    return total;
+}, {});
+console.log(fetchedRepo); // {html: 3, c: 1, py: 2}
+
+
+// SECTION:

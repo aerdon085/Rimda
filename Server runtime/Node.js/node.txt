@@ -1,3 +1,0 @@
-Node.js and Express.js - Full Course with John Smilga.
-
-https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=634s
