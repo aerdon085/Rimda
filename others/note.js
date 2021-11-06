@@ -1187,5 +1187,32 @@ let state = {
 		console.log(state); // {loading: false, browser: "chrome"}
 
 
-// SECTION: filter and find
+// SECTION: .filter()
+// returns a new array, can manipulate the size of array (unlike map)
+		
+		
+const staff = [
+	{name: "Bob", age: 20, position: "developer"},
+	{name: "Anna", age: 25, position: "designer"},
+	{name: "Sussy", age: 30, position: "intern"},
+	{name: "Peter", age: 35, position: "boss"},
+];
+const youngPeople = staff.filter((person)=>person.age < 30); // .filter only wants a boolean value returned and so will log youngPeople when true by condition
+console.log(youngPeople); // logs object array of those whose age are below 30
+
+// can also be written as:
+const staffPosition = staff.filter((person)=>{
+	if (person.position === "boss" || person.position === "intern") return true;
+});
+console.log(staffPosition); // logs object array of Peter
+
+
+// SECTION: using .filter on arrays
+const progLang = ["java", "js", "c", "py"];
+let knownLang = progLang.filter((lang)=>lang === "js" || lang === "c");
+console.log(knownLang);
+
+
+// SECTION: find
+// returns a single instance (objects), returns first match, if no match then undefined
 
