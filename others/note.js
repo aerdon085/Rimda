@@ -1230,4 +1230,5 @@ const family = [
 const familyMember = family.find((member)=>member.name === "Adrian");
 console.log(familyMember); // { name: "Adrian", age: 19 }
 
-//unlike
+//unlike filter, find will only return one match, the first if among many, and will not be an array and can thus be accessed like so:
+console.log(familyMember.name); // "Adrian"
