@@ -1205,7 +1205,10 @@ console.log(youngPeople); // logs object array of those whose age are below 30
 const staffPosition = staff.filter((person)=>{
 	if (person.position === "boss" || person.position === "intern") return true;
 });
-console.log(staffPosition); // logs object array of Peter
+console.log(staffPosition); // logs object array of Peter and Sussy
+
+// because .filter() will always return an array even if it will only be one object, index position must always be defined before accessing key:
+console.log(staffPosition[0].position); // logs position of Sussy
 
 
 // SECTION: using .filter on arrays
@@ -1226,3 +1229,5 @@ const family = [
 ]
 const familyMember = family.find((member)=>member.name === "Adrian");
 console.log(familyMember); // { name: "Adrian", age: 19 }
+
+//unlike
