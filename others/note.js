@@ -1175,16 +1175,16 @@ console.log(computer); // {on: "true", model: "hp"}
 
 
 let state = {
-			loading: true
-		}
-		function updateState(key, value) {
-			state[key] = value;
-		}
-		updateState("loading", false); // for an existing key, it only changes its value
-		console.log(state.loading); // therefore loading === false
-		// to make a new key and value:
-		updateState("browser", "chrome");
-		console.log(state); // {loading: false, browser: "chrome"}
+	loading: true
+}
+function updateState(key, value) {
+	state[key] = value;
+}
+updateState("loading", false); // for an existing key, it only changes its value
+console.log(state.loading); // therefore loading === false
+// to make a new key and value:
+updateState("browser", "chrome");
+console.log(state); // {loading: false, browser: "chrome"}
 
 
 // SECTION: .filter()
