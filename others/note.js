@@ -1380,4 +1380,89 @@ const fetchedRepo = hiddenRepos.reduce((total, repo)=>{
 console.log(fetchedRepo); // {html: 3, c: 1, py: 2}
 
 
-// SECTION:
+// SECTION: variable assignment in destructuring
+// faster/easier way to access/unpack variables from arrays
+
+
+// initially, to assign an array element to a variable for whatever purpose
+const fruits = ["orange", "banana", "lemon"];
+let fruit1 = fruits[0];
+let fruit2 = fruits[1];
+let fruit3 = fruits[2];
+console.log(fruit1, fruit2, fruit3);
+
+// but in destructuring:
+const friends = ["John", "Peter", "Bob", "Anna", "Kelly"];
+// destructuring logic/structure/method:
+// let [variable_name] = array_name;
+const [enemy, peter] = friends;
+console.log(enemy, peter); // "John", "Peter"
+
+// it can be inferred that destructuring operates by order, that's why in definition there was no need to use subscripts (i.e. [0])
+// thus in order to refer to elements of the array in the middle, as destructuring is by order, leave empty to skip an array element then comma:
+const [friend, , bob, , kelly] = friends;
+console.log(friend, bob, kelly); // "John" "Bob" "Kelly"
+
+
+// SECTION: destrcuturing array
+
+
+let friends0 = ["John", "Peter", "Bob", "Anna", "Kelly"];
+
+console.log(friends0[0], friends0[1]); // "Bob" "John"
+// in basic variable swapping, it is done an extra variable (named temp) that holds value temporarily so that not one of the two will be overwritten during swap
+let tempVal = friends0[0];
+friends0[0] = friends0[1];
+friends0[1] = tempVal;
+console.log(friends0[0], friends0[1]); // "John" "Bob"
+
+// by destructuring, we swap them then and there without the need for a variable that holds data temporarily
+// declare var:bob for friends0[2] and var:anna for friends0[3]
+let [ , , index2, index3] = friends0;
+console.log(index2, index3); // "Bob" "Anna"
+// swap
+[index2, index3] = [index3, index2];
+console.log(index2, index3); // "Anna" "Bob"
+
+
+// SECTION: destructuring variables
+// concept of destructuring instantiated simpler by not using array variables
+
+
+let waifu0 = "Ayaka";
+let waifu1 = "Ganyu";
+console.log(waifu0, waifu1); // Ayaka Ganyu
+// swap them by destructuring
+// (because, tho I love them both and the rest unmentioned, another demands from me a hierarchy)
+[waifu0, waifu1] = [waifu1, waifu0];
+console.log(waifu0, waifu1); // Ganyu Ayaka
+
+
+// SECTION: destructuring objects
+
+
+let aerdon = {
+    first: "Adrian Luis",
+    middle: "Lorenzo",
+    last: "Luzon",
+    address: {
+        street: "Via Corte Del Roda",
+        subdivision: "Citta Italia",
+        city: "Bacoor City"
+    }
+}
+// assignment of variables and its access on objects by destructuring is different from destructuring arrays
+// the order does not matter, and so in order to access it, the right object key name must be used
+let myFirstName = aerdon.first; // regular variable assignment
+let {first} = aerdon; // destructuring object variable assignment
+if (myFirstName === first) console.log("Adrian Luis"); // "Adrian Luis"
+// if a different variable name is desired, an alias, then:
+let {last, middle:middleName} = aerdon; // as instantiated here, order is not observed
+console.log(middleName, last); // "Lorenzo Luzon"
+
+// in order to access objects within objects
+let {address:{city:myCity}} = aerdon;
+console.log(myCity); // "Bacoor City"
+// because var:city has already been given an alternate name, var:myCity, it can be used as a variable
+let city = aerdon.address.city; // or aerdon["address"]["city"]
+if (myCity === city) console.log("Bacoor City"); // "Bacoor City"
