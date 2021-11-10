@@ -6,3 +6,5 @@ Course above preceded by: Javascript Nuggets
 
 1|Destructuring(Array)
 https://www.youtube.com/watch?v=qhECs40xMec&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=7
+2|Spread operator
+https://www.youtube.com/watch?v=4Zyr5a3m0Fc&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=10

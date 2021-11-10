@@ -1466,3 +1466,108 @@ console.log(myCity); // "Bacoor City"
 // because var:city has already been given an alternate name, var:myCity, it can be used as a variable
 let city = aerdon.address.city; // or aerdon["address"]["city"]
 if (myCity === city) console.log("Bacoor City"); // "Bacoor City"
+
+
+// SECTION: destructuring objects in functions
+
+
+const adrian = {
+    hobbies: {
+        hOne: "Drawing",
+        hTwo: "Programming",
+        hThree: "Japanese"
+    }
+}
+// how it is initially and basically done
+function printHobby1(person) {
+    console.log(person.hobbies.hOne);
+}
+printHobby1(adrian); // "Drawing"
+
+// using destructuring inside functions
+function printHobby2(person) {
+    const {hobbies:{hTwo:progHobby}} = person;
+    console.log(progHobby);
+}
+printHobby2(adrian); // "Programming"
+// using destructuring as parameter
+function printHobby3({hobbies:{hThree:japHobby}}) {
+    console.log(japHobby);
+}
+printHobby3(adrian); // "Japanese"
+
+
+// SECTION: rest operator (...)
+// gathers and collects items
+// as opposed to the spread operator which spreads and copies the items, the rest operator gathers them back into an array
+// placement is important where it must only be used at the end of a parameter
+// used in function declaration
+
+
+const fruits10 = ["Apple", "Orange", "Lemon", "Banana", "Melon"];
+// syntax of the rest operator is [(operator)(variable_name)]
+const [notApple, , notLemon, ...remainingStuff] = fruits10;
+console.log(notApple, remainingStuff); // Apple ['Banana', 'Melon]
+// as can be seen, the ... operator only takes hold of values that are to the right of the last declared variable on index position n and if unassigned as variables, unless they are skipped like index position 1 ("Orange")
+
+// var:remainingStuff is now a new array, which is an array of the "rest" of the undeclared and unskipped elements as variables
+let specificFruit = remainingStuff.find((fruit)=>fruit === "Melon");
+console.log(specificFruit); // "Melon"
+
+
+// SECTION: rest operator on objects
+
+
+const person10 = {name: "Adrian Luzon", age: 19, waifu: {first: "Ganyu", second: "Ayaka"}}
+const {age, ...waifu} = person10;
+console.log(age, waifu); // 19 {name: 'Adrian Luzon', waifu: {…}}
+// because order does not matter, object values skipped over will still be included by the rest operator unlike in arrays
+
+
+// SECTION: rest operator in functions
+
+
+const person20 = {
+    student: "Adrian Luzon",
+    grades: {
+        math: 85,
+        science: 90,
+        english: 90,
+        filipino: 75
+    }
+}
+let {grades:{math}, grades:{science}, grades:{english}, grades:{filipino}} = person20;
+// function for computing for average
+// the second parameter seeks for the REST of the given argument during invocation
+let getAveGrade = (student, ...aveGrade)=>{
+    console.log(student); // "Adrian Luzon"
+    console.log(aveGrade); // [85, 90, 90, 75]
+
+    // .reduce iterates through the passed array argument of var:aveGrade and returns a total sum
+    let total = aveGrade.reduce((aveGrade, total)=>{
+        return total += aveGrade;
+    })
+    console.log(total/aveGrade.length); // 85
+}
+// for some reason, based on the parameter during function declaration of getAveGrade, ...aveGrade treats the REST of the input except person20.student which corresponds to func:getAveGrade's student parameter the same way a rest operator treats an array whose elements are unassigned or unskipped
+getAveGrade(person20.student, math, science, english, filipino);
+
+
+// SECTION: spread operator (...)
+// same syntax as the rest operator except it is used in function invocation
+
+
+// rest operator (...) is used in parameters, during function declarations
+function aveTestScores(student_name, ...test_scores) {
+    console.log(student_name);
+    console.log(test_scores); // [11, 22, 33, 44, 55]
+}
+// the rest operator, used in parameter, treats the rest of the function arguments as the REST of an array element, therefore putting them in new array with a new array name "test_scores"
+aveTestScores("Adrian Luzon", 11, 22, 33, 44, 55); // Adrian Luzon, [11, 22, 33, 44, 55]
+
+// if in the function argument, it already is an array, however:
+const testScores = [10, 20, 30, 40, 50];
+aveTestScores("Adrian Luzon", testScores); // Adrian Luzon, [[11, 22, 33, 44, 55]]
+
+// this is where the spread operator comes in (...) and is used in the function invocation, as an argument
+aveTestScores("Adrian Luzon", ...testScores); // Adrian Luzon, [10, 20, 30, 40, 50]
