@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello world!</h1>
+</body>
+<script src="../../../Libraries/three.js-master/build/three.js"></script>
+<script>
+    // JAVASCRIPT
+    // SECTION: graphics engine
+    // scene
+    const scene = new THREE.Scene();
+    const flat = {flatShading: true};
+    const light = new THREE.AmbientLight("white", 0.8);
+    scene.add(light);
+    // camera
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    scene.add(camera);
+    camera.position.z = 500;
+    // renderer
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // SECTION: models
+    // avatar
+    var shape = new THREE.SphereGeometry(200);
+    var cover = new THREE.MeshNormalMaterial(flat);
+    var ball = new THREE.Mesh(shape, cover);
+    scene.add(ball);
+
+    // SECTION: animation
+    // main renderer
+    renderer.render(scene, camera);
+    // SECTION: controls
+</script>
+</html>

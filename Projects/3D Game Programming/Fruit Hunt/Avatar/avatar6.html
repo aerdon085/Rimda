@@ -16,9 +16,9 @@
 <body>
     <h1>Hello world!</h1>
 </body>
-<script src="../../../Libraries/three.js-master/build/three.js"></script>
-<script src="../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
-<script src="../../../Libraries/scoreboard.js-master/Scoreboard.js"></script>
+<script src="../../../../Libraries/three.js-master/build/three.js"></script>
+<script src="../../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
+<script src="../../../../Libraries/scoreboard.js-master/Scoreboard.js"></script>
 <!-- <script src="../../../Libraries/Sounds.js-master/Sounds.js"></script> -->
 <script>
     // JAVASCRIPT/JS
@@ -31,7 +31,7 @@
     scene.add(light);
     // camera
     const aspectRatio = window.innerWidth / window.innerHeight;
-    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 10, 10000);
+    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
     camera.position.z = 500;
     // renderer
     const renderer = new THREE.WebGLRenderer({antialias: true});

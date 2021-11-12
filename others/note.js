@@ -206,9 +206,9 @@ let age = 21
 
 function check() {
     if (age > 20) {
-    console.log("Welcome!")
+        console.log("Welcome!")
     } else {
-    console.log("F*ck off!")
+        console.log("F*ck off!")
     }
 }
 
@@ -400,7 +400,7 @@ function genCert() {
 
 // logical operator can be EFFICIENTLY written in this way as well:
 
-if (compCourse === true && giveCert ===true) {
+if (compCourse === true && giveCert === true) {
     genCert()
 }
 
@@ -473,7 +473,7 @@ for (i = 0; i < listing.nearYou.length; i++) {
 
 
 let something = {
-    nothing: function() {
+    nothing: function () {
         console.log("Okay.")
     }
 }
@@ -579,7 +579,7 @@ function saveInput() {
 }
 // new is below where no onclick="" is needed, and its event listener is all in JS making documents more organized and clean
 let inputBtn = document.querySelector("#input-btn")
-inputBtn.addEventListener("click", function() {
+inputBtn.addEventListener("click", function () {
     console.log("Input saved.")
 })
 
@@ -588,7 +588,7 @@ inputBtn.addEventListener("click", function() {
 
 
 let boxArea = document.querySelector("#box-area")
-boxArea.addEventListener("click", function() {
+boxArea.addEventListener("click", function () {
     console.log("Opening the box...")
 })
 
@@ -630,7 +630,7 @@ let searchBtn = document.querySelector("#div1-el")
 let buyBtn = document.querySelector("#div2-el")
 searchBtn.textContent = "<button>" + someText + "</button>" // this will only display the supposed html element as text
 buyBtn.innerHTML = "<button>" + someText + "</button>" // this will read its value as an html element and thus a button
-buyBtn.addEventListener("click", function() {
+buyBtn.addEventListener("click", function () {
     buyBtn.innerHTML += "<br><p>Thank you for your purchase!</p>"
 })
 
@@ -682,9 +682,9 @@ console.log(isHappy); // isHappy === false
 
 
 document.addEventListener('keydown', sendKeyDown);
-    function sendKeyDown(event) {
-        alert(event.code);
-    }
+function sendKeyDown(event) {
+    alert(event.code);
+}
 
 
 // SECTION: new if conditional (if only true or false/have value or not)
@@ -713,12 +713,12 @@ let isMember = false;
 
 
 let waifu = 0;
-(waifu === 0)? (waifu += 1): (waifu += waifu);
+(waifu === 0) ? (waifu += 1) : (waifu += waifu);
 console.log(waifu);
 
 // so that var:waifu will not be typed over and again, a more concise version:
 
-waifu += (waifu === 0)? (1): (waifu);
+waifu += (waifu === 0) ? (1) : (waifu);
 console.log(waifu);
 
 
@@ -741,9 +741,9 @@ console.log("Hello world!");
 let caseChoice = 2;
 switch (caseChoice) {
     case (1): console.log(caseChoice);
-    break;
+        break;
     case (2): console.log(caseChoice);
-    break;
+        break;
     case (3): console.log(caseChoice);
 }
 
@@ -860,16 +860,16 @@ function run() {
 
 
 let some = [
-        {
-            number: [10, 11, 12],
-            number1: [20, 21]
-        },
-        {
-            alpha: ['A', 'B']
-        }
-    ]
-    console.log(some[0]["number1"][1]); // 21
-    console.log(some[0].number[1]); // 11
+    {
+        number: [10, 11, 12],
+        number1: [20, 21]
+    },
+    {
+        alpha: ['A', 'B']
+    }
+]
+console.log(some[0]["number1"][1]); // 21
+console.log(some[0].number[1]); // 11
 
 
 // SECTION: for loop with objects
@@ -890,7 +890,7 @@ for (let key in entity) {
 // delays trigger of something
 
 
-document.querySelector("button").addEventListener("click", function() {
+document.querySelector("button").addEventListener("click", function () {
     setTimeout(logSomething, 1000); // trigger function after 1000ms
 });
 function logSomething() {
@@ -906,7 +906,7 @@ function funcDeclaration() {
     console.log("This is a function declaration.");
 }
 // function expression: loads only when interpreter reaches its line of code
-let funcExpression = function() {
+let funcExpression = function () {
     console.log("This is a function expression");
 }
 
@@ -1006,68 +1006,68 @@ let order = (time, work) => {
     });
 }
 // initial function call
-order(2000, ()=>console.log(`Your chosen flavor is ${stocks.Fruits[0]}.`))
-.then(()=>{
-    return order(0, ()=>console.log("Production has started."));
-})
-.then(()=>{
-    return order(2000, ()=>console.log("The fruit was chopped."));
-})
-.then(()=>{
-    return order(1000, ()=>console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} has been put in.`));
-})
-.then(()=>{
-    return order(1000, ()=>console.log("Machine has started."));
-})
-.then(()=>{
-    return order(2000, ()=>console.log(`Your chosen container is ${stocks.Container[0]}.`));
-})
-.then(()=>{
-    return order(3000, ()=>console.log(`Processing ${stocks.Toppings[0]}.`));
-})
-.then(()=>{
-    return order(1000, ()=>console.log("Ice cream ready to be served."));
-})
-// error handler
-.catch(()=>console.log("Customer cannot be served."))
-.finally(()=>console.log("Day has ended, shop is closed."));
+order(2000, () => console.log(`Your chosen flavor is ${stocks.Fruits[0]}.`))
+    .then(() => {
+        return order(0, () => console.log("Production has started."));
+    })
+    .then(() => {
+        return order(2000, () => console.log("The fruit was chopped."));
+    })
+    .then(() => {
+        return order(1000, () => console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} has been put in.`));
+    })
+    .then(() => {
+        return order(1000, () => console.log("Machine has started."));
+    })
+    .then(() => {
+        return order(2000, () => console.log(`Your chosen container is ${stocks.Container[0]}.`));
+    })
+    .then(() => {
+        return order(3000, () => console.log(`Processing ${stocks.Toppings[0]}.`));
+    })
+    .then(() => {
+        return order(1000, () => console.log("Ice cream ready to be served."));
+    })
+    // error handler
+    .catch(() => console.log("Customer cannot be served."))
+    .finally(() => console.log("Day has ended, shop is closed."));
 
 
 // SECTION: async/await
 
 
 let patient = true;
-let waitSuccess = (ms)=>{
-	return new Promise((resolve, reject)=>{
-		if (patient) {
-			// NOTE: resolution is only executed (using arrow func) after ms by the following structure:
-			setTimeout(()=>resolve(console.log("Waiting successful.")), ms);
-			// ...rather than setTimeout(resolve(()=>console.log()), ms)
-		} else {
-			reject(console.log("You are impatient"));
-		}
-	});
+let waitSuccess = (ms) => {
+    return new Promise((resolve, reject) => {
+        if (patient) {
+            // NOTE: resolution is only executed (using arrow func) after ms by the following structure:
+            setTimeout(() => resolve(console.log("Waiting successful.")), ms);
+            // ...rather than setTimeout(resolve(()=>console.log()), ms)
+        } else {
+            reject(console.log("You are impatient"));
+        }
+    });
 }
 async function order0() {
-	try {
-		console.log("Waiting...");
-		await waitSuccess(3000);
-		console.log("Trying something else...");
-		await abc; // abc does not exist, so will go to catch{}
-		console.log("Successful.");
-	} catch(error) {
-		console.log(error)
-	} finally {
-		console.log("Bye.");
-	}
+    try {
+        console.log("Waiting...");
+        await waitSuccess(3000);
+        console.log("Trying something else...");
+        await abc; // abc does not exist, so will go to catch{}
+        console.log("Successful.");
+    } catch (error) {
+        console.log(error)
+    } finally {
+        console.log("Bye.");
+    }
 }
 // execute
 order0()
-// after main func execution, .then
-.then(()=>{
-	// use RETURN func() if you want to reuse its resolve/reject logic in following .then, .catch, and .finally
-	return waitSuccess(3000);
-})
+    // after main func execution, .then
+    .then(() => {
+        // use RETURN func() if you want to reuse its resolve/reject logic in following .then, .catch, and .finally
+        return waitSuccess(3000);
+    })
 
 
 // SECTION: map()
@@ -1077,92 +1077,92 @@ order0()
 
 
 const people = [
-	{
-		name: "Bob",
-		age: 20,
-	},
-	{
-		name: "Anna",
-		age: 25,
-	},
-	{
-		name: "Sussy",
-		age: 30,
-	},
-	{
-		name: "John",
-		age: 26,
-	}
+    {
+        name: "Bob",
+        age: 20,
+    },
+    {
+        name: "Anna",
+        age: 25,
+    },
+    {
+        name: "Sussy",
+        age: 30,
+    },
+    {
+        name: "John",
+        age: 26,
+    }
 ];
 // different ways to use map():
-const getAges = (person)=>{return person.age}
+const getAges = (person) => { return person.age }
 const ages = people.map(getAges);
 // or
-const names = people.map((person)=>person.name);
+const names = people.map((person) => person.name);
 // result
 console.log(ages);  // [20, 25, 30, 26]
 console.log(names); // ["Bob", "Anna", "Sussy", "John"]
 // and create new object array
-const newList = people.map((item)=>{
-			return {
-				firstName: item.name.toUpperCase(),
-				newAge: item.age + 10
-			}
-		});
-		// render on page
-		document.querySelector("div").innerHTML = newList.map((newAge)=>`<h4>${newAge.newAge}</h4>`).join("");
-		// .join("") removes space and/or comma that is included when rendering array raw
-		// if resultList = newList.map((newAge)=>`<h4></h4>`) and .join("") is to be used, then: resultList.join("");
-		
-		
+const newList = people.map((item) => {
+    return {
+        firstName: item.name.toUpperCase(),
+        newAge: item.age + 10
+    }
+});
+// render on page
+document.querySelector("div").innerHTML = newList.map((newAge) => `<h4>${newAge.newAge}</h4>`).join("");
+// .join("") removes space and/or comma that is included when rendering array raw
+// if resultList = newList.map((newAge)=>`<h4></h4>`) and .join("") is to be used, then: resultList.join("");
+
+
 // SECTION:  making a new array using map but only those that are unique values (ES6), categorizing them, using: new Set()
 // let n = [...] is called the spread operator which, so far, converts objects into an array
 
 
 const menu = [
-{
-	name: "pancakes",
-	category: "breakfast"
-},
-{
-	name: "burger",
-	category: "lunch"
-},
-{
-	name: "steak",
-	category: "dinner"
-},
-{
-	name: "bacon",
-	category: "breakfast"
-},
-{
-	name: "eggs",
-	category: "breakfast"
-},
-{
-	name: "pasta",
-	category: "dinner"
-}];
-const categories = ["all", ...new Set(menu.map((uniqueItem)=>uniqueItem.category))];
-document.querySelector("div#el").innerHTML = categories.map((category)=>{
-	return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
+    {
+        name: "pancakes",
+        category: "breakfast"
+    },
+    {
+        name: "burger",
+        category: "lunch"
+    },
+    {
+        name: "steak",
+        category: "dinner"
+    },
+    {
+        name: "bacon",
+        category: "breakfast"
+    },
+    {
+        name: "eggs",
+        category: "breakfast"
+    },
+    {
+        name: "pasta",
+        category: "dinner"
+    }];
+const categories = ["all", ...new Set(menu.map((uniqueItem) => uniqueItem.category))];
+document.querySelector("div#el").innerHTML = categories.map((category) => {
+    return `<button style="height: 100px; width: 100px; margin: 4px;">${category}</button>`
 }).join("");
-		
-		
+
+
 // SECTION: dynamic object keys/dynamic object property using square bracket notation ([])
 
 
 let items = {
-	"featured-items": ["item1", "item2"],
-	extras: ["item3", "item4"]
+    "featured-items": ["item1", "item2"],
+    extras: ["item3", "item4"]
 }
 console.log(items["featured-items"][0]); // item1
 console.log(items["extras"][1]); // item4
 
 const powerState = "on";
 let computer = {
-	[powerState]: true,
+    [powerState]: true,
 }
 console.log(computer.on); // true
 const somethingLol = "model";
@@ -1175,10 +1175,10 @@ console.log(computer); // {on: "true", model: "hp"}
 
 
 let state = {
-	loading: true
+    loading: true
 }
 function updateState(key, value) {
-	state[key] = value;
+    state[key] = value;
 }
 updateState("loading", false); // for an existing key, it only changes its value
 console.log(state.loading); // therefore loading === false
@@ -1190,20 +1190,20 @@ console.log(state); // {loading: false, browser: "chrome"}
 // SECTION: .filter()
 // returns a new array, can manipulate the size of array (unlike map)
 // returns an empty array if no match
-		
-		
+
+
 const staff = [
-	{name: "Bob", age: 20, position: "developer"},
-	{name: "Anna", age: 25, position: "designer"},
-	{name: "Sussy", age: 30, position: "intern"},
-	{name: "Peter", age: 35, position: "boss"},
+    { name: "Bob", age: 20, position: "developer" },
+    { name: "Anna", age: 25, position: "designer" },
+    { name: "Sussy", age: 30, position: "intern" },
+    { name: "Peter", age: 35, position: "boss" },
 ];
-const youngPeople = staff.filter((person)=>person.age < 30); // .filter only wants a boolean value returned and so will log youngPeople when true by condition
+const youngPeople = staff.filter((person) => person.age < 30); // .filter only wants a boolean value returned and so will log youngPeople when true by condition
 console.log(youngPeople); // logs object array of those whose age are below 30
 
 // can also be written as:
-const staffPosition = staff.filter((person)=>{
-	if (person.position === "boss" || person.position === "intern") return true;
+const staffPosition = staff.filter((person) => {
+    if (person.position === "boss" || person.position === "intern") return true;
 });
 console.log(staffPosition); // logs object array of Peter and Sussy
 
@@ -1215,7 +1215,7 @@ console.log(staffPosition[0].position); // logs position of Sussy
 
 
 const progLang = ["java", "js", "c", "py"];
-let knownLang = progLang.filter((lang)=>lang === "js" || lang === "c");
+let knownLang = progLang.filter((lang) => lang === "js" || lang === "c");
 console.log(knownLang);
 
 
@@ -1224,10 +1224,10 @@ console.log(knownLang);
 // returns a single instance (objects), returns only first match even if multiple matches, if no match then undefined
 
 const family = [
-	{name: "Adrian", age: 19},
-	{name: "Emily", age: 47},
+    { name: "Adrian", age: 19 },
+    { name: "Emily", age: 47 },
 ]
-const familyMember = family.find((member)=>member.name === "Adrian");
+const familyMember = family.find((member) => member.name === "Adrian");
 console.log(familyMember); // { name: "Adrian", age: 19 }
 
 //unlike filter, find will only return one match, the first if among many, and will not be an array and can thus be accessed like so:
@@ -1240,12 +1240,12 @@ console.log(familyMember.name); // "Adrian"
 
 
 const playTech = [
-    {name: "Alan", salary: 100},
-    {name: "Adam", salary: 300},
-    {name: "Rowan", salary: 400},
-    {name: "Ben", salary: 10}
+    { name: "Alan", salary: 100 },
+    { name: "Adam", salary: 300 },
+    { name: "Rowan", salary: 400 },
+    { name: "Ben", salary: 10 }
 ]
-const dailyTotal = playTech.reduce((total, person)=>{
+const dailyTotal = playTech.reduce((total, person) => {
     // .reduce() automatically iterates through the now-individual values and as evident when console.log() logs them individually
     console.log(person.salary); // 100, 300, 400, 10
     total += person.salary;
@@ -1259,13 +1259,13 @@ console.log(dailyTotal); // 810
 
 // only made var so no conflict with cart array found below in section "reduce pt3"
 var cart = [
-    {brand: "Samsung Galaxy S7", price: 599.99, amount: 1},
-    {brand: "Google Pixel", price: 499.99, amount: 2},
-    {brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4},
-    {brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3},
+    { brand: "Samsung Galaxy S7", price: 599.99, amount: 1 },
+    { brand: "Google Pixel", price: 499.99, amount: 2 },
+    { brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4 },
+    { brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3 },
 ];
 // reducing values of key "brand" and then returning a concatenation of strings with initial value of Samsung A50 in second parameter
-let totalItem = cart.reduce((total, cartItem)=>{
+let totalItem = cart.reduce((total, cartItem) => {
     total += ", " + cartItem.brand;
     return total;
 }, "Samsung A50");
@@ -1277,19 +1277,19 @@ console.log(totalItem); // Samsung A50, Samsung Galaxy S7, Google... so on and f
 
 // only made var so no conflict with cart array found above, section "reduce pt2"
 var cart = [
-    {brand: "Samsung Galaxy S7", price: 599.99, amount: 1},
-    {brand: "Google Pixel", price: 499.99, amount: 2},
-    {brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4},
-    {brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3},
+    { brand: "Samsung Galaxy S7", price: 599.99, amount: 1 },
+    { brand: "Google Pixel", price: 499.99, amount: 2 },
+    { brand: "Xiaomi Redmi Note 3", price: 699.99, amount: 4 },
+    { brand: "Xiaomi Redmi Note 5", price: 399.99, amount: 3 },
 ];
 
 // if reducing key values from objects within an array into mere individually iterated values but wanting to return it as an object with given key names and initial value appropriate to values that will be returned:
-let payCart = cart.reduce((total, cartInfo)=>{
+let payCart = cart.reduce((total, cartInfo) => {
     // NOTE: parameters contained in .reduce() are as follows: first accesses cart only as an alternative name and second is required as a "destructuring declaration"
 
     // below accesses the keys as indicated inside curly braces from cart in every iteration
     // for explanation, please refer to section "dumb reduce pt4"
-    const {amount, price} = cartInfo;
+    const { amount, price } = cartInfo;
 
     // count amount of items and add it to cartQuantity in every iteration
     total.cartQuantity += amount;
@@ -1317,8 +1317,8 @@ const fetchRepos = async () => {
     const response = await fetch(url); // fetches repo from var:url
     const data = await response.json(); // returns array of objects to var:data
 
-    const newData = data.reduce((total, repo)=>{
-        const {language} = repo;
+    const newData = data.reduce((total, repo) => {
+        const { language } = repo;
 
         // to avoid inclusion of null in object, return only when language only has value
         if (language) total[language] = total[language] + 1 || 1;
@@ -1343,15 +1343,15 @@ fetchRepos();
 
 // for example, the data returned is as follows from an imaginary url like the one above:
 const hiddenRepos = [
-    {name: "Rimda", author: "aerdon085", extension: "html"},
-    {name: "cProjects", author: "aerdon085", extension: "c"},
-    {name: "coiloverPage", author: "aerdon085", extension: "html"},
-    {name: "eulaPage", author: "aerdon085", extension: "html"},
-    {name: "PYrojects", author: "aerdon085", extension: "py"},
-    {name: "Big-epic-VN", author: "aerdon085", extension: "py"}
+    { name: "Rimda", author: "aerdon085", extension: "html" },
+    { name: "cProjects", author: "aerdon085", extension: "c" },
+    { name: "coiloverPage", author: "aerdon085", extension: "html" },
+    { name: "eulaPage", author: "aerdon085", extension: "html" },
+    { name: "PYrojects", author: "aerdon085", extension: "py" },
+    { name: "Big-epic-VN", author: "aerdon085", extension: "py" }
 ]
-const fetchedRepo = hiddenRepos.reduce((total, repo)=>{
-    const {extension} = repo;
+const fetchedRepo = hiddenRepos.reduce((total, repo) => {
+    const { extension } = repo;
     // first iteration: {extension} === hiddenRepos[0].extension === "html"
     // second iteration: {extension} === hiddenRepos[1].extension === "c"
     // and so on...
@@ -1418,7 +1418,7 @@ console.log(friends0[0], friends0[1]); // "John" "Bob"
 
 // by destructuring, we swap them then and there without the need for a variable that holds data temporarily
 // declare var:bob for friends0[2] and var:anna for friends0[3]
-let [ , , index2, index3] = friends0;
+let [, , index2, index3] = friends0;
 console.log(index2, index3); // "Bob" "Anna"
 // swap
 [index2, index3] = [index3, index2];
@@ -1454,14 +1454,14 @@ let aerdon = {
 // assignment of variables and its access on objects by destructuring is different from destructuring arrays
 // the order does not matter, and so in order to access it, the right object key name must be used
 let myFirstName = aerdon.first; // regular variable assignment
-let {first} = aerdon; // destructuring object variable assignment
+let { first } = aerdon; // destructuring object variable assignment
 if (myFirstName === first) console.log("Adrian Luis"); // "Adrian Luis"
 // if a different variable name is desired, an alias, then:
-let {last, middle:middleName} = aerdon; // as instantiated here, order is not observed
+let { last, middle: middleName } = aerdon; // as instantiated here, order is not observed
 console.log(middleName, last); // "Lorenzo Luzon"
 
 // in order to access objects within objects
-let {address:{city:myCity}} = aerdon;
+let { address: { city: myCity } } = aerdon;
 console.log(myCity); // "Bacoor City"
 // because var:city has already been given an alternate name, var:myCity, it can be used as a variable
 let city = aerdon.address.city; // or aerdon["address"]["city"]
@@ -1486,12 +1486,12 @@ printHobby1(adrian); // "Drawing"
 
 // using destructuring inside functions
 function printHobby2(person) {
-    const {hobbies:{hTwo:progHobby}} = person;
+    const { hobbies: { hTwo: progHobby } } = person;
     console.log(progHobby);
 }
 printHobby2(adrian); // "Programming"
 // using destructuring as parameter
-function printHobby3({hobbies:{hThree:japHobby}}) {
+function printHobby3({ hobbies: { hThree: japHobby } }) {
     console.log(japHobby);
 }
 printHobby3(adrian); // "Japanese"
@@ -1511,15 +1511,15 @@ console.log(notApple, remainingStuff); // Apple ['Banana', 'Melon]
 // as can be seen, the ... operator only takes hold of values that are to the right of the last declared variable on index position n and if unassigned as variables, unless they are skipped like index position 1 ("Orange")
 
 // var:remainingStuff is now a new array, which is an array of the "rest" of the undeclared and unskipped elements as variables
-let specificFruit = remainingStuff.find((fruit)=>fruit === "Melon");
+let specificFruit = remainingStuff.find((fruit) => fruit === "Melon");
 console.log(specificFruit); // "Melon"
 
 
 // SECTION: rest operator on objects
 
 
-const person10 = {name: "Adrian Luzon", age: 19, waifu: {first: "Ganyu", second: "Ayaka"}}
-const {age, ...waifu} = person10;
+const person10 = { name: "Adrian Luzon", age: 19, waifu: { first: "Ganyu", second: "Ayaka" } }
+const { age, ...waifu } = person10;
 console.log(age, waifu); // 19 {name: 'Adrian Luzon', waifu: {…}}
 // because order does not matter, object values skipped over will still be included by the rest operator unlike in arrays
 
@@ -1536,18 +1536,18 @@ const person20 = {
         filipino: 75
     }
 }
-let {grades:{math}, grades:{science}, grades:{english}, grades:{filipino}} = person20;
+let { grades: { math }, grades: { science }, grades: { english }, grades: { filipino } } = person20;
 // function for computing for average
 // the second parameter seeks for the REST of the given argument during invocation
-let getAveGrade = (student, ...aveGrade)=>{
+let getAveGrade = (student, ...aveGrade) => {
     console.log(student); // "Adrian Luzon"
     console.log(aveGrade); // [85, 90, 90, 75]
 
     // .reduce iterates through the passed array argument of var:aveGrade and returns a total sum
-    let total = aveGrade.reduce((aveGrade, total)=>{
+    let total = aveGrade.reduce((aveGrade, total) => {
         return total += aveGrade;
     })
-    console.log(total/aveGrade.length); // 85
+    console.log(total / aveGrade.length); // 85
 }
 // for some reason, based on the parameter during function declaration of getAveGrade, ...aveGrade treats the REST of the input except person20.student which corresponds to func:getAveGrade's student parameter the same way a rest operator treats an array whose elements are unassigned or unskipped
 getAveGrade(person20.student, math, science, english, filipino);
@@ -1571,3 +1571,6 @@ aveTestScores("Adrian Luzon", testScores); // Adrian Luzon, [[11, 22, 33, 44, 55
 
 // this is where the spread operator comes in (...) and is used in the function invocation, as an argument
 aveTestScores("Adrian Luzon", ...testScores); // Adrian Luzon, [10, 20, 30, 40, 50]
+
+
+// SECTION:
