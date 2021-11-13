@@ -19,6 +19,8 @@
 <script src="../../../Libraries/three.js-master/build/three.js"></script>
 <script>
     // JAVASCRIPT
+
+
     // SECTION: graphics engine
     // scene
     const scene = new THREE.Scene();
@@ -28,23 +30,116 @@
     // camera
     const aspectRatio = window.innerWidth / window.innerHeight;
     const camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
-    scene.add(camera);
-    camera.position.z = 500;
     // renderer
     const renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+
     // SECTION: models
-    // avatar
-    var shape = new THREE.SphereGeometry(200);
+    // avatar marker
+    var avatar = new THREE.Object3D();
+    scene.add(avatar);
+    // avatar model
+    // avatar is 140 units from his center (0, 0, 0) to his feet
+    var bodyShape = new THREE.BoxGeometry(75, 130, 50);
     var cover = new THREE.MeshNormalMaterial(flat);
-    var ball = new THREE.Mesh(shape, cover);
-    scene.add(ball);
+    var body = new THREE.Mesh(bodyShape, cover);
+    avatar.add(body);
+    var headShape = new THREE.BoxGeometry(65, 65, 50);
+    var head = new THREE.Mesh(headShape, cover);
+    head.position.y = 110;
+    var handShape = new THREE.BoxGeometry(30, 100, 40);
+    var rightHand = new THREE.Mesh(handShape, cover);
+    var leftHand = new THREE.Mesh(handShape, cover);
+    rightHand.position.set((75/2)+15, 15, 0);
+    leftHand.position.set(-((75/2)+15), 15, 0);
+    var feetShape = new THREE.BoxGeometry(75, 130, 40);
+    var rightFoot = new THREE.Mesh(feetShape, cover);
+    var leftFoot = new THREE.Mesh(feetShape, cover);
+    rightFoot.position.set(0, -75, 0);
+    leftFoot.position.set(0, -75, 0);
+    body.add(head, rightHand, leftHand, rightFoot, leftFoot);
+
+    avatar.add(camera);
+    camera.position.set(0, 70, 500);
+
+
+    // SECTION: environment
+    function makeTreeAt(x, z) {
+        // tree model
+        var leaves = new THREE.Mesh(
+            new THREE.SphereGeometry(300, 20, 20),
+            new THREE.MeshBasicMaterial({color: "forestgreen"})
+        );
+        var trunk = new THREE.Mesh(
+            new THREE.CylinderGeometry(100, 100, 600),
+            new THREE.MeshBasicMaterial({color: "sienna"})
+        );
+        leaves.position.y = 400;
+        trunk.add(leaves);
+        trunk.position.set(x, 160, z);
+        scene.add(trunk);
+    }
+    makeTreeAt(500, -1000);
+    makeTreeAt(-500, -1000);
+    makeTreeAt(500, -500);
+    makeTreeAt(-500, -500);
+
 
     // SECTION: animation
-    // main renderer
-    renderer.render(scene, camera);
-    // SECTION: controls
+    let ss = false;
+
+    function walk() {
+        // 
+    }
+    function specialSkill() {
+        if (!ss) return;
+
+        body.rotation.z += 0.10;
+    }
+    function animate() {
+        requestAnimationFrame(animate);
+
+        walk();
+        specialSkill();
+
+        // main renderer
+        renderer.render(scene, camera);
+    }
+    animate();
+
+
+    // SECTION: movement controls
+    document.addEventListener("keydown", function(event) {
+        const code = event.code;
+        if (code === "KeyW") avatar.position.z -= 20;
+        if (code === "KeyA") avatar.position.x -= 20;
+        if (code === "KeyS") avatar.position.z += 20;
+        if (code === "KeyD") avatar.position.x += 20;
+        if (code === "KeyC") ss = !ss;
+    });
+
+
+    /* feature currently off, 'coz it's visually @_@
+    // SECTION: look controls
+    onmousemove = function(e) {
+        // native mouse tracker where top left is (0, 0)
+        const mouseX = e.clientX; // tracks pointer position X natively
+        const mouseY = e.clientY; // tracks pointer position Y natively
+
+        // converting native into my own mouse tracker with center as (0, 0)
+        const pointerPosX = mouseX - (window.innerWidth / 2);
+        const pointerPosY = (window.innerHeight/2) - mouseY;
+
+        // application computation to camera movement
+        camera.rotation.y -= (
+            // this results to a 1:1 positive to negative
+            pointerPosX/(window.innerWidth/2)
+        )*0.01;
+        camera.rotation.x += (pointerPosY/(window.innerHeight/2))*0.01;
+
+        console.log("X: " + pointerPosX, "y: " + pointerPosY);
+    } */
 </script>
 </html>
