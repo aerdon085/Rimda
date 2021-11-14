@@ -1573,4 +1573,63 @@ aveTestScores("Adrian Luzon", testScores); // Adrian Luzon, [[11, 22, 33, 44, 55
 aveTestScores("Adrian Luzon", ...testScores); // Adrian Luzon, [10, 20, 30, 40, 50]
 
 
-// SECTION:
+// SECTION: spread operator
+
+
+const udemy = "udemy";
+const letters = [...udemy];
+console.log(letters); // ['u', 'd', 'e', 'm', 'y']
+
+const boys = ["john", "peter", "bob"];
+const girls = ["susan", "anna"];
+const friends = [...boys, ...girls]; 
+console.log(friends); // ['john', 'peter', 'bob', 'susan', 'anna']
+
+const teacher = {name: "john", position: "developer"};
+const applicant = {...teacher, location: "chicago", name: "peter"};
+// because the same key has been used, it overrides the name "john"
+console.log(applicant); // {name: 'peter', position: 'developer', location: 'chicago'}
+
+
+// SECTION: Array.from()
+// returns array object from an object
+// turns array-like/-ish (like strings, nodelist, set) into array
+
+
+const udemy0 = "udemy";
+console.log(Array.from(udemy0)); // ['u', 'd', 'e', 'm', 'y']
+
+const text = document.querySelectorAll(".someText");
+console.log(text); // NodeList(3) [h2.someText, h2.someText, h2.someText]
+const newText = Array.from(text);
+console.log(newText); // [h2.someText, h2.someText, h2.someText]
+
+// .find method is case-sensitive
+const newText0 = Array.from(text).find((item)=>item.textContent === "Person");
+console.log(newText0); // <h2 class="someText">Person</h2>
+
+
+// SECTION: Array.from() pt2
+
+
+// with only the length and iteration needed, the item argument (first parameter) will be blank
+const items = Array.from({length: 120}, (_, index)=>{
+    return index;
+});
+console.log(items); // [0, 1, 2, 3, 4, ..., 119]
+
+const itemsPerPage = 14;
+const pages = Math.ceil(items.length/itemsPerPage);
+console.log(pages); // 9
+
+// function below iterates var:pages number of times, and in every iteration will be grouping var:items value in an array with var:itemsPerPage length
+const newItems = Array.from({length: pages}, (_, index)=>{
+    const start = index * itemsPerPage;
+
+    // .slice() accepts two arguments: start_point, end_point
+    const tempItems = items.slice(start, start+itemsPerPage);
+    // its iteration will be as such, logged:
+    console.log(start, start+itemsPerPage); // "0, 14", "14, 28", ...
+    return tempItems;
+});
+console.log(newItems); // [Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(8)]
