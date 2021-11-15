@@ -29,7 +29,7 @@
     scene.add(light);
     // camera
     const aspectRatio = window.innerWidth / window.innerHeight;
-    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+    const camera = new THREE.PerspectiveCamera(45, aspectRatio, 1, 10000);
     // renderer
     const renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -61,8 +61,12 @@
     leftFoot.position.set(0, -75, 0);
     body.add(head, rightHand, leftHand, rightFoot, leftFoot);
 
-    avatar.add(camera);
-    camera.position.set(0, 70, 500);
+    // SECTION: avatar camera
+    // to allow x and y movement of camera without skewing its rotation, I separated the x and y movement into var:cameraCon and var:camera
+    var cameraCon = new THREE.Object3D();
+    cameraCon.add(camera);
+    avatar.add(cameraCon);
+    cameraCon.position.set(0, 70, 500);
 
 
     // SECTION: environment
@@ -121,25 +125,28 @@
     });
 
 
-    /* feature currently off, 'coz it's visually @_@
     // SECTION: look controls
-    onmousemove = function(e) {
-        // native mouse tracker where top left is (0, 0)
-        const mouseX = e.clientX; // tracks pointer position X natively
-        const mouseY = e.clientY; // tracks pointer position Y natively
+    const canvas = document.querySelector("canvas");
 
-        // converting native into my own mouse tracker with center as (0, 0)
-        const pointerPosX = mouseX - (window.innerWidth / 2);
-        const pointerPosY = (window.innerHeight/2) - mouseY;
+    // this function locks mouse position and hides during click on canvas
+    canvas.addEventListener("click", function () {
+        canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock;
 
-        // application computation to camera movement
-        camera.rotation.y -= (
-            // this results to a 1:1 positive to negative
-            pointerPosX/(window.innerWidth/2)
-        )*0.01;
-        camera.rotation.x += (pointerPosY/(window.innerHeight/2))*0.01;
+        // locks mouse cursor
+        canvas.requestPointerLock();
+        
+        // moves camera according to e.movementX/Y
+        onmousemove = function (e) {
+            let lookSensitivityX = 1;
+            let lookSensitivityY = 1;
+            // tracks mouse movement and speed as opposed to e.clientX/Y which only tracks mouse position
+            const mouseX = e.movementX; // tracks pointer position X natively
+            const mouseY = e.movementY; // tracks pointer position Y natively
 
-        console.log("X: " + pointerPosX, "y: " + pointerPosY);
-    } */
+            cameraCon.rotation.y -= mouseX * (lookSensitivityX * 0.001);
+            camera.rotation.x -= mouseY * (lookSensitivityY * 0.001);
+        }
+    })
+
 </script>
 </html>
