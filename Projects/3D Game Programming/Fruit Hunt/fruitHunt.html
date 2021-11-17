@@ -17,6 +17,7 @@
     <h1>Hello world!</h1>
 </body>
 <script src="../../../Libraries/three.js-master/build/three.js"></script>
+<script src="../../../Libraries/tween.js-master/dist/tween.umd.js"></script>
 <script>
     // JAVASCRIPT
 
@@ -54,19 +55,21 @@
     var leftHand = new THREE.Mesh(handShape, cover);
     rightHand.position.set((75/2)+15, 15, 0);
     leftHand.position.set(-((75/2)+15), 15, 0);
-    var feetShape = new THREE.BoxGeometry(75, 130, 40);
+    var feetShape = new THREE.BoxGeometry(75/2, 130, 40);
     var rightFoot = new THREE.Mesh(feetShape, cover);
     var leftFoot = new THREE.Mesh(feetShape, cover);
-    rightFoot.position.set(0, -75, 0);
-    leftFoot.position.set(0, -75, 0);
+    rightFoot.position.set(75/4, -75, 0);
+    leftFoot.position.set(-(75/4), -75, 0);
     body.add(head, rightHand, leftHand, rightFoot, leftFoot);
 
     // SECTION: avatar camera
     // to allow x and y movement of camera without skewing its rotation, I separated the x and y movement into var:cameraCon and var:camera
+    var cameraConX = new THREE.Object3D();
+    avatar.add(cameraConX);
     var cameraCon = new THREE.Object3D();
+    cameraConX.add(cameraCon);
     cameraCon.add(camera);
-    avatar.add(cameraCon);
-    cameraCon.position.set(0, 70, 500);
+    camera.position.set(0, 70, 500);
 
 
     // SECTION: environment
@@ -92,19 +95,80 @@
 
 
     // SECTION: animation
+    const clock = new THREE.Clock;
     let ss = false;
+    let isMovingForward = false;
+    let isMovingBack = false;
+    let isMovingRight = false;
+    let isMovingLeft = false;
 
-    function walk() {
+    function turn() {
         // 
+    }
+    function isWalking() {
+        if (isMovingForward) return true;
+        if (isMovingBack) return true;
+        if (isMovingRight) return true;
+        if (isMovingLeft) return true;
+    }
+    function walk() {
+        var speed = 10;
+        var size = 100;
+        var time = clock.getElapsedTime();
+        var position = Math.sin(speed * time) * size;
+        var rotation = Math.sin(10 * time) * 1;
+
+        // function for limbs returning to their place
+        if (!isWalking()) {
+            // position of limbs
+            var tween = new TWEEN.Tween(rightHand.position);
+            tween.to({z: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(leftHand.position);
+            tween.to({z: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(rightFoot.position);
+            tween.to({z: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(leftFoot.position);
+            tween.to({z: 0}, 100);
+            tween.start();
+            // rotation of limbs
+            var tween = new TWEEN.Tween(rightHand.rotation);
+            tween.to({x: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(leftHand.rotation);
+            tween.to({x: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(rightFoot.rotation);
+            tween.to({x: 0}, 100);
+            tween.start();
+            var tween = new TWEEN.Tween(leftFoot.rotation);
+            tween.to({x: 0}, 100);
+            tween.start();
+            return;
+        }
+
+        // position of limbs
+        rightHand.position.z = -position/2;
+        leftHand.position.z = position/2;
+        rightFoot.position.z = position/2;
+        leftFoot.position.z = -position/2;
+        // rotation of limbs
+        rightHand.rotation.x = rotation;
+        leftHand.rotation.x = -rotation;
+        rightFoot.rotation.x = -rotation;
+        leftFoot.rotation.x = rotation;
     }
     function specialSkill() {
         if (!ss) return;
-
         body.rotation.z += 0.10;
     }
     function animate() {
         requestAnimationFrame(animate);
 
+        TWEEN.update();
+        turn();
         walk();
         specialSkill();
 
@@ -117,19 +181,40 @@
     // SECTION: movement controls
     document.addEventListener("keydown", function(event) {
         const code = event.code;
-        if (code === "KeyW") avatar.position.z -= 20;
-        if (code === "KeyA") avatar.position.x -= 20;
-        if (code === "KeyS") avatar.position.z += 20;
-        if (code === "KeyD") avatar.position.x += 20;
+        if (code === "KeyW") {
+            avatar.position.z -= 20;
+            isMovingForward = true;
+        }
+        if (code === "KeyA") {
+            avatar.position.x -= 20;
+            isMovingLeft = true;
+        }
+        if (code === "KeyS") {
+            avatar.position.z += 20;
+            isMovingBack = true;
+        }
+        if (code === "KeyD") {
+            avatar.position.x += 20;
+            isMovingRight = true;
+        }
         if (code === "KeyC") ss = !ss;
     });
+document.addEventListener("keyup", function(event) {
+    const code = event.code;
+    if (code === "KeyW") isMovingForward = false;
+    if (code === "KeyA") isMovingLeft = false;
+    if (code === "KeyS") isMovingBack = false;
+    if (code === "KeyD") isMovingRight = false;
+});
 
 
     // SECTION: look controls
     const canvas = document.querySelector("canvas");
+    let fullScreen = false;
+    let escMenu = 0;
 
     // this function locks mouse position and hides during click on canvas
-    canvas.addEventListener("click", function () {
+    function lockPointer() {
         canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock;
 
         // locks mouse cursor
@@ -137,14 +222,39 @@
         
         // moves camera according to e.movementX/Y
         onmousemove = function (e) {
+            if (fullScreen === false) return;
+
             let lookSensitivityX = 1;
             let lookSensitivityY = 1;
             // tracks mouse movement and speed as opposed to e.clientX/Y which only tracks mouse position
             const mouseX = e.movementX; // tracks pointer position X natively
             const mouseY = e.movementY; // tracks pointer position Y natively
 
-            cameraCon.rotation.y -= mouseX * (lookSensitivityX * 0.001);
-            camera.rotation.x -= mouseY * (lookSensitivityY * 0.001);
+            cameraConX.rotation.y -= mouseX * (lookSensitivityX * 0.001);
+            cameraCon.rotation.x -= mouseY * (lookSensitivityY * 0.001);
+        }
+    }
+
+    // controls exit of mouse lock
+    canvas.addEventListener("click", function() {
+        if (fullScreen === false) {
+            console.log("Entering fullscreen...");
+            lockPointer();
+            fullScreen = true;
+        }
+    })
+    document.addEventListener("keydown", function(event) {
+        const code = event.code;
+
+        if (code === "Escape" && fullScreen === true) {
+            // to justify the need to press Escape twice
+            escMenu += 1;
+            if (escMenu === 1) {
+                console.log("Exiting fullscreen...");
+                fullScreen = false;
+                escMenu = 0;
+                console.log("Opening menu...");
+            }
         }
     })
 
