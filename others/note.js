@@ -1633,3 +1633,50 @@ const newItems = Array.from({length: pages}, (_, index)=>{
     return tempItems;
 });
 console.log(newItems); // [Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(14), Array(8)]
+
+
+// SECTION: optional chaining
+
+
+const people01 = [
+    {
+        name: "Bob",
+        location: {street: "Via", timezone: {offset: "+7:00"}}
+    },
+    {
+        name: "Peter",
+        location: {street: "Corte"}
+    },
+    {
+        name: "Susan",
+        location: {street: "Del", timezone: {offset: "+9:00"}}
+    }
+];
+
+people01.forEach((person)=>console.log(person.location.timezone.offset)); // throws an error because one of them do not have the timezone and offset key even thought the others have it
+
+// so that the program would not break like that above, the following method is used:
+people01.forEach((person)=>{
+    // per iteration, the item is looked for the first instance and if true will check for the next and will log until the end or the next is false
+    console.log(person.location.timezone && person.location.timezone.offset && person.location.timezone.offset); // +7:00 undefined +9:00
+});
+
+// optional chaining offers a better syntax than, and works exactly the way it does, above but is shorter as every item that wants to be checked is marked by a question mark (?)
+people01.forEach((person)=>console.log(person?.location?.timezone?.offset)); // +7:00 undefined +9:00
+
+// together with optional chaining, you may use the OR operator to place a default value whenever an iteration returns an undefined value
+people01.forEach((person)=>console.log(person?.location?.timezone?.offset || "Hello word")); // +7:00 "Hello word" +9:00
+
+
+// SECTION: optional chaining pt2
+// this section does not expound on optional chaining itself but the AND and OR operator used with it in the console.log()
+
+
+console.log(true && true && "Hello world"); // Hello world
+console.log(true && false && "Hello world"); // false
+
+console.log(true && "Hello word" || "Goodbye world"); // Hello word
+console.log(false && "Hello word" || "Goodbye world"); // Goodbye world
+
+
+// SECTION:
