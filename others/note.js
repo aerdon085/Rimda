@@ -1679,4 +1679,61 @@ console.log(true && "Hello word" || "Goodbye world"); // Hello word
 console.log(false && "Hello word" || "Goodbye world"); // Goodbye world
 
 
-// SECTION:
+// SECTION: callback functions
+// function invocation in other functions
+
+
+function makeUpperCase(value) {
+    console.log(value.toUpperCase());
+}
+function reverseString(value) {
+    console.log(value.split("").reverse().join(""));
+}
+function handleName(name, callBack) {
+    const fullName = `${name} Luzon`;
+    callBack(fullName);
+}
+
+handleName("Adrian", makeUpperCase); // ADRIAN LUZON
+handleName("Adrian", reverseString); // nozuL nairdA
+handleName("Donald", (value) => console.log(value)); // Donald Luzon
+
+
+// SECTION: callback hell
+
+
+// displays three boxes with size 0f 90x90 pixels and bg-color of black
+for (let i = 0; i < 3; i++) {
+    let aydi;
+    if (i === 0) {
+        aydi = "first";
+    } else if (i === 1) {
+        aydi = "second";
+    } else {
+        aydi = "third";
+    }
+    const divEl = document.createElement("div");
+    divEl.setAttribute("id", `${aydi}`);
+    divEl.setAttribute("style", "height: 90px; width: 90px; background-color: black;");
+    document.body.appendChild(divEl);
+}
+
+const first = document.querySelector("#first");
+const second = document.querySelector("#second");
+const third = document.querySelector("#third");
+
+// change color when invoked, in order, dependent on the preceding function
+const changeColor = (col1, col2, col3, time1, time2, time3) => {
+    // the messy appearance of functions below is called "callback hell"
+    setTimeout(()=>{
+        first.style.backgroundColor = col1;
+        setTimeout(()=>{
+            second.style.backgroundColor = col2;
+            setTimeout(()=>{third
+                third.style.backgroundColor = col3;
+            }, time3);
+        }, time2);
+    }, time1);
+}
+
+changeColor("red", "blue", "green", 1000, 1000, 1000);
