@@ -1007,30 +1007,30 @@ let order = (time, work) => {
 }
 // initial function call
 order(2000, () => console.log(`Your chosen flavor is ${stocks.Fruits[0]}.`))
-    .then(() => {
-        return order(0, () => console.log("Production has started."));
-    })
-    .then(() => {
-        return order(2000, () => console.log("The fruit was chopped."));
-    })
-    .then(() => {
-        return order(1000, () => console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} has been put in.`));
-    })
-    .then(() => {
-        return order(1000, () => console.log("Machine has started."));
-    })
-    .then(() => {
-        return order(2000, () => console.log(`Your chosen container is ${stocks.Container[0]}.`));
-    })
-    .then(() => {
-        return order(3000, () => console.log(`Processing ${stocks.Toppings[0]}.`));
-    })
-    .then(() => {
-        return order(1000, () => console.log("Ice cream ready to be served."));
-    })
-    // error handler
-    .catch(() => console.log("Customer cannot be served."))
-    .finally(() => console.log("Day has ended, shop is closed."));
+.then(() => {
+    return order(0, () => console.log("Production has started."));
+})
+.then(() => {
+    return order(2000, () => console.log("The fruit was chopped."));
+})
+.then(() => {
+    return order(1000, () => console.log(`${stocks.Liquid[0]} and ${stocks.Liquid[1]} has been put in.`));
+})
+.then(() => {
+    return order(1000, () => console.log("Machine has started."));
+})
+.then(() => {
+    return order(2000, () => console.log(`Your chosen container is ${stocks.Container[0]}.`));
+})
+.then(() => {
+    return order(3000, () => console.log(`Processing ${stocks.Toppings[0]}.`));
+})
+.then(() => {
+    return order(1000, () => console.log("Ice cream ready to be served."));
+})
+// error handler
+.catch(() => console.log("Customer cannot be served."))
+.finally(() => console.log("Day has ended, shop is closed."));
 
 
 // SECTION: async/await
@@ -1737,3 +1737,62 @@ const changeColor = (col1, col2, col3, time1, time2, time3) => {
 }
 
 changeColor("red", "blue", "green", 1000, 1000, 1000);
+
+
+// SECTION: promises
+
+
+// spawn divs
+for (let i = 0; i < 3; i++) {
+    let id;
+    if (i === 0) {
+        id = "one";
+    } else if (i === 1) {
+        id = "two";
+    } else {
+        id = "three";
+    }
+
+    const divEl = document.createElement("div");
+    divEl.setAttribute("style", "height: 90px; width: 90px; background-color: black;");
+    divEl.setAttribute("id", `${id}`);
+    document.body.appendChild(divEl);
+}
+const first = document.querySelector("#one");
+const second = document.querySelector("#two");
+const third = document.querySelector("#three");
+
+// spawn button
+const btnEl = document.createElement("button");
+btnEl.innerText = "Click Me";
+btnEl.setAttribute("style", "height: 90px; width: 90px;");
+document.body.appendChild(btnEl);
+const btnElEl = document.querySelector("button");
+
+// promises
+let changed = false;
+
+const change = (time, startChange) => {
+    return new Promise((resolve, reject)=>{
+        if (changed === false) setTimeout(()=>{
+            resolve(startChange());
+        }, time)
+        else reject("Error.");
+    });
+}
+
+btnElEl.addEventListener("click", function() {
+    change(0, ()=>console.log("Changing colors..."))
+    .then(()=> change(1000, ()=> first.style.backgroundColor = "red"))
+    .then(()=> change(1000, ()=> second.style.backgroundColor = "green"))
+    .then(()=> change(1000, ()=>{
+            third.style.backgroundColor = "blue";
+            changed = true;
+        })
+    )
+    .catch((err)=>console.log(err))
+    .finally(()=>console.log("Goodbye!"));
+});
+
+
+// SECTION:
