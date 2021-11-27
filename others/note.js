@@ -1796,6 +1796,7 @@ btnElEl.addEventListener("click", function() {
 
 
 // SECTION: async/await
+// a simple demonstration
 
 
 const example = async()=>{
@@ -1808,3 +1809,146 @@ async function example0() {
     console.log(result);
 }
 example0(); // "Hello there"
+
+
+// SECTION: async/await
+
+
+const users = [
+    {id: 1, name: "John"},
+    {id: 2, name: "Susan"},
+    {id: 3, name: "Anna"}
+];
+const articles = [
+    {userId: 1, articles: ["one", "two", "three"]},
+    {userId: 2, articles: ["four", "five"]},
+    {userId: 3, articles: ["six", "seven", "eight", "nine"]}
+];
+// function that finds and returns an object with the correct users.name
+function getUser(name) {
+    return new Promise((resolve, reject)=>{
+        const user = users.find((user)=>user.name === name);
+
+        if (user) {
+            return resolve(user);
+        } else {
+            reject(`No such user with name ${name}`);
+        }
+    });
+}
+// function that finds the ID argument from getUser and returns article from parallel array arr:articles
+function getArticles(userId) {
+    return new Promise((resolve, reject)=>{
+        const userArticles = articles.find((user)=>user.userId === userId)
+
+        if (userArticles) {
+            return resolve(userArticles.articles);
+        } else {
+            reject("Wrong ID");
+        }
+    });
+}
+
+// if using promises and .then chaining
+getUser("John")
+// .then((user)=>console.log(`${user.name} with user ID ${user.id} found!`))
+.then((user)=>getArticles(user.id))
+.then((articles)=>console.log(articles)) // [ 'one', 'two', 'three' ]
+.catch(()=>console.log("Failed."))
+.finally(()=>console.log("Goodbye!"));
+
+// if using async/await for readability but the same functionality
+const getData = async()=>{
+    try {
+        const user = await getUser("Susan");
+        // console.log(user);
+
+        if (user) {
+            const articles = await getArticles(user.id);
+            console.log(articles);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+getData(); // [ 'four', 'five' ]
+
+
+// SECTION: fetch API
+// a form of promise function
+
+
+const url = "https://www.course-api.com/react-tours-project";
+
+// using only promises without async/await
+fetch(url) // console.log(fetch(url)) === Promise {<pending>}
+.then((resp)=>{
+    console.log(resp); // Response {type: "", ...}
+    console.log(resp.json); // ƒ json() { [native code] }
+    return resp.json();
+})
+.then((data)=>console.log(data)) // [{id: "", name: "", info: "", image: "", price: ""}, ..., {...}]
+.catch((err)=>console.log(err))
+
+// if written using async/await:
+const getTours = async()=>{
+    try {
+        const resp = await fetch(url);
+        
+        /* this section of code is exactly the same as below
+        const data = await resp.json();
+        return data; */
+        return resp.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+getTours()
+.then((data)=>console.log(data)) // [{…}, {…}, {…}, {…}, {…}]
+// .catch((err)=>console.log(err)) // no need for .catch for async/await because of built-in required .catch() though there is a gotcha which will be expained in the next section
+
+
+// SECTION: fetch errors
+// there are errors that might not be handled correctly (and supposedly) by async/await's .catch() code block
+
+
+// url is incorrect
+const url0 = "https://www.course-api.com/react-tours-projects";
+
+const getTours = async()=>{
+    try {
+        // var:resp fetches wrong url
+        const resp = await fetch(url0);
+        console.log(resp); // var:resp still returns a dataset but not one that is accessible by var:data
+
+        const data = await resp.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+getTours().then((data)=>console.log(data)) // undefined
+
+// to handle errors such as those that cannot be handled by async/await's .catch code block because an error is not thrown, we may use the returned dataset by fetch() and throw an error message ourselves based on conditional
+const getTours0 = async()=>{
+    try {
+        // var:resp fetches wrong url
+        const resp = await fetch(url0);
+
+        // if resp.ok === false
+        if (!resp.ok) {
+            const msg = `There was an error "${resp.status} ${resp.statusText}."`
+
+            throw new Error(msg);
+        }
+
+        const data = await resp.json();
+        return data;
+    } catch (error) {
+        console.log(error); // Error: There was an error "404 Not Found."
+    }
+}
+getTours0().then((data)=>console.log(data)) // undefined
+
+
+// SECTION:
