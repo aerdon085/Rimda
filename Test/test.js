@@ -34,7 +34,7 @@ function getArticles(userId) {
 }
 
 getUser("John")
-.then((user)=>console.log(`${user.id} found!`))
+// .then((user)=>console.log(`${user.id} found!`))
 .then((user)=>getArticles(user.userId))
 .then((articles)=>console.log(articles))
 .catch(()=>console.log("Failed."))
