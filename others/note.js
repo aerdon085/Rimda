@@ -1795,4 +1795,16 @@ btnElEl.addEventListener("click", function() {
 });
 
 
-// SECTION:
+// SECTION: async/await
+
+
+const example = async()=>{
+    return "Hello there";
+}
+console.log(example()); // Promise { 'Hello there' }
+
+async function example0() {
+    const result = await example();
+    console.log(result);
+}
+example0(); // "Hello there"
