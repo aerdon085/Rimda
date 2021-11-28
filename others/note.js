@@ -1951,4 +1951,83 @@ const getTours0 = async()=>{
 getTours0().then((data)=>console.log(data)) // undefined
 
 
+// SECTION: height and width
+
+
+const divEl = document.createElement("div");
+divEl.setAttribute("style", "min-height: 100px; min-width: 100px; background-color: black;");
+divEl.id = "div-el";
+document.body.appendChild(divEl);
+
+const div = document.querySelector("#div-el");
+
+const btnEl = document.createElement("button");
+btnEl.textContent = "Log dimensions";
+btnEl.setAttribute("style", "height: 50px; width: 150px;");
+btnEl.id = "btn-el";
+document.body.appendChild(btnEl);
+
+const btn = document.querySelector("#btn-el");
+
+btn.addEventListener("click", function() {
+    const divDimen = div.getBoundingClientRect();
+    console.log(divDimen); // DOMRect {x: 0, y: 36, width: 767.2000122070312, height: 100, top: 36, …}
+});
+
+
+// SECTION: timestamps
+// can get Unix time which is time that has elapsed since January 1 1970
+
+
+console.log(Date()); // Sun Nov 28 2021 17:33:13 GMT+0800 (Taipei Standard Time)
+
+// time and date in milliseconds
+console.log(Date.now()); // 1638091889701
+console.log(new Date().getTime()); // 1638091889701
+console.log(new Date().valueOf()); // 1638091889701
+
+// useful for creating ids
+let people = [];
+people = [...people, {id: Date.now(), name: "Adrian"}];
+console.log(people); // [{id: 1638092161317, name: 'Adrian'}]
+
+setTimeout(()=>{
+    people = [...people, {id: Date.now(), name: "Joshua"}];
+    console.log(people); // [{id: 1638092161317, name: 'Adrian'}, {id: 1638092162320, name: 'Joshua'}]
+}, 1000);
+
+// useful for creating and getting dates
+console.log(new Date(1638092161317)); // Sun Nov 28 2021 17:36:01 GMT+0800 (Taipei Standard Time)
+
+// usefule for getting time difference
+// get date
+const firstDate = new Date();
+const secondDate = new Date(2022, 11, 25);
+// convert var:firstDate and var:secondDate value to time in milliseconds
+const firstValue = firstDate.getTime();
+const secondValue = secondDate.getTime();
+
+console.log(firstValue); // 1638092898015
+console.log(secondValue); // 1671897600000
+
+// get time difference
+const timeDiff = secondValue - firstValue;
+console.log(timeDiff); // 33804652267
+
+// get time difference in days
+const day = timeDiff/(1000 * 60 * 60 * 24);
+console.log(day); // 391.2564615972222
+
+
+// SECTION: cookie expiry date using Date()
+
+
+const now = Date.now();
+const expiryDate = new Date(now + ((((1000 * 1) * 60) * 60) * 24) * 30); // a cookie that will expire in a month, exactly 30 days
+
+console.log("Production date: " + new Date(now), "Expiry date: " + expiryDate);
+// Production date: Sun Nov 28 2021 17:42:58 GMT+0800 (Taipei Standard Time)
+// Expiry date: Tue Dec 28 2021 17:44:11 GMT+0800 (Taipei Standard Time)
+
+
 // SECTION:
