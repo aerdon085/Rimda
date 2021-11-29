@@ -2030,4 +2030,63 @@ console.log("Production date: " + new Date(now), "Expiry date: " + expiryDate);
 // Expiry date: Tue Dec 28 2021 17:44:11 GMT+0800 (Taipei Standard Time)
 
 
+// SECTION: .at()
+// takes na integer and returns the item at that index
+
+
+const scores = [1, 2, 3, 4, 5];
+
+// old way of getting an item in an array
+const oldLast = scores[scores.length - 1];
+console.log(oldLast); // 5
+
+// new way using .at()
+const newLast = scores.at(-1);
+console.log(newLast); // 5
+const channel = "Coding Addict";
+console.log(channel.at(0)); // 'C'
+
+
+// SECTION: top level await
+// async/await wherein a function defined as async will no longer be needed as long as script is of module type
+
+
+// SECTION: get element helper
+// instead of using .querySelector(All) by itself which throws no error when, for example, the passed selector was incorrect, we can use this method so that less time will be used in hunting bugs
+
+
+const getElement = (selector, isList)=>{
+    // if passed selector isList === true, but if length is less than one, execute nested if code block
+    if (isList) {
+        const el = [...document.querySelectorAll(selector)];
+        if (el.length < 1) {
+            throw new Error(`Please double check selector ${selector}`);
+        }
+        // if successful, without executing error code block, return
+        return el;
+    }
+    
+    // otherwise, if isList === false:
+    const h2El = document.querySelector(selector);
+    if (h2El) return h2El;
+
+    // if h2El unsuccessful, execute error:
+    throw new Error(`Please double check selector ${selector}`);
+}
+console.log(getElement("h1")); // h1
+console.log(getElement("h2", true)); // [h2, h2, h2, h2, h2]
+
+// refactoring above code
+const getElement0 = (selector, isList)=>{
+    const el = (isList) ? [...document.querySelectorAll(selector)] : document.querySelector(selector);
+
+    if ((!isList && el) || (isList && (el.length > 1))) return el;
+    
+    throw new Error(`Please check selector: ${selector}`);
+}
+console.log(getElement0("h2", true)); // [h2, h2, h2, h2, h2]
+console.log(getElement0("h1", false)); // h1
+console.log(getElement0("h1", true)); // Uncaught Error: Please check selector: h1
+
+
 // SECTION:

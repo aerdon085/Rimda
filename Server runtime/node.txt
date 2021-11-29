@@ -1,8 +1,48 @@
-Node.js and Express.js - Full Course with John Smilga.
+15 Javascript Projects
 
+freecodecamp:
+https://www.youtube.com/watch?v=3PHXvlpOkf4&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=12&t=72s
+
+or Coding Addict:
+https://www.youtube.com/watch?v=c5SIG7Ie0dM&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=38&t=11s
+
+
+===== ===== ===== ===== =====
+
+React Tutorial
+
+freecodecamp:
+https://www.youtube.com/watch?v=4UZrsTqkcW4&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=35
+
+or Coding Addict:
+https://www.youtube.com/watch?v=iZhV0bILFb0&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=36&t=13s
+
+
+===== ===== ===== ===== =====
+
+15 React Projects
+
+freecodecamp:
+https://www.youtube.com/watch?v=a_7Z7C_JCyo&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=39
+
+or Coding Addict:
+https://www.youtube.com/watch?v=ly3m6mv5qvg&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=32
+
+
+===== ===== ===== ===== =====
+
+Node and Express Tutorial
+
+freecodecamp:
 https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=634s
 
-Course above preceded by: Javascript Nuggets
+or Coding Addict:
+https://www.youtube.com/watch?v=TNV0_7QRDwY&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=41
+
+
+===== ===== ===== ===== =====
+
+Javascript Nuggets by John Smilga
 
 1|Destructuring(Array)
 https://www.youtube.com/watch?v=qhECs40xMec&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=7
@@ -18,3 +58,6 @@ https://www.youtube.com/watch?v=IBjmTlShf6U&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzg
 https://www.youtube.com/watch?v=iHrVo5fvmzE&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=17
 7|ES2022
 https://www.youtube.com/watch?v=HnRjhUxepm8&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=22
+
+ALL VIDEOS FINISHED!
+11/29/2021
