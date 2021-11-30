@@ -1,3 +1,8 @@
+You can type in the terminal: "node" for repl (whatever that is but basically a small environment for testing JS in node, probably)
+
+REPL vs CLI
+
+
 15 Javascript Projects
 
 freecodecamp:
@@ -38,6 +43,17 @@ https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=634s
 
 or Coding Addict:
 https://www.youtube.com/watch?v=TNV0_7QRDwY&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=41
+
+1|Globals
+https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=1227s
+
+
+===== ===== ===== ===== =====
+
+Node Projects
+
+Coding Addict:
+https://www.youtube.com/watch?v=rltfdjcXjmk&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=42
 
 
 ===== ===== ===== ===== =====
