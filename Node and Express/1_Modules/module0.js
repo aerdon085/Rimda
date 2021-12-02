@@ -19,3 +19,6 @@ sayHi(names.peter); // Hello there Peter!
 const data = require("./alternative");
 console.log(data); // {items: ['item0', 'item1'], singlePerson: {name: 'Bob'}}
 sayHi(data.singlePerson.name); // Hello there Bob!
+
+// found in minGrenade.js, even without exporting the said file, the function found in it will still be invoked because (1) the function itself was invoked there and (2) when modules are required they are wrapped as functions
+require("./mindGrenade");
