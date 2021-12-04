@@ -57,3 +57,6 @@ console.log(base); // "app.js"
 // log absolute path
 const absolute = path.resolve(__dirname, "2_osModules", "app.js");
 console.log(absolute); // "b:\rimda.html\Rimda\Node and Express\2_osModules\app.js"
+
+
+// SECTION:
