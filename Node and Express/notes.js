@@ -59,4 +59,57 @@ const absolute = path.resolve(__dirname, "2_osModules", "app.js");
 console.log(absolute); // "b:\rimda.html\Rimda\Node and Express\2_osModules\app.js"
 
 
+// SECTION: built-in modules (fs) sync
+// useful methods for writing and reading files in node
+
+
+/* instead of doing this:
+const fs = require("fs");
+const module0 = fs.readFileSync("Node and Express/1_Modules/module0.js", "utf8");
+
+it may be done like this instead: */
+const {readFileSync, writeFileSync} = require("fs");
+const module0 = readFileSync("Node and Express/1_Modules/module0.js", "utf8");
+// the above will read a file, or create one based on the first argument (like C's fopen("...", 'r'))
+// the second argument is the file encoding
+
+console.log(module0); // whatever is written in the file will be logged
+
+/* below will write (or overwrite if already existing) to a file based on first argument (like C's fopen("...", 'w')) and the second argument as content
+writeFileSync("Node and Express/1_Modules/result-sync.txt", `Here is the result ${module0}`);
+
+but if a third argument is passed, depending on the argument, it may be appended instead of overwriting what is in the file */
+writeFileSync("Node and Express/1_Modules/result-sync.txt",
+`Here is the result ${module0}`,
+{flag: "a"});
+
+
+// SECTION: built-in modules (fs) async
+// the only difference is the different name of the method for fs built-in module and its parameters which ask for a callback function
+
+
+const {readFile, writeFile} = require("fs");
+
+readFile("Node and Express/1_Modules/module0.js", "utf8", (err, result)=>{
+    if (err) {
+        console.log(err);
+        return;
+    }
+    // console.log(result);
+    const first = result;
+
+    // although for this part, the program returns an undefined value, the content of opened and read file which is module0.js will be on first argument of writeFile
+    writeFile("Node and Express/1_Modules/result-async.txt",
+    `Here is the result: ${first}`,
+    (err, result)=>{
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log(result); // undefined
+    });
+});
+
+
 // SECTION:

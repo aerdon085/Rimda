@@ -52,6 +52,8 @@ https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=2990s
 https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=3227s
 4|FS Module (Sync)
 https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=4206s
+5|Sync VS Async
+https://www.youtube.com/watch?v=Oe421EPjeBE&list=WL&index=1&t=5252s
 
 
 ===== ===== ===== ===== =====
