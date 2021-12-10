@@ -112,4 +112,38 @@ readFile("Node and Express/1_Modules/module0.js", "utf8", (err, result)=>{
 });
 
 
+// SECTION: http module
+
+
+const http = require("http");
+
+const server = http.createServer((req, res)=>{
+    console.log(req); // this sends an object regarding the server page
+
+    res.write("Welcome to our home page");
+    res.end();
+});
+
+server.listen(5000); // the argument is the id of some sort "url: localhost:5000"
+
+
+// SECTION: more use of http module
+// refer to "Node and Express\2_httpModule\server0.js" for examples
+
+
+// SECTION: npm
+
+
+/* npm commands, comes with node
+ * npm --version or npm --v
+ * 
+ * local dependency, used only in a particular project
+ * npm i <packageName>
+ * 
+ * global dependency, used in any project
+ * npm install -g <packageName>
+ * sudo npm install -g <packageName> (if on mac)
+*/
+
+
 // SECTION:
