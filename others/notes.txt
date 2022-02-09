@@ -1,0 +1,30 @@
+15 Javascript Projects
+
+freecodecamp:
+https://www.youtube.com/watch?v=3PHXvlpOkf4&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=12&t=72s
+
+or Coding Addict:
+https://www.youtube.com/watch?v=c5SIG7Ie0dM&list=PLEFlWs79yhjuU95n9GDSGT23V6LMgPnfZ&index=38&t=11s
+
+
+===== ===== ===== ===== =====
+
+Javascript Nuggets by John Smilga
+
+1|Destructuring(Array)
+https://www.youtube.com/watch?v=qhECs40xMec&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=7
+2|Spread operator
+https://www.youtube.com/watch?v=4Zyr5a3m0Fc&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=10
+3|Optional chaining
+https://www.youtube.com/watch?v=PuEGrylM1x8&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=12
+4|Callback Functions
+https://www.youtube.com/watch?v=GWq0XETTOTk&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=13
+5|Promises
+https://www.youtube.com/watch?v=IBjmTlShf6U&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=15
+6|Async/Await
+https://www.youtube.com/watch?v=iHrVo5fvmzE&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=17
+7|ES2022
+https://www.youtube.com/watch?v=HnRjhUxepm8&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=22
+
+ALL VIDEOS FINISHED!
+11/29/2021
